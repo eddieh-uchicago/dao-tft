@@ -1,0 +1,129 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { catalog, comps, engine } from "@/data";
+import { MAX_OFFERS, useGame } from "@/store/useGame";
+import { Panel, TagPill } from "./ui";
+
+const relevant = new Set(comps.flatMap((c) => c.augmentModifiers.map((m) => m.augment)));
+
+const nameCounts = new Map<string, number>();
+for (const a of catalog.snapshot.augments) nameCounts.set(a.name, (nameCounts.get(a.name) ?? 0) + 1);
+
+/** Some augments share a name (Beast Within for Nidalee and for Sivir); tell them apart. */
+function augmentLabel(id: string): string {
+  const name = catalog.augmentName(id);
+  return (nameCounts.get(name) ?? 0) > 1 ? `${name} (${id.split("_").pop()})` : name;
+}
+
+export function AugmentPanel() {
+  const [filter, setFilter] = useState("");
+  const components = useGame((s) => s.components);
+  const augments = useGame((s) => s.augments);
+  const scout = useGame((s) => s.scout);
+  const offers = useGame((s) => s.offers);
+  const toggleOffer = useGame((s) => s.toggleOffer);
+  const take = useGame((s) => s.takeAugment);
+  const drop = useGame((s) => s.dropAugment);
+
+  const options = useMemo(() => {
+    const q = filter.trim().toLowerCase();
+    return catalog.snapshot.augments
+      .filter((a) => !augments.includes(a.id) && (!q || augmentLabel(a.id).toLowerCase().includes(q)))
+      .sort((a, b) => Number(relevant.has(b.id)) - Number(relevant.has(a.id)) || a.name.localeCompare(b.name));
+  }, [filter, augments]);
+
+  const advice = useMemo(
+    () => engine.adviseAugments({ components, augments, scout }, offers),
+    [components, augments, scout, offers],
+  );
+
+  return (
+    <Panel title="Augments" hint={`Pick up to ${MAX_OFFERS} offers to compare`}>
+      {augments.length > 0 && (
+        <ul className="mb-3 flex flex-wrap gap-1.5">
+          {augments.map((id) => (
+            <li key={id}>
+              <button
+                onClick={() => drop(id)}
+                className="rounded-full border border-gold px-2.5 py-1 text-xs text-gold hover:bg-panel-2"
+                title="Remove this augment"
+              >
+                {augmentLabel(id)} ×
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <input
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+        placeholder="Search augments you are offered"
+        aria-label="Search augments"
+        className="mb-2 w-full rounded-md border border-line bg-ink px-3 py-1.5 text-sm placeholder:text-muted"
+      />
+      <ul className="flex max-h-32 flex-wrap gap-1.5 overflow-y-auto">
+        {options.map((a) => {
+          const on = offers.includes(a.id);
+          return (
+            <li key={a.id}>
+              <button
+                onClick={() => toggleOffer(a.id)}
+                aria-pressed={on}
+                className={`rounded-full border px-2.5 py-1 text-xs ${
+                  on
+                    ? "border-gold bg-gold text-ink"
+                    : relevant.has(a.id)
+                      ? "border-line text-gold-bright hover:border-gold"
+                      : "border-line text-muted hover:border-muted"
+                }`}
+              >
+                {augmentLabel(a.id)}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      {advice.length > 0 && (
+        <ul className="mt-4 space-y-3 border-t border-line pt-3">
+          {advice.map(({ augment, ranking, topChanged }) => {
+            const tagged = ranking.slice(0, 3).filter((r) => r.tags.length);
+            return (
+              <li key={augment} className="text-sm">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-medium">{augmentLabel(augment)}</span>
+                  <button
+                    onClick={() => take(augment)}
+                    className="rounded border border-good px-2 py-0.5 text-xs text-good hover:bg-panel-2"
+                  >
+                    Take
+                  </button>
+                </div>
+                <p className="text-xs text-muted">
+                  Best comp becomes <span className="text-gold-bright">{ranking[0].comp.name}</span>
+                  {topChanged ? " (changes your top pick)" : ""}.
+                </p>
+                {tagged.length > 0 ? (
+                  <ul className="mt-1 space-y-1">
+                    {tagged.map((r) => (
+                      <li key={r.comp.slug} className="flex flex-wrap items-center gap-2 text-xs">
+                        {r.tags.map((t) => (
+                          <TagPill key={t} tag={t} />
+                        ))}
+                        <span>{r.comp.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-1 text-xs text-muted">No curated comp is moved by this augment.</p>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </Panel>
+  );
+}

@@ -1,0 +1,72 @@
+{
+  "slug": "caitlyn-reroll",
+  "name": "Caitlyn Reroll",
+  "tier": "B",
+  "summary": "A 2-cost reroll around Caitlyn with Guinsoo's and Kraken's Fury.",
+  "playWhen": [
+    "You find Guinsoo's and Kraken's Fury for Caitlyn",
+    "You have two sets of AD items"
+  ],
+  "carries": [
+    "DA_18_Caitlyn"
+  ],
+  "frontline": [
+    "DA_Scuttlecrab18",
+    "DA_18_Sejuani"
+  ],
+  "endBoard": [
+    "DA_18_Caitlyn",
+    "DA_Scuttlecrab18",
+    "DA_18_Sejuani",
+    "DA_18_Sivir"
+  ],
+  "targetItems": [
+    {
+      "item": "DA_GuinsoosRageblade",
+      "unit": "DA_18_Caitlyn",
+      "weight": 3
+    },
+    {
+      "item": "DA_KrakensFury",
+      "unit": "DA_18_Caitlyn",
+      "weight": 3
+    },
+    {
+      "item": "DA_GiantSlayer",
+      "unit": "DA_18_Caitlyn",
+      "weight": 3
+    }
+  ],
+  "opener": {
+    "units": [
+      "DA_18_Caitlyn",
+      "DA_18_Elise",
+      "DA_18_Camille"
+    ],
+    "note": "A Caitlyn orb with Guinsoo's or Kraken's Fury."
+  },
+  "slams": [
+    {
+      "item": "DA_GuinsoosRageblade",
+      "unit": "DA_18_Caitlyn",
+      "note": "Slam Guinsoo's or Kraken's Fury on Caitlyn as soon as you find her."
+    }
+  ],
+  "stages": {
+    "stage1": "Pick up the carry's cheap relatives and components. A slam is only worth it if it goes on a unit you will keep.",
+    "stage2": "Hit the opener and start collecting copies of the carry. Hold the components for its BiS items until the carry's copies are on your bench.",
+    "stage3": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
+  },
+  "augmentModifiers": [
+    {
+      "augment": "DA_18_CovenTraitAugment",
+      "bonus": 0.15,
+      "note": "Coven Acolyte supports Coven Caitlyn."
+    }
+  ],
+  "frontlineAlternatives": [
+    "DA_18_Rammus",
+    "DA_18_Shen",
+    "DA_18_Leona"
+  ]
+}

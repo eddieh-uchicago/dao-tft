@@ -1,0 +1,77 @@
+{
+  "slug": "defender-cassiopeia",
+  "name": "Defender Cassiopeia",
+  "tier": "B",
+  "summary": "A 3-cost reroll around Cassiopeia, with a Defender frontline.",
+  "playWhen": [
+    "You find Cassiopeia early",
+    "You have two sets of tank items"
+  ],
+  "carries": [
+    "DA_18_Cassiopeia"
+  ],
+  "frontline": [
+    "DA_18_Rammus",
+    "DA_Fiddlesticks18",
+    "DA_18_Elise"
+  ],
+  "endBoard": [
+    "DA_18_Cassiopeia",
+    "DA_18_Rammus",
+    "DA_Fiddlesticks18",
+    "DA_18_Elise"
+  ],
+  "targetItems": [
+    {
+      "item": "DA_HextechGunblade",
+      "unit": "DA_18_Cassiopeia",
+      "weight": 3
+    },
+    {
+      "item": "DA_RabadonsDeathcap",
+      "unit": "DA_18_Cassiopeia",
+      "weight": 3
+    },
+    {
+      "item": "DA_ArchangelsStaff",
+      "unit": "DA_18_Cassiopeia",
+      "weight": 2
+    },
+    {
+      "item": "DA_SpearOfShojin",
+      "unit": "DA_18_Cassiopeia",
+      "weight": 2
+    },
+    {
+      "item": "DA_BlueBuff",
+      "unit": "DA_18_Cassiopeia",
+      "weight": 2
+    }
+  ],
+  "opener": {
+    "units": [
+      "DA_18_Ornn",
+      "DA_18_Leona",
+      "DA_18_Elise"
+    ],
+    "note": "Defenders plus an early Cassiopeia."
+  },
+  "slams": [],
+  "stages": {
+    "stage1": "Pick up the carry's cheap relatives and components. A slam is only worth it if it goes on a unit you will keep.",
+    "stage2": "Hit the opener and start collecting copies of the carry. Hold the components for its BiS items until the carry's copies are on your bench.",
+    "stage3": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
+  },
+  "augmentModifiers": [
+    {
+      "augment": "DA_18_CovenTraitAugment",
+      "bonus": 0.2,
+      "note": "Coven Acolyte supports Coven Cassiopeia."
+    }
+  ],
+  "frontlineAlternatives": [
+    "DA_18_Shen",
+    "DA_18_Lillia",
+    "DA_18_Hecarim"
+  ]
+}

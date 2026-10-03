@@ -1,0 +1,76 @@
+"use client";
+
+import { catalog } from "@/data";
+import { bagSize } from "@/engine/catalog";
+import { useGame } from "@/store/useGame";
+import { Icon } from "./Icon";
+import { Panel } from "./ui";
+
+const SHORT_NAME: Record<string, string> = {
+  BFSword: "Sword",
+  ChainVest: "Vest",
+  FryingPan: "Pan",
+  GiantsBelt: "Belt",
+  NeedlesslyLargeRod: "Rod",
+  NegatronCloak: "Cloak",
+  RecurveBow: "Bow",
+  SparringGloves: "Gloves",
+  Spatula: "Spatula",
+  TearOfTheGoddess: "Tear",
+};
+
+export function ComponentPicker() {
+  const components = useGame((s) => s.components);
+  const add = useGame((s) => s.addComponent);
+  const remove = useGame((s) => s.removeComponent);
+  const reset = useGame((s) => s.reset);
+  const total = bagSize(components);
+
+  return (
+    <Panel title="What do you have?" hint={total ? `${total} component${total === 1 ? "" : "s"}` : "Click to add"}>
+      <ul className="grid grid-cols-5 gap-2">
+        {catalog.componentIds.map((id) => {
+          const count = components[id] ?? 0;
+          const name = catalog.componentName(id);
+          return (
+            <li key={id} className="flex flex-col items-center gap-1">
+              <button
+                onClick={() => add(id)}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  remove(id);
+                }}
+                aria-label={`Add ${name}`}
+                className={`relative rounded-md border p-1 transition-colors ${
+                  count ? "border-gold bg-panel-2" : "border-line hover:border-muted"
+                }`}
+              >
+                <Icon src={catalog.componentIcon(id)} label={name} size={44} />
+                {count > 0 && (
+                  <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-xs font-bold text-ink">
+                    {count}
+                  </span>
+                )}
+              </button>
+              <span className="text-[11px] leading-none text-muted">{SHORT_NAME[id] ?? name}</span>
+              <button
+                onClick={() => remove(id)}
+                disabled={!count}
+                aria-label={`Remove ${name}`}
+                className="text-xs text-muted enabled:hover:text-bad disabled:opacity-30"
+              >
+                −
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="mt-3 flex items-center justify-between text-xs text-muted">
+        <span>Right-click an icon to remove one.</span>
+        <button onClick={reset} className="hover:text-gold-bright">
+          Reset all
+        </button>
+      </div>
+    </Panel>
+  );
+}

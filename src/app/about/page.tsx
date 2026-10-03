@@ -1,0 +1,67 @@
+import type { Metadata } from "next";
+import { Panel } from "@/components/ui";
+import { comps, snapshot } from "@/data";
+
+export const metadata: Metadata = { title: "About — Dao TFT" };
+
+export default function About() {
+  return (
+    <main className="mx-auto max-w-3xl space-y-4 px-4 py-6">
+      <h1 className="text-3xl font-semibold">How Dao TFT works</h1>
+      <p className="text-muted">
+        Most TFT tools answer &ldquo;what is the best final board?&rdquo; Dao TFT answers the question you actually have at
+        2-1: given the components I hold right now, what should I be playing toward?
+      </p>
+
+      <Panel title="The ranking">
+        <div className="space-y-3 text-sm text-muted">
+          <p>
+            Each curated comp lists the completed items it wants, with a weight from 1 (flex) to 3 (core). Every item
+            uses two components, so items compete for the same pool. Dao TFT searches every subset of a comp&apos;s items
+            that your components can build and keeps the best one. Building an item earns its weight; a leftover
+            component that is half of an unbuilt item earns 35% of that item&apos;s weight.
+          </p>
+          <p>
+            That value is divided by the most a comp could score from the number of components you hold, so a comp with
+            a long flex list is not punished. It is then multiplied by the comp&apos;s tier (S 1.0, A 0.85, B 0.7, C 0.5).
+            Augments add a bonus, and opponents playing the same units subtract a penalty. The letter shown on each
+            card is a label for that final score, not a win rate.
+          </p>
+          <p>
+            The same search powers &ldquo;Slam now&rdquo; (items it chose to build) and &ldquo;Hit next&rdquo; (it re-runs with one
+            extra component and reports the gain).
+          </p>
+        </div>
+      </Panel>
+
+      <Panel title="Augments and scouting">
+        <div className="space-y-3 text-sm text-muted">
+          <p>
+            Augments are judged against your components, not a global tier list. An augment can lift a comp into your
+            top 3 (<em>flex enabler</em>) or make one comp clearly the best line (<em>lock-in</em>). Each comp lists at most
+            five augment modifiers.
+          </p>
+          <p>
+            Scouting is manual: tell Dao TFT how many opponents hold a unit. A contested carry or frontline lowers a
+            comp&apos;s score, and Dao TFT suggests uncontested comps that reuse your items.
+          </p>
+        </div>
+      </Panel>
+
+      <Panel title="Data and limits">
+        <ul className="list-disc space-y-2 pl-5 text-sm text-muted">
+          <li>
+            Units, traits, items and augments come from Community Dragon (Set {snapshot.set}, fetched {snapshot.fetchedAt}).
+            CI checks every comp against that snapshot, so a renamed or removed unit fails the build.
+          </li>
+          <li>
+            The {comps.length} comps, their item priorities and tiers are hand-curated, informed by the BunnyMuffins
+            Patch 18.3b guide and other community sources. Treat tiers as editorial judgement, not statistics.
+          </li>
+          <li>Opener, slam and stage notes are short drafts. They are not a replacement for reading the full guides.</li>
+          <li>Not yet built: patch history, a live overlay, and automatic scouting through the Riot API.</li>
+        </ul>
+      </Panel>
+    </main>
+  );
+}

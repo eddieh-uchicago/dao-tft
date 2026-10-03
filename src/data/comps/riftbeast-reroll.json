@@ -1,0 +1,73 @@
+{
+  "slug": "riftbeast-reroll",
+  "name": "Riftbeast Reroll",
+  "tier": "B",
+  "summary": "A 1-cost reroll around Cinderling and Pebbles with Riftbeast frontline.",
+  "playWhen": [
+    "You find copies of Pebbles or Cinderling",
+    "You can get to 5 Riftbeast early"
+  ],
+  "carries": [
+    "DA_Cinderling18",
+    "DA_18_Sentry"
+  ],
+  "frontline": [
+    "DA_Krug18",
+    "DA_Scuttlecrab18"
+  ],
+  "endBoard": [
+    "DA_Cinderling18",
+    "DA_18_Sentry",
+    "DA_Krug18",
+    "DA_Scuttlecrab18"
+  ],
+  "targetItems": [
+    {
+      "item": "DA_InfinityEdge",
+      "unit": "DA_Cinderling18",
+      "weight": 3
+    },
+    {
+      "item": "DA_SpearOfShojin",
+      "unit": "DA_Cinderling18",
+      "weight": 3
+    },
+    {
+      "item": "DA_LastWhisper",
+      "unit": "DA_Cinderling18",
+      "weight": 3
+    },
+    {
+      "item": "DA_BlueBuff",
+      "unit": "DA_Cinderling18",
+      "weight": 2
+    }
+  ],
+  "opener": {
+    "units": [
+      "DA_Cinderling18",
+      "DA_18_Sentry",
+      "DA_Murkwolf18",
+      "DA_Gromp18_AP"
+    ],
+    "note": "A Riftbeast opener."
+  },
+  "slams": [],
+  "stages": {
+    "stage1": "Pick up the carry's cheap relatives and components. A slam is only worth it if it goes on a unit you will keep.",
+    "stage2": "Hit the opener and start collecting copies of the carry. Hold the components for its BiS items until the carry's copies are on your bench.",
+    "stage3": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
+  },
+  "augmentModifiers": [
+    {
+      "augment": "DA_18_RiftbeastTraitAugment",
+      "bonus": 0.3,
+      "note": "Omega Riftbeast directly strengthens Riftbeast reroll."
+    }
+  ],
+  "frontlineAlternatives": [
+    "DA_Brambleback18",
+    "DA_Sentinel18",
+    "DA_CrimsonRaptor18"
+  ]
+}

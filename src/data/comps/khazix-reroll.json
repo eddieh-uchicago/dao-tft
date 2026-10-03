@@ -1,0 +1,70 @@
+{
+  "slug": "khazix-reroll",
+  "name": "Kha'Zix Reroll",
+  "tier": "A",
+  "summary": "An early 3-cost reroll around Kha'Zix, supported by Diana, Hecarim and Ezreal.",
+  "playWhen": [
+    "You find Kha'Zix at 2-1 to 2-3",
+    "You have BiS items for Kha'Zix",
+    "You have high tempo"
+  ],
+  "carries": [
+    "DA_18_KhaZix"
+  ],
+  "frontline": [
+    "DA_18_Hecarim",
+    "DA_18_Diana"
+  ],
+  "endBoard": [
+    "DA_18_KhaZix",
+    "DA_18_Diana",
+    "DA_18_Hecarim",
+    "DA_18_Ezreal"
+  ],
+  "targetItems": [
+    {
+      "item": "DA_RabadonsDeathcap",
+      "unit": "DA_18_KhaZix",
+      "weight": 3
+    },
+    {
+      "item": "DA_HandOfJustice",
+      "unit": "DA_18_KhaZix",
+      "weight": 3
+    },
+    {
+      "item": "DA_EdgeOfNight",
+      "unit": "DA_18_KhaZix",
+      "weight": 3
+    },
+    {
+      "item": "DA_StrikersFlail",
+      "unit": "DA_18_KhaZix",
+      "weight": 2
+    }
+  ],
+  "opener": {
+    "units": [
+      "DA_18_KhaZix"
+    ],
+    "note": "Kha'Zix on stage 2 with a slam."
+  },
+  "slams": [],
+  "stages": {
+    "stage1": "Pick up the carry's cheap relatives and components. A slam is only worth it if it goes on a unit you will keep.",
+    "stage2": "Hit the opener and start collecting copies of the carry. Hold the components for its BiS items until the carry's copies are on your bench.",
+    "stage3": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
+  },
+  "augmentModifiers": [
+    {
+      "augment": "DA_18_RivalsAugment",
+      "bonus": 0.3,
+      "note": "Unrivaled powers up the Rival trait that Kha'Zix runs."
+    }
+  ],
+  "frontlineAlternatives": [
+    "DA_18_Rammus",
+    "DA_Vi18",
+    "DA_18_Alistar"
+  ]
+}

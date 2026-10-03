@@ -1,0 +1,65 @@
+{
+  "slug": "azir-rammus-reroll",
+  "name": "Azir Rammus Reroll",
+  "tier": "A",
+  "summary": "A 3-cost reroll around Azir, backed by Rammus and Zyra/Soraka.",
+  "playWhen": [
+    "You have lots of Rods",
+    "You have a Hextech Gunblade available"
+  ],
+  "carries": [
+    "DA_18_Azir"
+  ],
+  "frontline": [
+    "DA_18_Rammus"
+  ],
+  "endBoard": [
+    "DA_18_Azir",
+    "DA_18_Rammus",
+    "DA_18_Zyra",
+    "DA_18_Soraka"
+  ],
+  "targetItems": [
+    {
+      "item": "DA_HextechGunblade",
+      "unit": "DA_18_Azir",
+      "weight": 3
+    },
+    {
+      "item": "DA_RabadonsDeathcap",
+      "unit": "DA_18_Azir",
+      "weight": 3
+    },
+    {
+      "item": "DA_GuinsoosRageblade",
+      "unit": "DA_18_Azir",
+      "weight": 3
+    }
+  ],
+  "opener": {
+    "units": [
+      "DA_18_Veigar",
+      "DA_18_Warwick",
+      "DA_18_Yorick"
+    ],
+    "note": "A Rod slam on stage 2."
+  },
+  "slams": [],
+  "stages": {
+    "stage1": "Pick up the carry's cheap relatives and components. A slam is only worth it if it goes on a unit you will keep.",
+    "stage2": "Hit the opener and start collecting copies of the carry. Hold the components for its BiS items until the carry's copies are on your bench.",
+    "stage3": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
+  },
+  "augmentModifiers": [
+    {
+      "augment": "DA_18_SprykinAugment",
+      "bonus": 0.1,
+      "note": "Small Furry Friend supports Sprykin Rammus."
+    }
+  ],
+  "frontlineAlternatives": [
+    "DA_18_Hecarim",
+    "DA_Fiddlesticks18",
+    "DA_18_Lillia"
+  ]
+}

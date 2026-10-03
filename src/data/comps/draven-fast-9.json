@@ -1,0 +1,67 @@
+{
+  "slug": "draven-fast-9",
+  "name": "Draven Fast 9",
+  "tier": "A",
+  "summary": "Econ into level 9 with Draven as the 5-cost carry and Maokai or Taric up front.",
+  "playWhen": [
+    "You can reach level 9 by 5-2",
+    "You have strong econ"
+  ],
+  "carries": [
+    "DA_Draven18"
+  ],
+  "frontline": [
+    "DA_18_Maokai",
+    "DA_Taric18",
+    "DA_18_GnarSmall"
+  ],
+  "endBoard": [
+    "DA_Draven18",
+    "DA_18_Maokai",
+    "DA_18_Ezreal",
+    "DA_18_Kennen",
+    "DA_18_GnarSmall"
+  ],
+  "targetItems": [
+    {
+      "item": "DA_GuinsoosRageblade",
+      "unit": "DA_Draven18",
+      "weight": 3
+    },
+    {
+      "item": "DA_KrakensFury",
+      "unit": "DA_Draven18",
+      "weight": 3
+    },
+    {
+      "item": "DA_Deathblade",
+      "unit": "DA_Draven18",
+      "weight": 3
+    }
+  ],
+  "opener": {
+    "units": [
+      "DA_18_Varus",
+      "DA_18_Xayah"
+    ],
+    "note": "Slam Guinsoo's Rageblade on an early Rapidfire unit."
+  },
+  "slams": [
+    {
+      "item": "DA_GuinsoosRageblade",
+      "unit": "DA_18_Varus",
+      "note": "A Guinsoo's slam carries the early game and the item moves to Draven later."
+    }
+  ],
+  "stages": {
+    "stage1": "Take whichever opener your first components support, but protect your economy. Holding components for the BiS set is better than slamming an off-plan item.",
+    "stage2": "Keep the opener alive with the cheapest units that match, stay on econ and avoid rolling. Save component pairs for the carry's items.",
+    "stage3": "Hold streak and interest until you can reach level 9. Add the carry and tanks as they appear in your shop, then roll for the carry once you are level 9."
+  },
+  "augmentModifiers": [],
+  "frontlineAlternatives": [
+    "DA_Sentinel18",
+    "DA_Amumu18",
+    "DA_18_Lillia"
+  ]
+}

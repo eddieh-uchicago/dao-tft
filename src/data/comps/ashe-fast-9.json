@@ -1,0 +1,78 @@
+{
+  "slug": "ashe-fast-9",
+  "name": "Ashe Fast 9",
+  "tier": "S",
+  "summary": "Econ into level 9, with Ashe as the Blossom/Hunter carry and Ahri and a durable frontline carrying the mid-game.",
+  "playWhen": [
+    "You can reach level 9 by 5-2",
+    "You have lots of econ",
+    "You have lots of items or Tactician's Crowns"
+  ],
+  "carries": [
+    "DA_18_Ashe"
+  ],
+  "frontline": [
+    "DA_18_Maokai",
+    "DA_18_Sett",
+    "DA_Taric18",
+    "DA_18_GnarSmall"
+  ],
+  "endBoard": [
+    "DA_18_Ashe",
+    "DA_18_Ahri",
+    "DA_18_Maokai",
+    "DA_18_Sett",
+    "DA_Taric18",
+    "DA_18_GnarSmall",
+    "DA_18_Alune"
+  ],
+  "targetItems": [
+    {
+      "item": "DA_SpearOfShojin",
+      "unit": "DA_18_Ashe",
+      "weight": 3
+    },
+    {
+      "item": "DA_RedBuff",
+      "unit": "DA_18_Ashe",
+      "weight": 3
+    },
+    {
+      "item": "DA_LastWhisper",
+      "unit": "DA_18_Ashe",
+      "weight": 3
+    },
+    {
+      "item": "DA_BlueBuff",
+      "unit": "DA_18_Ashe",
+      "weight": 2
+    }
+  ],
+  "opener": {
+    "units": [
+      "DA_Karma18",
+      "DA_18_Yorick",
+      "DA_18_Yunara"
+    ],
+    "note": "A Blossom opener, or an Invoker Morgana line, that sets up Ahri."
+  },
+  "slams": [],
+  "stages": {
+    "stage1": "Take whichever opener your first components support, but protect your economy. Holding components for the BiS set is better than slamming an off-plan item.",
+    "stage2": "Keep the opener alive with the cheapest units that match, stay on econ and avoid rolling. Save component pairs for the carry's items.",
+    "stage3": "Hold streak and interest until you can reach level 9. Add the carry and tanks as they appear in your shop, then roll for the carry once you are level 9."
+  },
+  "augmentModifiers": [
+    {
+      "augment": "DA_18_BlossomTraitAugment",
+      "bonus": 0.15,
+      "note": "Blossom's Call strengthens the Blossom opener and Ahri."
+    }
+  ],
+  "frontlineAlternatives": [
+    "DA_Sentinel18",
+    "DA_18_Lillia",
+    "DA_Amumu18",
+    "DA_Brambleback18"
+  ]
+}

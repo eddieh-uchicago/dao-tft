@@ -1,0 +1,67 @@
+{
+  "slug": "flora-malphite",
+  "name": "Flora Malphite",
+  "tier": "A",
+  "summary": "AP line where Malphite holds the board together while Soraka and Zyra carry.",
+  "playWhen": [
+    "You have lots of AP items",
+    "You have emblems"
+  ],
+  "carries": [
+    "DA_18_Soraka",
+    "DA_18_Zyra"
+  ],
+  "frontline": [
+    "DA_18_Malphite",
+    "DA_Fiddlesticks18"
+  ],
+  "endBoard": [
+    "DA_18_Malphite",
+    "DA_18_Soraka",
+    "DA_18_Zyra",
+    "DA_18_Azir",
+    "DA_Fiddlesticks18"
+  ],
+  "targetItems": [
+    {
+      "item": "DA_RabadonsDeathcap",
+      "unit": "DA_18_Soraka",
+      "weight": 3
+    },
+    {
+      "item": "DA_NashorsTooth",
+      "unit": "DA_18_Soraka",
+      "weight": 3
+    },
+    {
+      "item": "DA_AdaptiveHelm",
+      "unit": "DA_18_Soraka",
+      "weight": 3
+    }
+  ],
+  "opener": {
+    "units": [
+      "DA_18_Veigar",
+      "DA_Karma18"
+    ],
+    "note": "AP items. Prioritize Rods on the carousel."
+  },
+  "slams": [],
+  "stages": {
+    "stage1": "Slam only items the carry or its trait unit will hold later. Otherwise keep components flexible.",
+    "stage2": "Stay on the cheapest board that fits the trait. Decide between this line and the alternative by 3-2, once you know your items.",
+    "stage3": "Level for the carry and tanks, and pivot to a connected comp if your items stop fitting."
+  },
+  "augmentModifiers": [
+    {
+      "augment": "DA_18_FloraFatalisAugment",
+      "bonus": 0.25,
+      "note": "Consuming Flora is the core augment for Flora Fatalis."
+    }
+  ],
+  "frontlineAlternatives": [
+    "DA_18_Rammus",
+    "DA_18_Hecarim",
+    "DA_18_Lillia"
+  ]
+}
