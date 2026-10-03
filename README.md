@@ -2,6 +2,8 @@
 
 An early-game decision engine for Teamfight Tactics (Set 18). Most TFT tools answer *"what is the best final board?"* Dao TFT answers the question you have at 2-1: **given the item components I hold right now, what should I play toward, what should I slam, and what should I hope to hit next?**
 
+**Live demo: https://dao-tft.vercel.app**
+
 ![Dao TFT router](docs/screenshot.png)
 
 Tell it your components, the augments you are offered, and which units opponents are playing. It returns:
