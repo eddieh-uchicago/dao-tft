@@ -21,6 +21,15 @@ const SHORT_NAME: Record<string, string> = {
   TearOfTheGoddess: "Tear",
 };
 
+/** Snapshot order, with Spatula and Chain Vest swapped. */
+const ORDER = (() => {
+  const ids = [...catalog.componentIds];
+  const a = ids.indexOf("Spatula");
+  const b = ids.indexOf("ChainVest");
+  if (a >= 0 && b >= 0) [ids[a], ids[b]] = [ids[b], ids[a]];
+  return ids;
+})();
+
 export function ComponentPicker() {
   const components = useGame((s) => s.components);
   const add = useGame((s) => s.addComponent);
@@ -35,7 +44,7 @@ export function ComponentPicker() {
       hint={total ? `${total} component${total === 1 ? "" : "s"} · right-click to remove one` : "Click each component you are holding"}
     >
       <ul className="grid grid-cols-5 gap-2">
-        {catalog.componentIds.map((id) => {
+        {ORDER.map((id) => {
           const count = components[id] ?? 0;
           const name = catalog.componentName(id);
           return (

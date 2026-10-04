@@ -3,6 +3,7 @@ import type { AugmentId, ComponentId, GameState, UnitId } from "@/engine/types";
 
 export const MAX_OFFERS = 3;
 export const MAX_CONTEST = 3;
+export const LEVELS = [2, 3, 4, 5, 6];
 
 interface GameStore extends GameState {
   /** Augments currently on offer, previewed before the player commits. */
@@ -10,6 +11,9 @@ interface GameStore extends GameState {
   /** The flow moves on without a board / augment when the player says they have none yet. */
   boardSkipped: boolean;
   augmentSkipped: boolean;
+  /** Player level caps how many units can be on the board. */
+  level: number;
+  setLevel: (level: number) => void;
   addComponent: (id: ComponentId) => void;
   removeComponent: (id: ComponentId) => void;
   toggleUnit: (id: UnitId) => void;
@@ -25,6 +29,7 @@ interface GameStore extends GameState {
 const initial = {
   components: {} as GameState["components"],
   board: [] as UnitId[],
+  level: 4,
   boardSkipped: false,
   augmentSkipped: false,
   augments: [] as AugmentId[],
@@ -41,8 +46,12 @@ export const useGame = create<GameStore>((set) => ({
       if (!next[id]) delete next[id];
       return { components: next };
     }),
+  setLevel: (level) => set((s) => ({ level, board: s.board.slice(0, level) })),
   toggleUnit: (id) =>
-    set((s) => ({ board: s.board.includes(id) ? s.board.filter((u) => u !== id) : [...s.board, id] })),
+    set((s) => {
+      if (s.board.includes(id)) return { board: s.board.filter((u) => u !== id) };
+      return s.board.length < s.level ? { board: [...s.board, id] } : s;
+    }),
   skipBoard: () => set({ boardSkipped: true }),
   skipAugment: () => set({ augmentSkipped: true }),
   toggleOffer: (id) =>
