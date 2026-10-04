@@ -20,7 +20,7 @@ export function ScoutPanel({ ranking }: { ranking: Recommendation[] }) {
 
   return (
     <Panel title="Scout" hint="How many opponents are playing each unit?">
-      <ul className="space-y-1.5">
+      <ul className="max-h-80 space-y-1.5 overflow-y-auto pr-1">
         {units.map((u) => {
           const n = contested[u.id] ?? 0;
           return (

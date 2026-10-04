@@ -6,13 +6,18 @@ An early-game decision engine for Teamfight Tactics (Set 18). Most TFT tools ans
 
 ![Dao TFT router](docs/screenshot.png)
 
-Tell it your components, the augments you are offered, and which units opponents are playing. It returns:
+The site is a flowchart. Each step appears once the one before it is answered:
 
-- **Ranked comps** with what you can build now and what is still missing.
+1. **Item components** you are holding.
+2. **Your 2-1 board**: the units you are playing now.
+3. **Your 2-1 augment**: compare the offers, then take one.
+
+From there the flow branches into three information sections, then into the compositions to play:
+
 - **Slam now**: completed items worth crafting for your top comps.
 - **Hit next**: which component (carousel, creep round) moves you toward which comp.
-- **Augment advice**: each offer re-ranks the comps against *your* components and flags **lock-ins** and **flex enablers**.
-- **Scouting**: flag contested units; contested comps drop, and the app suggests uncontested comps that reuse your items.
+- **Scout**: flag units opponents are playing; contested comps drop, and uncontested comps that reuse your items are suggested.
+- **Compositions**: the top three, with what you can build now, what is missing, and why each ranked where it did. Augment offers flag **lock-ins** and **flex enablers**.
 
 The PRD is in [`Dao_TFT_PRD.md`](Dao_TFT_PRD.md).
 
@@ -41,7 +46,7 @@ Infeasible branches are cut as soon as the pool runs out, and a bag holds a hand
 [`src/engine/router.ts`](src/engine/router.ts) turns that into a score:
 
 ```
-score = (value / best possible value for n components) × tier weight + augment bonus − scout penalty
+score = (value / best possible value for n components) × tier weight + augment bonus + board bonus − scout penalty
 ```
 
 Normalising by the best possible value for the number of components held means a comp with a long flex list is not punished. The same search drives the other features: *Slam now* is the items it chose to craft, and *Hit next* re-runs it with one extra component and reports the gain.

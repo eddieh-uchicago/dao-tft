@@ -15,6 +15,8 @@ export interface ScoutState {
 
 export interface GameState {
   components: ComponentBag;
+  /** Units on the player's board right now (2-1). */
+  board: UnitId[];
   augments: AugmentId[];
   scout: ScoutState;
 }
@@ -59,6 +61,9 @@ export interface Recommendation {
   augmentBonus: number;
   augmentNotes: string[];
   scoutPenalty: number;
+  /** Board units that appear in this comp's opener or end board. */
+  boardMatches: UnitId[];
+  boardBonus: number;
   tags: RecTag[];
 }
 

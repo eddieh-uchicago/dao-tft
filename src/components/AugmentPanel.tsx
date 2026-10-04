@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react";
 import { catalog, comps, engine } from "@/data";
 import { MAX_OFFERS, useGame } from "@/store/useGame";
-import { Panel, TagPill } from "./ui";
+import { FlowNode } from "./flow";
+import { TagPill } from "./ui";
 
 const relevant = new Set(comps.flatMap((c) => c.augmentModifiers.map((m) => m.augment)));
 
@@ -25,6 +26,8 @@ export function AugmentPanel() {
   const toggleOffer = useGame((s) => s.toggleOffer);
   const take = useGame((s) => s.takeAugment);
   const drop = useGame((s) => s.dropAugment);
+  const skip = useGame((s) => s.skipAugment);
+  const board = useGame((s) => s.board);
 
   const options = useMemo(() => {
     const q = filter.trim().toLowerCase();
@@ -34,12 +37,12 @@ export function AugmentPanel() {
   }, [filter, augments]);
 
   const advice = useMemo(
-    () => engine.adviseAugments({ components, augments, scout }, offers),
-    [components, augments, scout, offers],
+    () => engine.adviseAugments({ components, board, augments, scout }, offers),
+    [components, board, augments, scout, offers],
   );
 
   return (
-    <Panel title="Augments" hint={`Pick up to ${MAX_OFFERS} offers to compare`}>
+    <FlowNode step={3} title="Your 2-1 augment" hint={`Select up to ${MAX_OFFERS} offers to compare, then take one`}>
       {augments.length > 0 && (
         <ul className="mb-3 flex flex-wrap gap-1.5">
           {augments.map((id) => (
@@ -69,7 +72,10 @@ export function AugmentPanel() {
           return (
             <li key={a.id}>
               <button
-                onClick={() => toggleOffer(a.id)}
+                onClick={() => {
+                  toggleOffer(a.id);
+                  setFilter("");
+                }}
                 aria-pressed={on}
                 className={`rounded-full border px-2.5 py-1 text-xs ${
                   on
@@ -86,10 +92,17 @@ export function AugmentPanel() {
         })}
       </ul>
 
+      {augments.length === 0 && (
+        <button onClick={skip} className="mt-3 text-sm text-muted underline decoration-line hover:text-gold-bright">
+          No augment yet — show my options
+        </button>
+      )}
+
       {advice.length > 0 && (
         <ul className="mt-4 space-y-3 border-t border-line pt-3">
           {advice.map(({ augment, ranking, topChanged }) => {
             const tagged = ranking.slice(0, 3).filter((r) => r.tags.length);
+            const boosted = ranking.filter((r) => r.augmentBonus > 0).map((r) => r.comp.name);
             return (
               <li key={augment} className="text-sm">
                 <div className="flex items-center justify-between gap-2">
@@ -105,7 +118,7 @@ export function AugmentPanel() {
                   Best comp becomes <span className="text-gold-bright">{ranking[0].comp.name}</span>
                   {topChanged ? " (changes your top pick)" : ""}.
                 </p>
-                {tagged.length > 0 ? (
+                {tagged.length > 0 && (
                   <ul className="mt-1 space-y-1">
                     {tagged.map((r) => (
                       <li key={r.comp.slug} className="flex flex-wrap items-center gap-2 text-xs">
@@ -116,14 +129,17 @@ export function AugmentPanel() {
                       </li>
                     ))}
                   </ul>
-                ) : (
-                  <p className="mt-1 text-xs text-muted">No curated comp is moved by this augment.</p>
                 )}
+                <p className="mt-1 text-xs text-muted">
+                  {boosted.length > 0
+                    ? `Boosts ${boosted.join(", ")}.`
+                    : "No curated comp is moved by this augment."}
+                </p>
               </li>
             );
           })}
         </ul>
       )}
-    </Panel>
+    </FlowNode>
   );
 }

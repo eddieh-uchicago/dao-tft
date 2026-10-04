@@ -24,7 +24,7 @@ export default function About() {
           <p>
             That value is divided by the most a comp could score from the number of components you hold, so a comp with
             a long flex list is not punished. It is then multiplied by the comp&apos;s tier (S 1.0, A 0.85, B 0.7, C 0.5).
-            Augments add a bonus, and opponents playing the same units subtract a penalty. The letter shown on each
+            Augments add a bonus, units on your board add up to 0.15 (full credit for a unit the comp plays, half for one that shares a trait), and opponents playing the same units subtract a penalty. The letter shown on each
             card is a label for that final score, not a win rate.
           </p>
           <p>

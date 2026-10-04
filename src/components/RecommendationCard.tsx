@@ -21,25 +21,27 @@ export function RecommendationCard({ rec, rank, ranking, contested }: Props) {
 
   return (
     <article className="rounded-lg border border-line bg-panel p-4">
-      <header className="flex items-start gap-3">
-        <span className="mt-1 w-4 text-sm text-muted">{rank}</span>
-        <Icon src={carry.icon} label={carry.name} size={48} rounded="full" />
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <Link href={`/comp/${comp.slug}`} className="text-lg font-semibold hover:text-gold">
+      <header>
+        <div className="flex items-center gap-3">
+          <span className="w-3 text-sm text-muted">{rank}</span>
+          <Icon src={carry.icon} label={carry.name} size={44} rounded="full" />
+          <div className="min-w-0 flex-1">
+            <Link href={`/comp/${comp.slug}`} className="text-lg font-semibold leading-tight hover:text-gold">
               {comp.name}
             </Link>
-            <TierPill tier={comp.tier} />
-            {rec.tags.map((t) => (
-              <TagPill key={t} tag={t} />
-            ))}
+            <div className="mt-1 flex flex-wrap items-center gap-1.5">
+              <TierPill tier={comp.tier} />
+              {rec.tags.map((t) => (
+                <TagPill key={t} tag={t} />
+              ))}
+            </div>
           </div>
-          <p className="mt-0.5 text-sm text-muted">{comp.summary}</p>
+          <FitBadge fit={rec.fit} />
         </div>
-        <FitBadge fit={rec.fit} />
+        <p className="mt-2 text-sm text-muted">{comp.summary}</p>
       </header>
 
-      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+      <div className="mt-3 space-y-3">
         <div>
           <h3 className="mb-1 text-xs font-semibold uppercase tracking-wider text-good">Buildable now</h3>
           {allocation.built.length ? (
@@ -72,8 +74,13 @@ export function RecommendationCard({ rec, rank, ranking, contested }: Props) {
         </div>
       </div>
 
-      {(rec.augmentNotes.length > 0 || rec.scoutPenalty > 0) && (
+      {(rec.augmentNotes.length > 0 || rec.scoutPenalty > 0 || rec.boardMatches.length > 0) && (
         <ul className="mt-3 space-y-1 border-t border-line pt-3 text-sm">
+          {rec.boardMatches.length > 0 && (
+            <li className="text-good">
+              + Your board already plays {rec.boardMatches.map((u) => catalog.unit(u).name).join(", ")}.
+            </li>
+          )}
           {rec.augmentNotes.map((n) => (
             <li key={n} className="text-good">
               + {n}

@@ -181,3 +181,49 @@ describe("scout", () => {
     expect(openFrontline(comp, { contested: { t2: 2 } })).toEqual(["t1", "t3"]);
   });
 });
+
+describe("board", () => {
+  const KARMA = "DA_Karma18"; // Blossom / Spellweaver
+  const AHRI = "DA_18_Ahri"; // Blossom / Spellweaver
+  const YORICK = "DA_18_Yorick"; // Blossom / Juggernaut / Summoner
+  const KOBUKO = "DA_18_Kobuko"; // Sprykin / Brawler
+  const items: [string, number][] = [[ITEM.archangels, 3]];
+  const bloom = makeComp("bloom", "A", AHRI, items, { endBoard: [AHRI, KARMA], opener: { units: [KARMA], note: "" } });
+  const bag = { NeedlesslyLargeRod: 1, TearOfTheGoddess: 1 };
+  const rank = (board: string[]) =>
+    testEngine([bloom]).rank({ ...emptyState(bag), board })[0];
+
+  it("adds nothing without a board", () => {
+    const rec = rank([]);
+    expect(rec.boardBonus).toBe(0);
+    expect(rec.boardMatches).toEqual([]);
+  });
+
+  it("gives full credit to units the comp plays", () => {
+    const rec = rank([KARMA]);
+    expect(rec.boardBonus).toBeCloseTo(0.15);
+    expect(rec.boardMatches).toEqual([KARMA]);
+  });
+
+  it("gives half credit to a unit that only shares a trait", () => {
+    const rec = rank([YORICK]);
+    expect(rec.boardBonus).toBeCloseTo(0.075);
+    expect(rec.boardMatches).toEqual([]);
+  });
+
+  it("gives no credit to unrelated or unknown units", () => {
+    expect(rank([KOBUKO]).boardBonus).toBe(0);
+    expect(rank(["not-a-unit"]).boardBonus).toBe(0);
+  });
+
+  it("averages over the whole board", () => {
+    // One matching unit out of two is half the full bonus.
+    expect(rank([KARMA, KOBUKO]).boardBonus).toBeCloseTo(0.075);
+  });
+
+  it("breaks a tie between otherwise equal comps", () => {
+    const other = makeComp("other", "A", "u-other", items);
+    const ranking = testEngine([other, bloom]).rank({ ...emptyState(bag), board: [KARMA] });
+    expect(ranking[0].comp.slug).toBe("bloom");
+  });
+});

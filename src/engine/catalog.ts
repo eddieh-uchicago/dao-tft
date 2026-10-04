@@ -39,6 +39,10 @@ export class Catalog {
     if (!unit) throw new Error(`Unknown unit "${id}"`);
     return unit;
   }
+  /** Traits of a unit, or none if the id is unknown (comps may reference retired units). */
+  traitsOf(id: string): string[] {
+    return this.units.get(id)?.traits ?? [];
+  }
   componentName(id: ComponentId): string {
     return this.componentNames.get(id) ?? id;
   }

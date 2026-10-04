@@ -5,68 +5,105 @@ import { engine } from "@/data";
 import { bagSize } from "@/engine/catalog";
 import { useGame } from "@/store/useGame";
 import { AugmentPanel } from "./AugmentPanel";
+import { BoardPicker } from "./BoardPicker";
 import { ComponentPicker } from "./ComponentPicker";
+import { Branch, Connector, FlowLabel } from "./flow";
 import { CarouselPanel, SlamPanel } from "./InsightPanels";
 import { RecommendationCard } from "./RecommendationCard";
 import { ScoutPanel } from "./ScoutPanel";
 
-const TOP_N = 5;
-const EXAMPLE = { RecurveBow: 1, TearOfTheGoddess: 1, NeedlesslyLargeRod: 1 };
+const BRANCHES = 3;
+const EXTRA = 2;
 
 export function RouterApp() {
   const components = useGame((s) => s.components);
+  const board = useGame((s) => s.board);
   const augments = useGame((s) => s.augments);
   const scout = useGame((s) => s.scout);
-  const addComponent = useGame((s) => s.addComponent);
-  const empty = bagSize(components) === 0;
+  const boardSkipped = useGame((s) => s.boardSkipped);
+  const augmentSkipped = useGame((s) => s.augmentSkipped);
 
-  const state = useMemo(() => ({ components, augments, scout }), [components, augments, scout]);
+  // Each step appears once the one before it has an answer.
+  const showBoard = bagSize(components) > 0;
+  const showAugment = showBoard && (board.length > 0 || boardSkipped);
+  const showResults = showAugment && (augments.length > 0 || augmentSkipped);
+
+  const state = useMemo(() => ({ components, board, augments, scout }), [components, board, augments, scout]);
   const ranking = useMemo(() => engine.rank(state), [state]);
   const slams = useMemo(() => engine.slamNow(ranking), [ranking]);
   const carousel = useMemo(() => engine.carouselTargets(state), [state]);
 
-  return (
-    <main className="mx-auto grid max-w-6xl gap-4 px-4 py-6 lg:grid-cols-[22rem_1fr]">
-      <aside className="space-y-4">
-        <ComponentPicker />
-        <AugmentPanel />
-        <ScoutPanel ranking={ranking} />
-      </aside>
+  const extra = ranking.slice(BRANCHES, BRANCHES + EXTRA);
 
-      <div className="space-y-4">
-        {empty ? (
-          <div className="rounded-lg border border-dashed border-line p-8 text-center">
-            <h1 className="text-2xl font-semibold text-gold">What do you have right now?</h1>
-            <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-              Add the item components from your creep rounds. Dao TFT ranks the comps they build toward, shows what to
-              slam, and tells you which component to look for next.
-            </p>
-            <button
-              onClick={() => Object.entries(EXAMPLE).forEach(([id, n]) => Array.from({ length: n }, () => addComponent(id)))}
-              className="mt-4 rounded-md border border-gold px-4 py-2 text-sm text-gold hover:bg-panel-2"
-            >
-              Try Bow + Tear + Rod
-            </button>
+  const card = (i: number) => (
+    <RecommendationCard
+      rec={ranking[i]}
+      rank={i + 1}
+      ranking={ranking}
+      contested={scout.contested}
+    />
+  );
+
+  return (
+    <main className="mx-auto max-w-5xl px-4 py-8">
+      {!showBoard && (
+        <div className="mx-auto mb-6 max-w-2xl text-center">
+          <h1 className="text-3xl font-semibold text-gold">What are you holding?</h1>
+          <p className="mt-2 text-sm text-muted">
+            Start with your item components. Dao TFT builds the path from there: your board, your augment, then the
+            compositions worth playing.
+          </p>
+        </div>
+      )}
+
+      <ComponentPicker />
+
+      {showBoard && (
+        <>
+          <Connector />
+          <BoardPicker />
+        </>
+      )}
+
+      {showAugment && (
+        <>
+          <Connector />
+          <AugmentPanel />
+        </>
+      )}
+
+      {showResults && (
+        <>
+          <h1 className="sr-only">Your options</h1>
+          <Branch>
+            <SlamPanel slams={slams} />
+            <CarouselPanel targets={carousel} />
+            <ScoutPanel ranking={ranking} />
+          </Branch>
+
+          <div className="py-4">
+            <Connector />
+            <FlowLabel>Compositions you can play</FlowLabel>
           </div>
-        ) : (
-          <>
-            <div className="grid gap-4 md:grid-cols-2">
-              <SlamPanel slams={slams} />
-              <CarouselPanel targets={carousel} />
-            </div>
-            <h1 className="sr-only">Ranked compositions</h1>
-            {ranking.slice(0, TOP_N).map((rec, i) => (
-              <RecommendationCard
-                key={rec.comp.slug}
-                rec={rec}
-                rank={i + 1}
-                ranking={ranking}
-                contested={scout.contested}
-              />
+
+          <Branch>
+            {Array.from({ length: BRANCHES }, (_, i) => (
+              <div key={ranking[i].comp.slug}>{card(i)}</div>
             ))}
-          </>
-        )}
-      </div>
+          </Branch>
+
+          <details className="mt-6 rounded-lg border border-line bg-panel/60 p-4">
+            <summary className="cursor-pointer text-sm text-muted hover:text-gold-bright">
+              {extra.length} more option{extra.length === 1 ? "" : "s"}
+            </summary>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              {extra.map((rec, i) => (
+                <div key={rec.comp.slug}>{card(BRANCHES + i)}</div>
+              ))}
+            </div>
+          </details>
+        </>
+      )}
     </main>
   );
 }

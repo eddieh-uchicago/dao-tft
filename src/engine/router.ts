@@ -29,6 +29,11 @@ export function fitFor(score: number): Fit {
   return FIT_BANDS.find(([min]) => score >= min)?.[1] ?? "D";
 }
 
+/** Most a perfectly matching board can add to a comp's score. */
+export const BOARD_WEIGHT = 0.15;
+/** Credit for a board unit that is not in the comp but shares a trait with its end board. */
+const TRAIT_MATCH = 0.5;
+
 const bagKey = (bag: ComponentBag) =>
   Object.keys(bag)
     .filter((k) => bag[k] > 0)
@@ -151,7 +156,9 @@ export class TftEngine {
     const coverage = bound > 0 ? Math.min(1, allocation.value / bound) : 0;
     const { bonus, notes } = augmentEffect(comp, augments);
     const penalty = scoutPenalty(comp, state.scout);
-    const score = coverage * TIER_WEIGHT[comp.tier] + bonus - penalty;
+    const { fit: boardFit, matches } = this.boardFit(comp, state.board);
+    const boardBonus = BOARD_WEIGHT * boardFit;
+    const score = coverage * TIER_WEIGHT[comp.tier] + bonus + boardBonus - penalty;
     return {
       comp,
       tier: comp.tier,
@@ -162,8 +169,28 @@ export class TftEngine {
       augmentBonus: bonus,
       augmentNotes: notes,
       scoutPenalty: penalty,
+      boardMatches: matches,
+      boardBonus,
       tags: [],
     };
+  }
+
+  /** Average credit per board unit: 1 if it is in the comp's opener or end board, 0.5 if it shares a trait. */
+  private boardFit(comp: Comp, board: string[]): { fit: number; matches: string[] } {
+    if (!board.length) return { fit: 0, matches: [] };
+    const inComp = new Set([...comp.endBoard, ...comp.opener.units]);
+    const compTraits = new Set(comp.endBoard.flatMap((u) => this.catalog.traitsOf(u)));
+    const matches: string[] = [];
+    let total = 0;
+    for (const unit of board) {
+      if (inComp.has(unit)) {
+        matches.push(unit);
+        total += 1;
+      } else if (this.catalog.traitsOf(unit).some((t) => compTraits.has(t))) {
+        total += TRAIT_MATCH;
+      }
+    }
+    return { fit: total / board.length, matches };
   }
 
   private allocationFor(slug: string, targets: TargetEntry[], bag: ComponentBag): Allocation {

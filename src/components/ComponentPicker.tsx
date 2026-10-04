@@ -4,7 +4,9 @@ import { catalog } from "@/data";
 import { bagSize } from "@/engine/catalog";
 import { useGame } from "@/store/useGame";
 import { Icon } from "./Icon";
-import { Panel } from "./ui";
+import { FlowNode } from "./flow";
+
+const EXAMPLE = ["RecurveBow", "TearOfTheGoddess", "NeedlesslyLargeRod"];
 
 const SHORT_NAME: Record<string, string> = {
   BFSword: "Sword",
@@ -27,7 +29,11 @@ export function ComponentPicker() {
   const total = bagSize(components);
 
   return (
-    <Panel title="What do you have?" hint={total ? `${total} component${total === 1 ? "" : "s"}` : "Click to add"}>
+    <FlowNode
+      step={1}
+      title="Your item components"
+      hint={total ? `${total} component${total === 1 ? "" : "s"} · right-click to remove one` : "Click each component you are holding"}
+    >
       <ul className="grid grid-cols-5 gap-2">
         {catalog.componentIds.map((id) => {
           const count = components[id] ?? 0;
@@ -66,11 +72,16 @@ export function ComponentPicker() {
         })}
       </ul>
       <div className="mt-3 flex items-center justify-between text-xs text-muted">
-        <span>Right-click an icon to remove one.</span>
+        <button
+          onClick={() => EXAMPLE.forEach(add)}
+          className={total ? "invisible" : "hover:text-gold-bright"}
+        >
+          Try Bow + Tear + Rod
+        </button>
         <button onClick={reset} className="hover:text-gold-bright">
           Reset all
         </button>
       </div>
-    </Panel>
+    </FlowNode>
   );
 }

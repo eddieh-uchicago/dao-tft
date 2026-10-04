@@ -1,0 +1,84 @@
+import { Children, type CSSProperties, type ReactNode } from "react";
+
+const LINE = "bg-gold/50";
+
+/** A step in the flow: numbered, and revealed once the step before it is done. */
+export function FlowNode({
+  step,
+  title,
+  hint,
+  children,
+}: {
+  step: number;
+  title: string;
+  hint?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className="animate-pop mx-auto w-full max-w-2xl rounded-xl border border-gold/40 bg-panel p-5 shadow-lg shadow-black/30">
+      <header className="mb-4 flex items-center gap-3">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold text-sm font-bold text-ink">
+          {step}
+        </span>
+        <div>
+          <h2 className="text-lg font-semibold leading-tight">{title}</h2>
+          {hint && <p className="text-xs text-muted">{hint}</p>}
+        </div>
+      </header>
+      {children}
+    </section>
+  );
+}
+
+/** A line with an arrowhead pointing at the next node. */
+export function Connector() {
+  return (
+    <div aria-hidden className="animate-pop mx-auto flex h-10 flex-col items-center">
+      <div className={`w-px flex-1 ${LINE}`} />
+      <div className="h-0 w-0 border-x-[5px] border-t-[7px] border-x-transparent border-t-gold/70" />
+    </div>
+  );
+}
+
+/**
+ * One parent splitting into several children, like an org chart. The bars only
+ * draw on wide screens; on narrow ones the children simply stack.
+ */
+export function Branch({ children }: { children: ReactNode }) {
+  const items = Children.toArray(children);
+  const n = items.length;
+  const gap = 1; // rem, matches gap-4
+  const inset = `calc((100% - ${(n - 1) * gap}rem) / ${2 * n})`;
+  return (
+    <div className="animate-pop">
+      <div aria-hidden className={`mx-auto h-6 w-px ${LINE}`} />
+      <div
+        className="relative grid gap-4 md:grid-cols-[repeat(var(--n),minmax(0,1fr))] md:pt-6"
+        style={{ "--n": n } as CSSProperties}
+      >
+        <span
+          aria-hidden
+          className={`pointer-events-none absolute top-0 hidden h-px md:block ${LINE}`}
+          style={{ left: inset, right: inset }}
+        />
+        {items.map((child, i) => (
+          <div
+            key={i}
+            className={`relative min-w-0 md:before:absolute md:before:-top-6 md:before:left-1/2 md:before:h-6 md:before:w-px md:before:content-[''] md:before:bg-gold/50`}
+          >
+            {child}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Small label sitting on the flow between two sections. */
+export function FlowLabel({ children }: { children: ReactNode }) {
+  return (
+    <p className="animate-pop mx-auto w-fit rounded-full border border-gold/40 bg-panel px-4 py-1 text-xs font-semibold uppercase tracking-wider text-gold">
+      {children}
+    </p>
+  );
+}
