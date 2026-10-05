@@ -1,9 +1,17 @@
-import type { Snapshot, SnapshotItem, SnapshotTrait, SnapshotUnit } from "@/data/schema";
+import type { Snapshot, SnapshotItem, SnapshotTrait, SnapshotUncraftable, SnapshotUnit } from "@/data/schema";
 import type { ComponentBag, ComponentId } from "./types";
+
+/** Anything a player can hold that is not a component. */
+export type HoldableItem = Pick<SnapshotItem, "id" | "name" | "icon"> & {
+  kind: SnapshotItem["kind"] | SnapshotUncraftable["kind"];
+  components?: SnapshotItem["components"];
+};
 
 /** Lookup tables over a Community Dragon snapshot. */
 export class Catalog {
   readonly componentIds: ComponentId[];
+  readonly holdables: HoldableItem[];
+  private readonly holdableById: Map<string, HoldableItem>;
   private readonly items: Map<string, SnapshotItem>;
   private readonly units: Map<string, SnapshotUnit>;
   private readonly traits: Map<string, SnapshotTrait>;
@@ -14,6 +22,8 @@ export class Catalog {
   constructor(readonly snapshot: Snapshot) {
     this.componentIds = snapshot.components.map((c) => c.id);
     this.items = new Map(snapshot.items.map((i) => [i.id, i]));
+    this.holdables = [...snapshot.items, ...snapshot.uncraftables].sort((a, b) => a.name.localeCompare(b.name));
+    this.holdableById = new Map(this.holdables.map((h) => [h.id, h]));
     this.units = new Map(snapshot.units.map((u) => [u.id, u]));
     this.traits = new Map(snapshot.traits.map((t) => [t.name, t]));
     this.componentNames = new Map(snapshot.components.map((c) => [c.id, c.name]));
@@ -40,6 +50,10 @@ export class Catalog {
     const unit = this.units.get(id);
     if (!unit) throw new Error(`Unknown unit "${id}"`);
     return unit;
+  }
+  /** A completed item, artifact or emblem; undefined if the id is unknown. */
+  holdable(id: string): HoldableItem | undefined {
+    return this.holdableById.get(id);
   }
   /** Traits of a unit, or none if the id is unknown (comps may reference retired units). */
   traitsOf(id: string): string[] {

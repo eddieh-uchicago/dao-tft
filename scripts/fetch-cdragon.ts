@@ -36,13 +36,16 @@ interface RawItem {
 }
 interface RawData {
   items: RawItem[];
-  setData: { mutator: string; augments: string[] }[];
+  setData: { mutator: string; augments: string[]; items: string[] }[];
   sets: Record<string, { champions: RawChampion[]; traits: RawTrait[] }>;
 }
 
 const COMPONENT_PREFIX = "DA_Component_";
 // Set 18 reuses the old Tactician items; they are never part of a comp plan.
 const EXCLUDED_ITEMS = new Set(["DA_TacticiansCape", "DA_TacticiansCrown", "DA_TacticiansShield"]);
+const ARTIFACT = /^DA_(Item_)?Artifact_/;
+// Emblems with no recipe come from augments and loot; the "...Augment" copies are duplicates.
+const UNCRAFTABLE_EMBLEM = /^DA_18_Emblem(?!.*Augment$)/;
 // Lux is a 5-cost with one variant per trait; keep only the base entry.
 const LUX_VARIANT = /^DA_(18_Lux_|Lux18_(Blackthorn|Blossom))/;
 
@@ -84,6 +87,24 @@ async function main() {
     }))
     .sort((a, b) => a.id.localeCompare(b.id));
 
+  const setData = raw.setData.find((s) => s.mutator === `TFTSet${SET_KEY}`);
+  const byId = new Map(raw.items.map((i) => [i.apiName, i]));
+
+  // Artifacts and emblems a player can hold but not craft.
+  const uncraftables = (setData?.items ?? [])
+    .map((id) => byId.get(id))
+    .filter(
+      (i): i is RawItem =>
+        !!i && !i.composition?.length && (ARTIFACT.test(i.apiName) || UNCRAFTABLE_EMBLEM.test(i.apiName)),
+    )
+    .map((i) => ({
+      id: i.apiName,
+      name: i.name,
+      kind: ARTIFACT.test(i.apiName) ? ("artifact" as const) : ("emblem" as const),
+      icon: iconUrl(i.icon),
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   const traits = set.traits.map((t) => ({
     id: t.apiName,
     name: t.name,
@@ -105,8 +126,8 @@ async function main() {
     .sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name));
 
   // The set's augment pool also lists legacy TFT_/TFTn_ ids; the live ones are DA_.
-  const pool = new Set(raw.setData.find((s) => s.mutator === `TFTSet${SET_KEY}`)?.augments ?? []);
-  const augments = [...new Map(raw.items.map((i) => [i.apiName, i])).values()]
+  const pool = new Set(setData?.augments ?? []);
+  const augments = [...byId.values()]
     .filter((i) => i.isAugment && i.apiName.startsWith("DA_") && pool.has(i.apiName))
     .map((i) => ({ id: i.apiName, name: i.name, icon: iconUrl(i.icon) }))
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -121,6 +142,7 @@ async function main() {
     fetchedAt: new Date().toISOString().slice(0, 10),
     components,
     items,
+    uncraftables,
     units,
     traits,
     augments,
@@ -128,7 +150,7 @@ async function main() {
   const out = resolve(__dirname, "../src/data/snapshot.json");
   writeFileSync(out, JSON.stringify(snapshot, null, 2) + "\n");
   console.log(
-    `Wrote ${out}: ${components.length} components, ${items.length} items, ${units.length} units, ${traits.length} traits, ${augments.length} augments`,
+    `Wrote ${out}: ${components.length} components, ${items.length} items, ${uncraftables.length} uncraftables, ${units.length} units, ${traits.length} traits, ${augments.length} augments`,
   );
 }
 

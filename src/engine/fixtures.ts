@@ -51,6 +51,7 @@ export function makeComp(
 
 export const emptyState = (components: ComponentBag = {}): GameState => ({
   components,
+  items: [],
   board: [],
   augments: [],
   scout: { contested: {} },

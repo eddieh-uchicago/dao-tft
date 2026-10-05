@@ -15,6 +15,8 @@ export interface ScoutState {
 
 export interface GameState {
   components: ComponentBag;
+  /** Completed items, artifacts and emblems already in hand; repeats allowed. */
+  items: ItemId[];
   /** Units on the player's board right now (2-1). */
   board: UnitId[];
   augments: AugmentId[];
@@ -30,8 +32,9 @@ export interface TargetEntry {
 }
 
 export interface BuiltItem extends TargetEntry {
-  /** Components consumed to craft it. */
-  uses: [ComponentId, ComponentId];
+  /** Components consumed to craft it; empty if the player already holds the item. */
+  uses: ComponentId[];
+  held?: boolean;
 }
 
 /** A target item that is not built: what is already in hand and what is still needed. */

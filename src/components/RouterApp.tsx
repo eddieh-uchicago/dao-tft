@@ -7,6 +7,7 @@ import { useGame } from "@/store/useGame";
 import { AugmentPanel } from "./AugmentPanel";
 import { BoardPicker } from "./BoardPicker";
 import { ComponentPicker } from "./ComponentPicker";
+import { HeldItemsPicker } from "./HeldItemsPicker";
 import { Branch, Connector, FlowLabel } from "./flow";
 import { CarouselPanel, SlamPanel } from "./InsightPanels";
 import { RecommendationCard } from "./RecommendationCard";
@@ -17,6 +18,7 @@ const EXTRA = 2;
 
 export function RouterApp() {
   const components = useGame((s) => s.components);
+  const items = useGame((s) => s.items);
   const board = useGame((s) => s.board);
   const augments = useGame((s) => s.augments);
   const scout = useGame((s) => s.scout);
@@ -24,11 +26,14 @@ export function RouterApp() {
   const augmentSkipped = useGame((s) => s.augmentSkipped);
 
   // Each step appears once the one before it has an answer.
-  const showBoard = bagSize(components) > 0;
+  const showBoard = bagSize(components) > 0 || items.length > 0;
   const showAugment = showBoard && (board.length > 0 || boardSkipped);
   const showResults = showAugment && (augments.length > 0 || augmentSkipped);
 
-  const state = useMemo(() => ({ components, board, augments, scout }), [components, board, augments, scout]);
+  const state = useMemo(
+    () => ({ components, items, board, augments, scout }),
+    [components, items, board, augments, scout],
+  );
   const ranking = useMemo(() => engine.rank(state), [state]);
   const slams = useMemo(() => engine.slamNow(ranking), [ranking]);
   const carousel = useMemo(() => engine.carouselTargets(state), [state]);
@@ -50,13 +55,16 @@ export function RouterApp() {
         <div className="mx-auto mb-6 max-w-2xl text-center">
           <h1 className="text-3xl font-semibold text-gold">What are you holding?</h1>
           <p className="mt-2 text-sm text-muted">
-            Start with your item components. Dao TFT builds the path from there: your board, your augment, then the
-            compositions worth playing.
+            Start with your item components and anything already built. Dao TFT builds the path from there: your
+            board, your augment, then the compositions worth playing.
           </p>
         </div>
       )}
 
-      <ComponentPicker />
+      <div className="grid items-start gap-4 lg:grid-cols-2">
+        <ComponentPicker />
+        <HeldItemsPicker />
+      </div>
 
       {showBoard && (
         <>

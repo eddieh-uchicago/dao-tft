@@ -50,7 +50,10 @@ export function RecommendationCard({ rec, rank, ranking, contested }: Props) {
                 <li key={b.item + b.unit} className="flex items-center gap-2 text-sm">
                   <Icon src={catalog.item(b.item).icon} label={catalog.item(b.item).name} size={24} />
                   <span>{catalog.item(b.item).name}</span>
-                  <span className="text-xs text-muted">on {catalog.unit(b.unit).name}</span>
+                  <span className="text-xs text-muted">
+                    on {catalog.unit(b.unit).name}
+                    {b.held && " · already held"}
+                  </span>
                 </li>
               ))}
             </ul>

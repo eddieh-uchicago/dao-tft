@@ -28,6 +28,7 @@ function augmentLabel(id: string): string {
 export function AugmentPanel() {
   const [filter, setFilter] = useState("");
   const components = useGame((s) => s.components);
+  const items = useGame((s) => s.items);
   const augments = useGame((s) => s.augments);
   const scout = useGame((s) => s.scout);
   const offers = useGame((s) => s.offers);
@@ -50,8 +51,8 @@ export function AugmentPanel() {
   }, [filter, augments]);
 
   const advice = useMemo(
-    () => engine.adviseAugments({ components, board, augments, scout }, offers),
-    [components, board, augments, scout, offers],
+    () => engine.adviseAugments({ components, items, board, augments, scout }, offers),
+    [components, items, board, augments, scout, offers],
   );
 
   return (

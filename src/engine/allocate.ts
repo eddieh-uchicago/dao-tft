@@ -102,6 +102,27 @@ function materialize(targets: TargetEntry[], bag: ComponentBag, picks: number[])
   };
 }
 
+/**
+ * Matches completed items the player already holds to targets, highest weight
+ * first. Claimed targets count as built and need no components.
+ */
+export function claimHeld(targets: TargetEntry[], held: string[]): { claimed: BuiltItem[]; rest: TargetEntry[] } {
+  const spare = [...held];
+  const taken = new Set<number>();
+  const order = targets.map((_, i) => i).sort((x, y) => targets[y].weight - targets[x].weight);
+  for (const i of order) {
+    const k = spare.indexOf(targets[i].item);
+    if (k >= 0) {
+      spare.splice(k, 1);
+      taken.add(i);
+    }
+  }
+  return {
+    claimed: targets.filter((_, i) => taken.has(i)).map((t) => ({ ...t, uses: [], held: true })),
+    rest: targets.filter((_, i) => !taken.has(i)),
+  };
+}
+
 /** Highest value any comp with these weights could reach from `n` components. */
 export function optimisticBound(weights: number[], n: number): number {
   const sorted = [...weights].sort((a, b) => b - a);

@@ -576,6 +576,212 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_warmogsarmor.png"
     }
   ],
+  "uncraftables": [
+    {
+      "id": "DA_Artifact_AegisOfDawn",
+      "name": "Aegis of Dawn",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_aegisofdawn.png"
+    },
+    {
+      "id": "DA_Artifact_AegisOfDusk",
+      "name": "Aegis of Dusk",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_aegisofdusk.png"
+    },
+    {
+      "id": "DA_Artifact_BlightingJewel",
+      "name": "Blighting Jewel",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_blightingjewel.png"
+    },
+    {
+      "id": "DA_18_EmblemCoven",
+      "name": "Coven Emblem",
+      "kind": "emblem",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/particles/tft/item_icons/traits/spatula/set18/tft18_emblem_coven.png"
+    },
+    {
+      "id": "DA_Artifact_Dawncore",
+      "name": "Dawncore",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_dawncore.png"
+    },
+    {
+      "id": "DA_18_EmblemDefender",
+      "name": "Defender Emblem",
+      "kind": "emblem",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/particles/tft/item_icons/traits/spatula/set18/tft18_emblem_defender.png"
+    },
+    {
+      "id": "DA_Artifact_EternalPact",
+      "name": "Eternal Pact",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft16_artifact_eternalpact.png"
+    },
+    {
+      "id": "DA_Artifact_Fishbones",
+      "name": "Fishbones",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_fishbones.png"
+    },
+    {
+      "id": "DA_Artifact_NavoriFlickerblade",
+      "name": "Flickerblades",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_navoriflickerplade.png"
+    },
+    {
+      "id": "DA_18_EmblemFloraFatalis",
+      "name": "Flora Fatalis Emblem",
+      "kind": "emblem",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/particles/tft/item_icons/traits/spatula/set18/tft18_emblem_florafatalis.png"
+    },
+    {
+      "id": "DA_Artifact_ForbiddenIdol",
+      "name": "Forbidden Idol",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_forbiddenidol.png"
+    },
+    {
+      "id": "DA_Artifact_GamblersBlade",
+      "name": "Gambler's Blade",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft7_item_shimmerscalegamblersblade.png"
+    },
+    {
+      "id": "DA_Artifact_GoldCollector",
+      "name": "Gold Collector",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft4_item_ornnthecollector.png"
+    },
+    {
+      "id": "DA_Artifact_HellfireHatchet",
+      "name": "Hellfire Hatchet",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_hellfirehatchet.png"
+    },
+    {
+      "id": "DA_Artifact_HorizonFocus",
+      "name": "Horizon Focus",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_horizonfocus.png"
+    },
+    {
+      "id": "DA_Artifact_Hullcrusher",
+      "name": "Hullcrusher",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/particles/tft/item_icons/ornn_items/tft9_ornnitem_hullbreaker.png"
+    },
+    {
+      "id": "DA_Artifact_InfinityForce",
+      "name": "Infinity Force",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft4_item_ornninfinityforce.png"
+    },
+    {
+      "id": "DA_18_EmblemJuggernaut",
+      "name": "Juggernaut Emblem",
+      "kind": "emblem",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/particles/tft/item_icons/traits/spatula/set18/tft18_emblem_juggernaut.png"
+    },
+    {
+      "id": "DA_Artifact_LichBane",
+      "name": "Lich Bane",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/particles/tft/item_icons/ornn_items/tft_item_artifact_lichbane.png"
+    },
+    {
+      "id": "DA_Artifact_LightshieldCrest",
+      "name": "Lightshield Crest",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_lightshieldcrest.png"
+    },
+    {
+      "id": "DA_Artifact_LudensTempest",
+      "name": "Luden's Tempest",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_ludenstempest.png"
+    },
+    {
+      "id": "DA_Artifact_Manazane",
+      "name": "Manazane",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft4_item_ornnmuramana.png"
+    },
+    {
+      "id": "DA_Artifact_Mittens",
+      "name": "Mittens",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_mittens.png"
+    },
+    {
+      "id": "DA_Artifact_MogulsMail",
+      "name": "Mogul'sMail",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft7_item_shimmerscalemogulsmail.png"
+    },
+    {
+      "id": "DA_Artifact_RapidFireCannon",
+      "name": "Rapid Firecannon",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_rapidfirecannon.png"
+    },
+    {
+      "id": "DA_Artifact_SeekersArmguard",
+      "name": "Seeker's Armguard",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_seekersarmguard.png"
+    },
+    {
+      "id": "DA_Artifact_SilvermereDawn",
+      "name": "Silvermere Dawn",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_silvermeredawn.png"
+    },
+    {
+      "id": "DA_Artifact_StatikkShiv",
+      "name": "Statikk Shiv",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_stattikshiv.png"
+    },
+    {
+      "id": "DA_Item_Artifact_TalismanOfAscension",
+      "name": "Talisman of Ascension",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_talismanofascension.png"
+    },
+    {
+      "id": "DA_Artifact_TheIndomitable",
+      "name": "The Indomitable",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_theindomitable.png"
+    },
+    {
+      "id": "DA_Artifact_TitanicHydra",
+      "name": "Titanic Hydra",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_titanichydra.png"
+    },
+    {
+      "id": "DA_Artifact_VoidGauntlet",
+      "name": "Void Gauntlet",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft16_artifact_voidgauntlet.png"
+    },
+    {
+      "id": "DA_Artifact_WitsEnd",
+      "name": "Wit's End",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft_item_artifact_witsend.png"
+    },
+    {
+      "id": "DA_Artifact_ZhonyasParadox",
+      "name": "Zhonya's Paradox",
+      "kind": "artifact",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft4_item_ornnzhonyasparadox.png"
+    }
+  ],
   "units": [
     {
       "id": "DA_18_Akali_AD",

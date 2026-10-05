@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { AugmentId, ComponentId, GameState, UnitId } from "@/engine/types";
+import type { AugmentId, ComponentId, GameState, ItemId, UnitId } from "@/engine/types";
 
 export const MAX_OFFERS = 3;
 export const MAX_CONTEST = 3;
@@ -16,6 +16,8 @@ interface GameStore extends GameState {
   setLevel: (level: number) => void;
   addComponent: (id: ComponentId) => void;
   removeComponent: (id: ComponentId) => void;
+  addItem: (id: ItemId) => void;
+  removeItem: (id: ItemId) => void;
   toggleUnit: (id: UnitId) => void;
   skipBoard: () => void;
   skipAugment: () => void;
@@ -28,6 +30,7 @@ interface GameStore extends GameState {
 
 const initial = {
   components: {} as GameState["components"],
+  items: [] as ItemId[],
   board: [] as UnitId[],
   level: 4,
   boardSkipped: false,
@@ -45,6 +48,12 @@ export const useGame = create<GameStore>((set) => ({
       const next = { ...s.components, [id]: Math.max(0, (s.components[id] ?? 0) - 1) };
       if (!next[id]) delete next[id];
       return { components: next };
+    }),
+  addItem: (id) => set((s) => ({ items: [...s.items, id] })),
+  removeItem: (id) =>
+    set((s) => {
+      const i = s.items.lastIndexOf(id);
+      return i < 0 ? s : { items: s.items.filter((_, j) => j !== i) };
     }),
   setLevel: (level) => set((s) => ({ level, board: s.board.slice(0, level) })),
   toggleUnit: (id) =>

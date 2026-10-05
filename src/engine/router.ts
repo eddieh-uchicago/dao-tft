@@ -1,5 +1,5 @@
 import type { Comp, Tier } from "@/data/schema";
-import { allocate, optimisticBound } from "./allocate";
+import { allocate, claimHeld, optimisticBound } from "./allocate";
 import { augmentEffect, tagRecommendations } from "./augments";
 import { Catalog, bagSize, withComponent } from "./catalog";
 import { scoutPenalty } from "./scout";
@@ -77,7 +77,9 @@ export class TftEngine {
     const byItem = new Map<string, SlamSuggestion & { total: number }>();
     for (const rec of ranking.slice(0, topN)) {
       for (const b of rec.allocation.built) {
-        const entry = byItem.get(b.item) ?? { item: b.item, unit: b.unit, comps: [], uses: b.uses, weight: 0, total: 0 };
+        if (b.held) continue;
+        const uses = b.uses as [string, string];
+        const entry = byItem.get(b.item) ?? { item: b.item, unit: b.unit, comps: [], uses, weight: 0, total: 0 };
         entry.comps.push(rec.comp.slug);
         entry.weight = Math.max(entry.weight, b.weight);
         entry.total += b.weight * rec.score;
@@ -148,11 +150,16 @@ export class TftEngine {
   private evaluate(comp: Comp, state: GameState, augments: AugmentId[]): Recommendation {
     const targets = this.targets.get(comp.slug)!;
     const n = bagSize(state.components);
-    const allocation = this.allocationFor(comp.slug, targets, state.components);
-    const bound = optimisticBound(
-      targets.map((t) => t.weight),
-      n,
-    );
+    const { claimed, rest } = claimHeld(targets, state.items);
+    const heldWeight = claimed.reduce((sum, b) => sum + b.weight, 0);
+    const crafted = this.allocationFor(comp.slug, rest, state.components, state.items);
+    const allocation = { ...crafted, built: [...claimed, ...crafted.built], value: crafted.value + heldWeight };
+    const bound =
+      heldWeight +
+      optimisticBound(
+        rest.map((t) => t.weight),
+        n,
+      );
     const coverage = bound > 0 ? Math.min(1, allocation.value / bound) : 0;
     const { bonus, notes } = augmentEffect(comp, augments);
     const penalty = scoutPenalty(comp, state.scout);
@@ -193,8 +200,8 @@ export class TftEngine {
     return { fit: total / board.length, matches };
   }
 
-  private allocationFor(slug: string, targets: TargetEntry[], bag: ComponentBag): Allocation {
-    const key = `${slug}|${bagKey(bag)}`;
+  private allocationFor(slug: string, targets: TargetEntry[], bag: ComponentBag, held: string[]): Allocation {
+    const key = `${slug}|${bagKey(bag)}|${[...held].sort().join(",")}`;
     let result = this.allocations.get(key);
     if (!result) {
       result = allocate(targets, bag);

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { catalog } from "@/data";
 import { LEVELS, useGame } from "@/store/useGame";
 import { FlowNode } from "./flow";
+import { traitStyle, type TraitStyle } from "@/engine/traits";
 import { Icon } from "./Icon";
 
 /** 4- and 5-costs are not realistic on a 2-1 board. */
@@ -76,12 +77,13 @@ export function BoardPicker() {
           {traits.map((t) => (
             <li
               key={t.name}
+              title={t.style ? `${t.style[0].toUpperCase()}${t.style.slice(1)} ${t.name}` : `${t.name} (inactive)`}
               className={`flex items-center gap-1.5 rounded-md border px-1.5 py-0.5 text-xs ${
-                t.active ? "border-gold bg-panel-2" : "border-line text-muted"
+                t.style ? STYLE_CLASS[t.style] : "border-line text-muted"
               }`}
             >
               {t.icon && <Icon src={t.icon} label={t.name} size={16} />}
-              <span className={t.active ? "font-medium" : ""}>{t.name}</span>
+              <span className={t.style ? "font-medium" : ""}>{t.name}</span>
               <span>
                 {t.breakpoints.map((b, i) => (
                   <span key={b}>
@@ -137,15 +139,24 @@ export function BoardPicker() {
   );
 }
 
+const STYLE_CLASS: Record<TraitStyle, string> = {
+  bronze: "border-[#b4774a] bg-[#b4774a]/15",
+  silver: "border-slate-300 bg-slate-300/15",
+  gold: "border-amber-400 bg-amber-400/15",
+  prismatic: "border-fuchsia-300 bg-gradient-to-r from-sky-400/20 via-fuchsia-400/20 to-amber-300/20",
+};
+
 interface BoardTrait {
   name: string;
   icon: string;
   count: number;
   breakpoints: number[];
-  active: boolean;
+  style: TraitStyle | null;
 }
 
-/** Traits on the board with unit counts, active ones first. */
+const STYLE_RANK: Record<TraitStyle, number> = { prismatic: 4, gold: 3, silver: 2, bronze: 1 };
+
+/** Traits on the board with unit counts, highest style first. */
 function boardTraits(board: string[]): BoardTrait[] {
   const counts = new Map<string, number>();
   for (const id of board) for (const t of catalog.traitsOf(id)) counts.set(t, (counts.get(t) ?? 0) + 1);
@@ -153,7 +164,12 @@ function boardTraits(board: string[]): BoardTrait[] {
     .map(([name, count]) => {
       const trait = catalog.trait(name);
       const breakpoints = trait?.breakpoints ?? [];
-      return { name, icon: trait?.icon ?? "", count, breakpoints, active: count >= (breakpoints[0] ?? Infinity) };
+      return { name, icon: trait?.icon ?? "", count, breakpoints, style: traitStyle(count, breakpoints) };
     })
-    .sort((a, b) => Number(b.active) - Number(a.active) || b.count - a.count || a.name.localeCompare(b.name));
+    .sort(
+      (a, b) =>
+        (b.style ? STYLE_RANK[b.style] : 0) - (a.style ? STYLE_RANK[a.style] : 0) ||
+        b.count - a.count ||
+        a.name.localeCompare(b.name),
+    );
 }

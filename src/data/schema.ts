@@ -57,6 +57,13 @@ export interface SnapshotItem {
   components: [string, string];
   icon: string;
 }
+/** An artifact or emblem that can be held but has no recipe. */
+export interface SnapshotUncraftable {
+  id: string;
+  name: string;
+  kind: "artifact" | "emblem";
+  icon: string;
+}
 export interface SnapshotUnit {
   id: string;
   name: string;
@@ -77,6 +84,7 @@ export interface Snapshot {
   fetchedAt: string;
   components: { id: string; name: string; icon: string }[];
   items: SnapshotItem[];
+  uncraftables: SnapshotUncraftable[];
   units: SnapshotUnit[];
   traits: SnapshotTrait[];
   augments: { id: string; name: string; icon: string }[];

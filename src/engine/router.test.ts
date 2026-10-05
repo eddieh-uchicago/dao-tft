@@ -227,3 +227,27 @@ describe("board", () => {
     expect(ranking[0].comp.slug).toBe("bloom");
   });
 });
+
+describe("held completed items", () => {
+  it("count as built without using components", () => {
+    const state = { ...emptyState({ BFSword: 1, SparringGloves: 1 }), items: [ITEM.rabadons] };
+    const mage = testEngine().rank(state).find((r) => r.comp.slug === "ap-mage")!;
+    const held = mage.allocation.built.find((b) => b.item === ITEM.rabadons);
+    expect(held).toMatchObject({ held: true, uses: [] });
+    expect(mage.allocation.leftover).toEqual({ BFSword: 1, SparringGloves: 1 });
+  });
+
+  it("lift the comp that wants them", () => {
+    const engine = testEngine();
+    const base = emptyState({ BFSword: 1, SparringGloves: 1 });
+    const before = engine.rank(base).find((r) => r.comp.slug === "ap-mage")!.score;
+    const after = engine.rank({ ...base, items: [ITEM.rabadons] }).find((r) => r.comp.slug === "ap-mage")!.score;
+    expect(after).toBeGreaterThan(before);
+  });
+
+  it("are not suggested as slams", () => {
+    const engine = testEngine();
+    const ranking = engine.rank({ ...emptyState(), items: [ITEM.rabadons] });
+    expect(engine.slamNow(ranking)).toEqual([]);
+  });
+});
