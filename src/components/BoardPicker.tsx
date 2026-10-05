@@ -7,9 +7,6 @@ import { FlowNode } from "./flow";
 import { traitStyle, type TraitStyle } from "@/engine/traits";
 import { Icon } from "./Icon";
 
-/** 4- and 5-costs are not realistic on a 2-1 board. */
-const MAX_COST = 3;
-
 export function BoardPicker() {
   const [filter, setFilter] = useState("");
   const board = useGame((s) => s.board);
@@ -23,16 +20,14 @@ export function BoardPicker() {
 
   const options = useMemo(() => {
     const q = filter.trim().toLowerCase();
-    return catalog.snapshot.units.filter(
-      (u) => u.cost <= MAX_COST && (!q || u.name.toLowerCase().includes(q)),
-    );
+    return catalog.snapshot.units.filter((u) => !q || u.name.toLowerCase().includes(q));
   }, [filter]);
 
   return (
-    <FlowNode step={2} title="Your 2-1 board" hint="Which units are you playing right now?">
-      <div className="mb-3 flex items-center gap-2 text-sm">
+    <FlowNode step={2} title="Current Board" hint="Keep this updated as you play; recommendations follow your board">
+      <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
         <span className="text-muted">Level</span>
-        <div role="radiogroup" aria-label="Player level" className="flex gap-1">
+        <div role="radiogroup" aria-label="Player level" className="flex flex-wrap gap-1">
           {LEVELS.map((l) => (
             <button
               key={l}

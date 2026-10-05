@@ -3,7 +3,7 @@ import type { AugmentId, ComponentId, GameState, ItemId, UnitId } from "@/engine
 
 export const MAX_OFFERS = 3;
 export const MAX_CONTEST = 3;
-export const LEVELS = [3, 4, 5, 6];
+export const LEVELS = [2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface GameStore extends GameState {
   /** Augments currently on offer, previewed before the player commits. */

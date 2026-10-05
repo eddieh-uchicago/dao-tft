@@ -17,7 +17,7 @@ export interface GameState {
   components: ComponentBag;
   /** Completed items, artifacts and emblems already in hand; repeats allowed. */
   items: ItemId[];
-  /** Units on the player's board right now (2-1). */
+  /** Units on the player's board right now; updated as the game goes on. */
   board: UnitId[];
   augments: AugmentId[];
   scout: ScoutState;
