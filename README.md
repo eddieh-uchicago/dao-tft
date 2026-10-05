@@ -29,6 +29,7 @@ npm run dev        # http://localhost:3000
 npm test           # engine + data tests
 npm run build      # also validates every comp against the data snapshot
 npm run fetch-data # refresh src/data/snapshot.json from Community Dragon
+npm run fetch-comps # refresh src/data/comps-tftacademy.json from TFT Academy's tier list
 ```
 
 ## How the ranking works
@@ -55,9 +56,9 @@ Normalising by the best possible value for the number of components held means a
 
 ```
 src/engine/    pure TypeScript, no React: allocation, ranking, augments, scouting
-src/data/      comp schema (zod), curated comps/*.json, Community Dragon snapshot, validation
+src/data/      comp schema (zod), curated comps/*.json, TFT Academy comps, Community Dragon snapshot, validation
 src/components, src/app, src/store   Next.js App Router UI, Zustand session state
-scripts/       fetch-cdragon.ts builds the snapshot
+scripts/       fetch-cdragon.ts builds the snapshot, fetch-tftacademy.ts converts TFT Academy comps
 ```
 
 The engine runs entirely in the browser, so results are instant and the whole site is static.
@@ -75,6 +76,7 @@ GitHub Actions runs lint, typecheck, tests and the production build on every pus
 This is an MVP built in a week, so it is deliberately narrow.
 
 - Comps, item priorities and tiers are hand-curated from community guides (chiefly the BunnyMuffins Patch 18.3b guide). They are editorial judgement, not statistics. Opener, slam and stage notes are short drafts.
+- The rest of the comps are converted from [TFT Academy's tier list](https://tftacademy.com/tierlist/comps) by `npm run fetch-comps`. Boards, items, stage tips and recommended augments come from the guides; summaries and "play when" lines are generated from them, and Situational comps are listed as C tier. Comps the curated set already covers are skipped.
 - Scouting is manual input only.
 - **Not built**: patch history/selector, hex board view, flowchart visualisation, Riot API integration, desktop overlay, automatic PR on patch change.
 

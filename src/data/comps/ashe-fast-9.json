@@ -57,11 +57,20 @@
     "note": "A Blossom opener, or an Invoker Morgana line, that sets up Ahri."
   },
   "slams": [],
-  "stages": {
-    "stage1": "Take whichever opener your first components support, but protect your economy. Holding components for the BiS set is better than slamming an off-plan item.",
-    "stage2": "Keep the opener alive with the cheapest units that match, stay on econ and avoid rolling. Save component pairs for the carry's items.",
-    "stage3": "Hold streak and interest until you can reach level 9. Add the carry and tanks as they appear in your shop, then roll for the carry once you are level 9."
-  },
+  "stages": [
+    {
+      "stage": "Stage 1",
+      "tip": "Take whichever opener your first components support, but protect your economy. Holding components for the BiS set is better than slamming an off-plan item."
+    },
+    {
+      "stage": "Stage 2",
+      "tip": "Keep the opener alive with the cheapest units that match, stay on econ and avoid rolling. Save component pairs for the carry's items."
+    },
+    {
+      "stage": "Stage 3",
+      "tip": "Hold streak and interest until you can reach level 9. Add the carry and tanks as they appear in your shop, then roll for the carry once you are level 9."
+    }
+  ],
   "augmentModifiers": [
     {
       "augment": "DA_18_BlossomTraitAugment",

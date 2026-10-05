@@ -40,6 +40,22 @@ export function Connector() {
   );
 }
 
+/** Points right at the next node on wide screens, down when the layout stacks. */
+export function SideArrow() {
+  return (
+    <div aria-hidden className="flex shrink-0 items-center">
+      <div className="flex h-8 flex-col items-center lg:hidden">
+        <div className={`w-px flex-1 ${LINE}`} />
+        <div className="h-0 w-0 border-x-[5px] border-t-[7px] border-x-transparent border-t-gold/70" />
+      </div>
+      <div className="hidden w-10 items-center lg:flex">
+        <div className={`h-px flex-1 ${LINE}`} />
+        <div className="h-0 w-0 border-y-[5px] border-l-[7px] border-y-transparent border-l-gold/70" />
+      </div>
+    </div>
+  );
+}
+
 /**
  * One parent splitting into several children, like an org chart. The bars only
  * draw on wide screens; on narrow ones the children simply stack.

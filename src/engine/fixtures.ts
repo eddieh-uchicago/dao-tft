@@ -42,7 +42,7 @@ export function makeComp(
     targetItems,
     opener: { units: [carry], note: "" },
     slams: [],
-    stages: { stage1: "", stage2: "", stage3: "" },
+    stages: [{ stage: "Stage 1", tip: "test" }],
     augmentModifiers: [],
     frontlineAlternatives: [],
     ...extra,

@@ -26,7 +26,7 @@ export const CompSchema = z.object({
   targetItems: z.array(TargetItemSchema).min(1).max(14),
   opener: z.object({ units: z.array(Id).min(1), note: z.string() }),
   slams: z.array(z.object({ item: Id, unit: Id, note: z.string() })),
-  stages: z.object({ stage1: z.string(), stage2: z.string(), stage3: z.string() }),
+  stages: z.array(z.object({ stage: z.string().min(1), tip: z.string().min(1) })).min(1),
   /** Capped at 5 per comp (PRD open question 2). */
   augmentModifiers: z
     .array(z.object({ augment: Id, bonus: z.number().min(-0.4).max(0.4), note: z.string() }))

@@ -8,7 +8,7 @@ import { AugmentPanel } from "./AugmentPanel";
 import { BoardPicker } from "./BoardPicker";
 import { ComponentPicker } from "./ComponentPicker";
 import { HeldItemsPicker } from "./HeldItemsPicker";
-import { Branch, Connector, FlowLabel } from "./flow";
+import { Branch, Connector, FlowLabel, SideArrow } from "./flow";
 import { RecommendationCard } from "./RecommendationCard";
 import { ScoutPanel } from "./ScoutPanel";
 
@@ -52,7 +52,7 @@ export function RouterApp() {
   );
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8">
+    <main className="mx-auto max-w-7xl px-4 py-8">
       {!showBoard && (
         <div className="mx-auto mb-6 max-w-2xl text-center">
           <h1 className="text-3xl font-semibold text-gold">What are you holding?</h1>
@@ -63,7 +63,7 @@ export function RouterApp() {
         </div>
       )}
 
-      <div className="grid items-start gap-4 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-5xl items-start gap-4 lg:grid-cols-2">
         <ComponentPicker />
         <HeldItemsPicker />
       </div>
@@ -85,31 +85,36 @@ export function RouterApp() {
       {showResults && (
         <>
           <h1 className="sr-only">Your options</h1>
-          <div className="pb-4">
-            <Connector />
-            <FlowLabel>Compositions you can play</FlowLabel>
-          </div>
-
-          <Branch>
-            {Array.from({ length: BRANCHES }, (_, i) => (
-              <div key={ranking[i].comp.slug}>{card(i)}</div>
-            ))}
-          </Branch>
-
-          <details className="mt-6 rounded-lg border border-line bg-panel/60 p-4">
-            <summary className="cursor-pointer text-sm text-muted hover:text-gold-bright">
-              {extra.length} more option{extra.length === 1 ? "" : "s"}
-            </summary>
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
-              {extra.map((rec, i) => (
-                <div key={rec.comp.slug}>{card(BRANCHES + i)}</div>
-              ))}
-            </div>
-          </details>
-
           <Connector />
-          <div className="animate-pop mx-auto max-w-2xl">
-            <ScoutPanel />
+
+          {/* Opponents feed into the recommendations: contested comps rank lower. */}
+          <div className="grid items-start gap-4 lg:grid-cols-[auto_minmax(0,1fr)]">
+            <div className="animate-pop flex flex-col items-center lg:flex-row">
+              <div className="w-full max-w-2xl lg:w-72">
+                <ScoutPanel />
+              </div>
+              <SideArrow />
+            </div>
+
+            <div className="min-w-0">
+              <FlowLabel>Compositions you can play</FlowLabel>
+              <Branch>
+                {Array.from({ length: BRANCHES }, (_, i) => (
+                  <div key={ranking[i].comp.slug}>{card(i)}</div>
+                ))}
+              </Branch>
+
+              <details className="mt-6 rounded-lg border border-line bg-panel/60 p-4">
+                <summary className="cursor-pointer text-sm text-muted hover:text-gold-bright">
+                  {extra.length} more option{extra.length === 1 ? "" : "s"}
+                </summary>
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                  {extra.map((rec, i) => (
+                    <div key={rec.comp.slug}>{card(BRANCHES + i)}</div>
+                  ))}
+                </div>
+              </details>
+            </div>
           </div>
         </>
       )}

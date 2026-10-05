@@ -114,16 +114,10 @@ export default async function CompPage({ params }: PageProps<"/comp/[slug]">) {
 
       <Panel title="Stage by stage">
         <dl className="space-y-3 text-sm">
-          {(
-            [
-              ["Stage 1", comp.stages.stage1],
-              ["Stage 2", comp.stages.stage2],
-              ["Stage 3", comp.stages.stage3],
-            ] as const
-          ).map(([label, text]) => (
-            <div key={label}>
-              <dt className="font-semibold text-gold">{label}</dt>
-              <dd className="text-muted">{text}</dd>
+          {comp.stages.map(({ stage, tip }) => (
+            <div key={stage}>
+              <dt className="font-semibold text-gold">{stage}</dt>
+              <dd className="text-muted">{tip}</dd>
             </div>
           ))}
         </dl>

@@ -9,7 +9,8 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
-    "fetch-data": "tsx scripts/fetch-cdragon.ts"
+    "fetch-data": "tsx scripts/fetch-cdragon.ts",
+    "fetch-comps": "tsx scripts/fetch-tftacademy.ts"
   },
   "dependencies": {
     "next": "16.3.8",

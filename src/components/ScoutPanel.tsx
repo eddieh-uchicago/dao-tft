@@ -11,13 +11,13 @@ export function ScoutPanel() {
   const setOpponent = useGame((s) => s.setOpponent);
 
   return (
-    <Panel title="Scout" hint="What is each opponent playing? Contested comps rank lower">
-      <ul className="grid gap-2 sm:grid-cols-2">
+    <Panel title="Opponent Compositions" hint="Contested comps rank lower">
+      <ul className="space-y-2">
         {opponents.map((slug, i) => {
           const label = `Opponent ${i + 1}`;
           return (
             <li key={i} className="flex items-center gap-2">
-              <label htmlFor={`opponent-${i}`} className="w-24 shrink-0 text-sm text-muted">
+              <label htmlFor={`opponent-${i}`} className="w-20 shrink-0 text-sm text-muted">
                 {label}
               </label>
               <select

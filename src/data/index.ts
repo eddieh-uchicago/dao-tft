@@ -3,6 +3,7 @@ import { TftEngine } from "@/engine/router";
 import augments21Json from "./augments-2-1.json";
 import augments32Json from "./augments-3-2.json";
 import augments42Json from "./augments-4-2.json";
+import compsTftAcademy from "./comps-tftacademy.json";
 import { CompSchema, StageAugmentsSchema, type Comp, type Snapshot } from "./schema";
 import snapshotJson from "./snapshot.json";
 import { validateComps } from "./validate";
@@ -38,6 +39,8 @@ const raw: unknown[] = [
   riftbeastReroll,
   veigarReroll,
 ];
+// Converted from TFT Academy's tier list by scripts/fetch-tftacademy.ts.
+raw.push(...compsTftAcademy.comps);
 export const comps: Comp[] = raw.map((c) => CompSchema.parse(c));
 
 const problems = validateComps(comps, catalog);

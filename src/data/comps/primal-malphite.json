@@ -48,11 +48,20 @@
     "note": "AD items. Prioritize Infinity Edge."
   },
   "slams": [],
-  "stages": {
-    "stage1": "Slam only items the carry or its trait unit will hold later. Otherwise keep components flexible.",
-    "stage2": "Stay on the cheapest board that fits the trait. Decide between this line and the alternative by 3-2, once you know your items.",
-    "stage3": "Level for the carry and tanks, and pivot to a connected comp if your items stop fitting."
-  },
+  "stages": [
+    {
+      "stage": "Stage 1",
+      "tip": "Slam only items the carry or its trait unit will hold later. Otherwise keep components flexible."
+    },
+    {
+      "stage": "Stage 2",
+      "tip": "Stay on the cheapest board that fits the trait. Decide between this line and the alternative by 3-2, once you know your items."
+    },
+    {
+      "stage": "Stage 3",
+      "tip": "Level for the carry and tanks, and pivot to a connected comp if your items stop fitting."
+    }
+  ],
   "augmentModifiers": [
     {
       "augment": "DA_18_PrimalAugment_Nidalee",

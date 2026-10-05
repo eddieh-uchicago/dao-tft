@@ -45,11 +45,20 @@
     "note": "An artifact, or a Consuming Flora emblem."
   },
   "slams": [],
-  "stages": {
-    "stage1": "Pick up the carry's cheap relatives and components. A slam is only worth it if it goes on a unit you will keep.",
-    "stage2": "Hit the opener and start collecting copies of the carry. Hold the components for its BiS items until the carry's copies are on your bench.",
-    "stage3": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
-  },
+  "stages": [
+    {
+      "stage": "Stage 1",
+      "tip": "Pick up the carry's cheap relatives and components. A slam is only worth it if it goes on a unit you will keep."
+    },
+    {
+      "stage": "Stage 2",
+      "tip": "Hit the opener and start collecting copies of the carry. Hold the components for its BiS items until the carry's copies are on your bench."
+    },
+    {
+      "stage": "Stage 3",
+      "tip": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
+    }
+  ],
   "augmentModifiers": [
     {
       "augment": "DA_18_FloraFatalisAugment",
