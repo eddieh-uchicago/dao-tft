@@ -3,7 +3,8 @@
  * comp format, to src/data/comps-tftacademy.json. Units, items and augments the
  * snapshot does not know are dropped, so run `npm run fetch-data` first after a
  * patch. Comps already covered by a hand-written comp in src/data/comps are
- * skipped (see COVERED).
+ * skipped (see COVERED), but their artifacts and emblems are kept in
+ * `curatedKeyItems` and merged into the hand-written comp.
  *
  * Usage: npm run fetch-comps
  */
@@ -45,6 +46,7 @@ interface GuideUnit {
   boardIndex?: number;
 }
 interface Guide {
+  maxCap: GuideUnit[];
   title: string;
   tier: string;
   style: string;
@@ -92,6 +94,23 @@ const PLAY_WHEN: Record<string, string> = {
   "4-Cost Fast 8": "You can reach level 8 on time with enough gold to roll for {carry}",
   "Fast 9": "You have the economy to reach level 9 and find {carry}",
 };
+
+/** Artifacts and emblems the guide builds anywhere: final board, alternate builds or level 10 cap. */
+function keyItems(guide: Guide, snapshot: Snapshot): Comp["keyItems"] {
+  const units = new Set(snapshot.units.map((u) => u.id));
+  const special = new Set([
+    ...snapshot.uncraftables.map((u) => u.id),
+    ...snapshot.items.filter((i) => i.kind === "emblem").map((i) => i.id),
+  ]);
+  const found: Comp["keyItems"] = [];
+  for (const u of [...guide.finalComp, ...guide.maxCap, ...guide.altBuilds.flat()]) {
+    if (!units.has(u.apiName)) continue;
+    for (const item of u.items) {
+      if (special.has(item) && !found.some((k) => k.item === item)) found.push({ item, unit: u.apiName });
+    }
+  }
+  return found;
+}
 
 function convert(guide: Guide, snapshot: Snapshot): Comp {
   const units = new Map(snapshot.units.map((u) => [u.id, u]));
@@ -159,6 +178,7 @@ function convert(guide: Guide, snapshot: Snapshot): Comp {
         note: `TFT Academy recommends ${augments.get(a.apiName)} for this comp.`,
       })),
     frontlineAlternatives: [],
+    keyItems: keyItems(guide, snapshot),
   };
 }
 
@@ -182,9 +202,13 @@ async function main() {
     .filter((g) => g.isPublic && g.displayIndex < ARCHIVED_FROM && g.finalComp.length)
     .sort((a, b) => a.displayIndex - b.displayIndex);
   const comps = live.filter((g) => !COVERED[g.title.trim()]).map((g) => convert(g, snapshot));
+  // Hand-written comps keep their own data but pick up the guide's artifacts and emblems.
+  const curatedKeyItems = Object.fromEntries(
+    live.filter((g) => COVERED[g.title.trim()]).map((g) => [COVERED[g.title.trim()], keyItems(g, snapshot)]),
+  );
 
   const out = resolve(__dirname, "../src/data/comps-tftacademy.json");
-  const file = { source: PAGE, patch, fetchedAt: new Date().toISOString().slice(0, 10), comps };
+  const file = { source: PAGE, patch, fetchedAt: new Date().toISOString().slice(0, 10), comps, curatedKeyItems };
   writeFileSync(out, JSON.stringify(file, null, 2) + "\n");
   console.log(`Wrote ${out}: ${comps.length} comps (${live.length - comps.length} already hand-written)`);
 }

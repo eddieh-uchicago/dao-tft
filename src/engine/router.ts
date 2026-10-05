@@ -1,12 +1,14 @@
-import type { Comp, Tier } from "@/data/schema";
+import type { Comp, ItemStats, Tier } from "@/data/schema";
 import { allocate, claimHeld, optimisticBound } from "./allocate";
 import { augmentEffect, tagRecommendations } from "./augments";
 import { Catalog, bagSize, withComponent } from "./catalog";
+import { NO_ITEM_STATS, heldItemEffect, slotFillers } from "./items";
 import { scoutPenalty } from "./scout";
 import type {
   Allocation,
   AugmentId,
   AugmentOutcome,
+  BuiltItem,
   ComponentBag,
   Fit,
   GameState,
@@ -28,8 +30,16 @@ export function fitFor(score: number): Fit {
   return FIT_BANDS.find(([min]) => score >= min)?.[1] ?? "D";
 }
 
-/** Most a perfectly matching board can add to a comp's score. */
-export const BOARD_WEIGHT = 0.15;
+/**
+ * Most a perfectly matching board can add to a comp's score, by player level.
+ * Early boards (levels 3-6) are cheap to replace, so items decide the comp;
+ * the board only counts fully once it is committed at 8 and above.
+ */
+export function boardWeight(level: number): number {
+  if (level <= 6) return 0.05;
+  if (level === 7) return 0.1;
+  return 0.15;
+}
 /** Credit for a board unit that is not in the comp but shares a trait with its end board. */
 const TRAIT_MATCH = 0.5;
 
@@ -48,6 +58,7 @@ export class TftEngine {
   constructor(
     readonly catalog: Catalog,
     readonly comps: Comp[],
+    readonly itemStats: ItemStats = NO_ITEM_STATS,
   ) {
     for (const comp of comps) {
       this.targets.set(
@@ -76,11 +87,11 @@ export class TftEngine {
    * items furthest, and what it completes or builds toward. Best first.
    */
   hitNext(comp: Comp, state: GameState): HitTarget[] {
-    const before = this.allocationWithHeld(comp, state.components, state.items);
+    const before = this.holdings(comp, state.components, state.items).allocation;
     const had = new Set(before.built.map((b) => b.item));
     return this.catalog.componentIds
       .map((component): HitTarget => {
-        const after = this.allocationWithHeld(comp, withComponent(state.components, component), state.items);
+        const after = this.holdings(comp, withComponent(state.components, component), state.items).allocation;
         return {
           component,
           gain: after.value - before.value,
@@ -111,9 +122,7 @@ export class TftEngine {
   }
 
   private evaluate(comp: Comp, state: GameState, augments: AugmentId[]): Recommendation {
-    const allocation = this.allocationWithHeld(comp, state.components, state.items);
-    const { claimed, rest } = claimHeld(this.targets.get(comp.slug)!, state.items);
-    const heldWeight = claimed.reduce((sum, b) => sum + b.weight, 0);
+    const { allocation, heldWeight, rest, spare } = this.holdings(comp, state.components, state.items);
     const bound =
       heldWeight +
       optimisticBound(
@@ -122,10 +131,11 @@ export class TftEngine {
       );
     const coverage = bound > 0 ? Math.min(1, allocation.value / bound) : 0;
     const { bonus, notes } = augmentEffect(comp, augments);
+    const held = heldItemEffect(comp, spare, this.catalog, this.itemStats);
     const penalty = scoutPenalty(comp, state.scout);
     const { fit: boardFit, matches } = this.boardFit(comp, state.board);
-    const boardBonus = BOARD_WEIGHT * boardFit;
-    const score = coverage * TIER_WEIGHT[comp.tier] + bonus + boardBonus - penalty;
+    const boardBonus = boardWeight(state.level) * boardFit;
+    const score = coverage * TIER_WEIGHT[comp.tier] + bonus + held.bonus + boardBonus - penalty;
     return {
       comp,
       tier: comp.tier,
@@ -135,6 +145,8 @@ export class TftEngine {
       allocation,
       augmentBonus: bonus,
       augmentNotes: notes,
+      itemBonus: held.bonus,
+      itemNotes: held.notes,
       scoutPenalty: penalty,
       boardMatches: matches,
       boardBonus,
@@ -160,16 +172,44 @@ export class TftEngine {
     return { fit: total / board.length, matches };
   }
 
-  /** Held items claim their targets first; components craft the rest. */
-  private allocationWithHeld(comp: Comp, bag: ComponentBag, held: string[]): Allocation {
-    const { claimed, rest } = claimHeld(this.targets.get(comp.slug)!, held);
-    const heldWeight = claimed.reduce((sum, b) => sum + b.weight, 0);
-    const crafted = this.allocationFor(comp.slug, rest, bag, held);
-    return { ...crafted, built: [...claimed, ...crafted.built], value: crafted.value + heldWeight };
+  /**
+   * What the player can field for a comp. Held items claim their own targets
+   * first. A held artifact or emblem the comp's unit would wear then takes one
+   * of that unit's item slots, whichever leaves the components the most to
+   * build. Components craft the rest.
+   */
+  private holdings(
+    comp: Comp,
+    bag: ComponentBag,
+    held: string[],
+  ): { allocation: Allocation; heldWeight: number; rest: TargetEntry[]; spare: string[] } {
+    const { claimed, rest: unclaimed, spare } = claimHeld(this.targets.get(comp.slug)!, held);
+    let rest = unclaimed;
+    const fills: BuiltItem[] = [];
+    for (const { item, unit } of slotFillers(comp, spare, this.catalog, this.itemStats)) {
+      let best: { slot: TargetEntry; value: number } | undefined;
+      for (const slot of rest.filter((t) => t.unit === unit)) {
+        const value = slot.weight + this.allocationFor(comp.slug, rest.filter((t) => t !== slot), bag).value;
+        if (!best || value > best.value) best = { slot, value };
+      }
+      if (!best) continue;
+      const { slot } = best;
+      // The artifact stands in for the slot's item, so it keeps that item's weight and recipe.
+      fills.push({ ...slot, item, replaces: slot.item, uses: [], held: true });
+      rest = rest.filter((t) => t !== slot);
+    }
+    const heldWeight = [...claimed, ...fills].reduce((sum, b) => sum + b.weight, 0);
+    const crafted = this.allocationFor(comp.slug, rest, bag);
+    return {
+      allocation: { ...crafted, built: [...claimed, ...fills, ...crafted.built], value: crafted.value + heldWeight },
+      heldWeight,
+      rest,
+      spare,
+    };
   }
 
-  private allocationFor(slug: string, targets: TargetEntry[], bag: ComponentBag, held: string[]): Allocation {
-    const key = `${slug}|${bagKey(bag)}|${[...held].sort().join(",")}`;
+  private allocationFor(slug: string, targets: TargetEntry[], bag: ComponentBag): Allocation {
+    const key = `${slug}|${bagKey(bag)}|${targets.map((t) => `${t.item}@${t.unit}`).join(",")}`;
     let result = this.allocations.get(key);
     if (!result) {
       result = allocate(targets, bag);

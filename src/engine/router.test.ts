@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { ITEM, TEST_COMPS, emptyState, makeComp, testEngine } from "./fixtures";
+import type { ItemStats } from "@/data/schema";
+import { ITEM, TEST_COMPS, catalog, emptyState, makeComp, testEngine } from "./fixtures";
+import { NO_ITEM_STATS } from "./items";
 import { carrySwaps, openFrontline, scoutFromOpponents, scoutPenalty } from "./scout";
-import { fitFor } from "./router";
+import { boardWeight, fitFor } from "./router";
+import type { Recommendation } from "./types";
 
 describe("rank", () => {
   it("puts the comp whose items the components build on top", () => {
@@ -228,6 +231,122 @@ describe("board", () => {
     const other = makeComp("other", "A", "u-other", items);
     const ranking = testEngine([other, bloom]).rank({ ...emptyState(bag), board: [KARMA] });
     expect(ranking[0].comp.slug).toBe("bloom");
+  });
+
+  it("counts for less while the board is still early", () => {
+    const at = (level: number) => testEngine([bloom]).rank({ ...emptyState(bag), board: [KARMA], level })[0];
+    expect(at(4).boardBonus).toBeCloseTo(boardWeight(4));
+    expect(at(4).boardBonus).toBeLessThan(at(7).boardBonus);
+    expect(at(7).boardBonus).toBeLessThan(at(8).boardBonus);
+    expect(at(10).boardBonus).toBeCloseTo(0.15);
+  });
+
+  it("loses to a held artifact early, but not once the board is committed", () => {
+    // Same items and tier; the board fits "bloom" perfectly, the artifact suits "other"'s carry.
+    const other = makeComp("other", "A", "u-other", items);
+    const stats = { ...NO_ITEM_STATS, holders: { DA_Artifact_Dawncore: [{ unit: "u-other", delta: -0.2 }] } };
+    const state = { ...emptyState(bag), board: [KARMA], items: ["DA_Artifact_Dawncore"] };
+    const top = (level: number) => testEngine([bloom, other], stats).rank({ ...state, level })[0].comp.slug;
+    expect(top(4)).toBe("other");
+    expect(top(8)).toBe("bloom");
+  });
+});
+
+describe("held artifacts and emblems", () => {
+  const DAWNCORE = "DA_Artifact_Dawncore";
+  const stats = (holders: ItemStats["holders"], topItems: ItemStats["topItems"] = {}): ItemStats => ({
+    ...NO_ITEM_STATS,
+    holders,
+    topItems,
+  });
+  const find = (ranking: Recommendation[], slug: string) => ranking.find((r) => r.comp.slug === slug)!;
+  const held = (items: string[]) => ({ ...emptyState({ BFSword: 1 }), items });
+
+  it("push the comp a guide builds them in", () => {
+    const comps = [...TEST_COMPS, makeComp("dawn", "C", "u-dawn", [[ITEM.bramble, 3]], { keyItems: [{ item: DAWNCORE, unit: "u-dawn" }] })];
+    const without = find(testEngine(comps).rank(emptyState({ BFSword: 1 })), "dawn");
+    const withIt = find(testEngine(comps).rank(held([DAWNCORE])), "dawn");
+    expect(withIt.itemBonus).toBeCloseTo(0.2);
+    // It also fills the carry's only slot, so the comp is now fully covered.
+    expect(withIt.coverage).toBe(1);
+    expect(withIt.score - without.score).toBeGreaterThan(0.2);
+    expect(withIt.itemNotes[0]).toContain("Dawncore");
+  });
+
+  it("fill one of the wearer's item slots, the one components cannot build", () => {
+    const comp = makeComp("yi", "A", "u-yi", [[ITEM.infinityEdge, 3], [ITEM.rabadons, 3]], {
+      keyItems: [{ item: "DA_Artifact_NavoriFlickerblade", unit: "u-yi" }],
+    });
+    const state = { ...emptyState({ BFSword: 1, SparringGloves: 1 }), items: ["DA_Artifact_NavoriFlickerblade"] };
+    const rec = testEngine([comp]).rank(state)[0];
+    expect(rec.allocation.built).toContainEqual(
+      expect.objectContaining({ item: "DA_Artifact_NavoriFlickerblade", replaces: ITEM.rabadons, held: true }),
+    );
+    expect(rec.allocation.built.map((b) => b.item)).toContain(ITEM.infinityEdge);
+    expect(rec.coverage).toBe(1);
+  });
+
+  it("fill a carry's slot when only tactics.tools rates them on it", () => {
+    const comp = makeComp("veigar", "A", "u-veigar", [[ITEM.rabadons, 3]]);
+    const stats = { ...NO_ITEM_STATS, holders: { [DAWNCORE]: [{ unit: "u-veigar", delta: -0.5 }] } };
+    const rec = testEngine([comp], stats).rank(held([DAWNCORE]))[0];
+    expect(rec.allocation.built[0]).toMatchObject({ item: DAWNCORE, replaces: ITEM.rabadons });
+  });
+
+  it("take no slot on a unit the comp builds nothing for", () => {
+    const comp = makeComp("jugg", "A", "u-carry", [[ITEM.rabadons, 3]], {
+      keyItems: [{ item: "DA_18_EmblemJuggernaut", unit: "u-kennen" }],
+    });
+    const rec = testEngine([comp]).rank(held(["DA_18_EmblemJuggernaut"]))[0];
+    expect(rec.allocation.built).toEqual([]);
+    expect(rec.itemBonus).toBeCloseTo(0.2);
+  });
+
+  it("weigh tactics.tools holders by how much they help, carries over the rest of the board", () => {
+    const comps = [
+      makeComp("carry", "A", "u-veigar", [[ITEM.rabadons, 3]]),
+      makeComp("board", "A", "u-other", [[ITEM.rabadons, 3]], { endBoard: ["u-other", "u-veigar"] }),
+    ];
+    const ranking = testEngine(comps, stats({ [DAWNCORE]: [{ unit: "u-veigar", delta: -0.5 }] })).rank(held([DAWNCORE]));
+    expect(find(ranking, "carry").itemBonus).toBeCloseTo(0.3);
+    expect(find(ranking, "board").itemBonus).toBeCloseTo(0.15);
+    expect(ranking[0].comp.slug).toBe("carry");
+  });
+
+  it("add a little more when a guide and the stats agree, up to a cap", () => {
+    const keyItems = [{ item: DAWNCORE, unit: "u-veigar" }];
+    const comp = makeComp("both", "A", "u-veigar", [[ITEM.rabadons, 3]], { keyItems });
+    const agree = (delta: number) =>
+      testEngine([comp], stats({ [DAWNCORE]: [{ unit: "u-veigar", delta }] })).rank(held([DAWNCORE]))[0].itemBonus;
+    expect(agree(-0.2)).toBeCloseTo(0.2 + 0.5 * 0.12);
+    expect(agree(-0.9)).toBeCloseTo(0.4);
+  });
+
+  it("favour comps that already run the emblem's trait", () => {
+    const juggernauts = catalog.snapshot.units.filter((u) => u.traits.includes("Juggernaut")).map((u) => u.id);
+    const comp = makeComp("jugg", "B", juggernauts[0], [[ITEM.warmogs, 3]], { endBoard: juggernauts.slice(0, 2) });
+    const rec = testEngine([comp]).rank(held(["DA_18_EmblemJuggernaut"]))[0];
+    expect(rec.itemBonus).toBeGreaterThan(0);
+    expect(rec.itemNotes[0]).toContain("Juggernaut");
+  });
+
+  it("give a small push for a held item a carry commonly builds", () => {
+    const comp = makeComp("ad", "A", "u-sniper", [[ITEM.infinityEdge, 3]]);
+    const rec = testEngine([comp], stats({}, { "u-sniper": [ITEM.deathblade] })).rank(held([ITEM.deathblade]))[0];
+    expect(rec.itemBonus).toBeCloseTo(0.05);
+  });
+
+  it("do not count twice for an item the comp already builds", () => {
+    const rec = find(testEngine(TEST_COMPS, stats({}, { "u-mage": [ITEM.rabadons] })).rank(held([ITEM.rabadons])), "ap-mage");
+    expect(rec.itemBonus).toBe(0);
+  });
+
+  it("are capped across a bench of artifacts", () => {
+    const items = ["DA_Artifact_Dawncore", "DA_Artifact_LudensTempest", "DA_Artifact_Manazane"];
+    const comp = makeComp("dawn", "C", "u-dawn", [[ITEM.bramble, 3]], {
+      keyItems: items.map((item) => ({ item, unit: "u-dawn" })),
+    });
+    expect(testEngine([comp]).rank(held(items))[0].itemBonus).toBeCloseTo(0.45);
   });
 });
 

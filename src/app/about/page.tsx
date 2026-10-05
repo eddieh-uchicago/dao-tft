@@ -24,12 +24,30 @@ export default function About() {
           <p>
             That value is divided by the most a comp could score from the number of components you hold, so a comp with
             a long flex list is not punished. It is then multiplied by the comp&apos;s tier (S 1.0, A 0.85, B 0.7, C 0.5).
-            Augments add a bonus, units on your board add up to 0.15 (full credit for a unit the comp plays, half for one that shares a trait), and opponents playing the same units subtract a penalty. The letter shown on each
-            card is a label for that final score, not a win rate.
+            Augments add a bonus, held artifacts and emblems add a bonus (below), units on your board add a smaller one
+            (full credit for a unit the comp plays, half for one that shares a trait), and opponents playing the same
+            units subtract a penalty. The letter shown on each card is a label for that final score, not a win rate.
           </p>
           <p>
             The same search powers &ldquo;Slam now&rdquo; (items it chose to build) and &ldquo;Hit next&rdquo; (it re-runs with one
             extra component and reports the gain).
+          </p>
+        </div>
+      </Panel>
+
+      <Panel title="Items before units">
+        <div className="space-y-3 text-sm text-muted">
+          <p>
+            Units on a level 3-6 board are cheap to replace; items are not. So your board adds at most 0.05 to a
+            comp&apos;s score until level 7 (0.1), and only counts fully (0.15) from level 8.
+          </p>
+          <p>
+            Artifacts and emblems point you at comps. A held one takes one of its wearer&apos;s item slots (the unit a guide
+            puts it on, or the carry tactics.tools rates best with it), so that comp needs one fewer crafted item. It also
+            adds 0.2 if TFT
+            Academy builds it in that comp, plus the placement gain tactics.tools measures for it on the comp&apos;s
+            carry (or, at half strength, another unit on its board). An emblem also helps comps that already run its
+            trait. One item adds at most 0.4, and all of them together 0.45.
           </p>
         </div>
       </Panel>
@@ -42,7 +60,7 @@ export default function About() {
             five augment modifiers.
           </p>
           <p>
-            Scouting is manual: tell Dao TFT how many opponents hold a unit. A contested carry or frontline lowers a
+            Scouting is manual: pick the comp each opponent is playing. A contested carry or frontline lowers a
             comp&apos;s score, and Dao TFT suggests uncontested comps that reuse your items.
           </p>
         </div>

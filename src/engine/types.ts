@@ -21,6 +21,8 @@ export interface GameState {
   board: UnitId[];
   augments: AugmentId[];
   scout: ScoutState;
+  /** Player level; the board counts for more as it rises. */
+  level: number;
 }
 
 /** A target item with its recipe resolved against the catalog. */
@@ -35,6 +37,8 @@ export interface BuiltItem extends TargetEntry {
   /** Components consumed to craft it; empty if the player already holds the item. */
   uses: ComponentId[];
   held?: boolean;
+  /** Set when a held artifact or emblem (`item`) fills this target's slot instead of its own item. */
+  replaces?: ItemId;
 }
 
 /** A target item that is not built: what is already in hand and what is still needed. */
@@ -63,6 +67,9 @@ export interface Recommendation {
   allocation: Allocation;
   augmentBonus: number;
   augmentNotes: string[];
+  /** Pull from held artifacts, emblems and items the comp does not already build. */
+  itemBonus: number;
+  itemNotes: string[];
   scoutPenalty: number;
   /** Board units that appear in this comp's opener or end board. */
   boardMatches: UnitId[];

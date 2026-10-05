@@ -10,7 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "fetch-data": "tsx scripts/fetch-cdragon.ts",
-    "fetch-comps": "tsx scripts/fetch-tftacademy.ts"
+    "fetch-comps": "tsx scripts/fetch-tftacademy.ts",
+    "fetch-items": "tsx scripts/fetch-tactics-items.ts"
   },
   "dependencies": {
     "next": "16.3.8",

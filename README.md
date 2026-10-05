@@ -30,6 +30,7 @@ npm test           # engine + data tests
 npm run build      # also validates every comp against the data snapshot
 npm run fetch-data # refresh src/data/snapshot.json from Community Dragon
 npm run fetch-comps # refresh src/data/comps-tftacademy.json from TFT Academy's tier list
+npm run fetch-items # refresh src/data/item-stats.json (artifact/emblem holders) from tactics.tools
 ```
 
 ## How the ranking works
@@ -47,8 +48,11 @@ Infeasible branches are cut as soon as the pool runs out, and a bag holds a hand
 [`src/engine/router.ts`](src/engine/router.ts) turns that into a score:
 
 ```
-score = (value / best possible value for n components) × tier weight + augment bonus + board bonus − scout penalty
+score = (value / best possible value for n components) × tier weight
+      + augment bonus + held item bonus + board bonus − scout penalty
 ```
+
+**Items lead, the early board follows.** A held artifact or emblem also takes one of its wearer's item slots: the unit TFT Academy puts it on, or the comp carry tactics.tools rates highest with it. It fills whichever of that unit's items the components could least afford, so the comp's fit rises as if that item were built. On top of that, held artifacts and emblems that a comp does not already build pull toward it ([`src/engine/items.ts`](src/engine/items.ts)): +0.2 if TFT Academy builds the item in that comp, plus the placement gain tactics.tools measures for the item on the comp's carry (×0.6) or another end-board unit (×0.3), or +0.08 for an emblem whose trait the comp already runs. An item's best reason counts in full and agreeing reasons add half; one item adds at most 0.4 and all of them 0.45. The board adds at most 0.05 at levels 3-6, 0.1 at 7 and 0.15 from 8, because an early board is cheap to replace and items are not.
 
 Normalising by the best possible value for the number of components held means a comp with a long flex list is not punished. The same search drives the other features: *Slam now* is the items it chose to craft, and *Hit next* re-runs it with one extra component and reports the gain.
 
@@ -58,7 +62,7 @@ Normalising by the best possible value for the number of components held means a
 src/engine/    pure TypeScript, no React: allocation, ranking, augments, scouting
 src/data/      comp schema (zod), curated comps/*.json, TFT Academy comps, Community Dragon snapshot, validation
 src/components, src/app, src/store   Next.js App Router UI, Zustand session state
-scripts/       fetch-cdragon.ts builds the snapshot, fetch-tftacademy.ts converts TFT Academy comps
+scripts/       fetch-cdragon.ts builds the snapshot, fetch-tftacademy.ts converts TFT Academy comps, fetch-tactics-items.ts pulls item stats
 ```
 
 The engine runs entirely in the browser, so results are instant and the whole site is static.

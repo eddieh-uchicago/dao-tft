@@ -76,7 +76,14 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits }: Prop
           {held.length > 0 && (
             <p className="mt-1 text-xs text-muted">
               Already holding{" "}
-              {held.map((b) => `${catalog.item(b.item).name} for ${catalog.unit(b.unit).name}`).join(", ")}.
+              {held
+                .map(
+                  (b) =>
+                    `${catalog.holdable(b.item)?.name ?? b.item} for ${catalog.unit(b.unit).name}` +
+                    (b.replaces ? ` (in place of ${catalog.item(b.replaces).name})` : ""),
+                )
+                .join(", ")}
+              .
             </p>
           )}
         </div>
@@ -121,8 +128,16 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits }: Prop
         </div>
       </div>
 
-      {(rec.augmentNotes.length > 0 || rec.scoutPenalty > 0 || rec.boardMatches.length > 0) && (
+      {(rec.itemNotes.length > 0 ||
+        rec.augmentNotes.length > 0 ||
+        rec.scoutPenalty > 0 ||
+        rec.boardMatches.length > 0) && (
         <ul className="mt-3 space-y-1 border-t border-line pt-3 text-sm">
+          {rec.itemNotes.map((n) => (
+            <li key={n} className="text-good">
+              + {n}
+            </li>
+          ))}
           {rec.boardMatches.length > 0 && (
             <li className="text-good">
               + Your board already plays {rec.boardMatches.map((u) => catalog.unit(u).name).join(", ")}.

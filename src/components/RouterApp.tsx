@@ -20,6 +20,7 @@ export function RouterApp() {
   const items = useGame((s) => s.items);
   const board = useGame((s) => s.board);
   const augments = useGame((s) => s.augments);
+  const level = useGame((s) => s.level);
   const scout = useScout();
   const boardSkipped = useGame((s) => s.boardSkipped);
   const augmentSkipped = useGame((s) => s.augmentSkipped);
@@ -30,8 +31,8 @@ export function RouterApp() {
   const showResults = showAugment && (augments.length > 0 || augmentSkipped);
 
   const state = useMemo(
-    () => ({ components, items, board, augments, scout }),
-    [components, items, board, augments, scout],
+    () => ({ components, items, board, augments, scout, level }),
+    [components, items, board, augments, scout, level],
   );
   const ranking = useMemo(() => engine.rank(state), [state]);
   const hits = useMemo(

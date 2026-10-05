@@ -4,7 +4,8 @@ import augments21Json from "./augments-2-1.json";
 import augments32Json from "./augments-3-2.json";
 import augments42Json from "./augments-4-2.json";
 import compsTftAcademy from "./comps-tftacademy.json";
-import { CompSchema, StageAugmentsSchema, type Comp, type Snapshot } from "./schema";
+import itemStatsJson from "./item-stats.json";
+import { CompSchema, ItemStatsSchema, StageAugmentsSchema, type Comp, type Snapshot } from "./schema";
 import snapshotJson from "./snapshot.json";
 import { validateComps } from "./validate";
 
@@ -41,7 +42,12 @@ const raw: unknown[] = [
 ];
 // Converted from TFT Academy's tier list by scripts/fetch-tftacademy.ts.
 raw.push(...compsTftAcademy.comps);
-export const comps: Comp[] = raw.map((c) => CompSchema.parse(c));
+const curatedKeyItems: Record<string, Comp["keyItems"]> = compsTftAcademy.curatedKeyItems;
+export const comps: Comp[] = raw.map((c) => {
+  const comp = CompSchema.parse(c);
+  const extra = curatedKeyItems[comp.slug] ?? [];
+  return extra.length ? { ...comp, keyItems: [...comp.keyItems, ...extra] } : comp;
+});
 
 const problems = validateComps(comps, catalog);
 if (problems.length) throw new Error(`Invalid comp data:\n${problems.join("\n")}`);
@@ -60,6 +66,7 @@ export const augmentStages = (
   return { stage, ...pool };
 });
 
-export const engine = new TftEngine(catalog, comps);
+export const itemStats = ItemStatsSchema.parse(itemStatsJson);
+export const engine = new TftEngine(catalog, comps, itemStats);
 
 export const compBySlug = (slug: string) => comps.find((c) => c.slug === slug);

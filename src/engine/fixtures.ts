@@ -1,5 +1,5 @@
 import snapshot from "@/data/snapshot.json";
-import type { Comp, Snapshot, TargetItem, Tier } from "@/data/schema";
+import type { Comp, ItemStats, Snapshot, TargetItem, Tier } from "@/data/schema";
 import { Catalog } from "./catalog";
 import { TftEngine } from "./router";
 import type { ComponentBag, GameState } from "./types";
@@ -45,6 +45,7 @@ export function makeComp(
     stages: [{ stage: "Stage 1", tip: "test" }],
     augmentModifiers: [],
     frontlineAlternatives: [],
+    keyItems: [],
     ...extra,
   };
 }
@@ -55,6 +56,7 @@ export const emptyState = (components: ComponentBag = {}): GameState => ({
   board: [],
   augments: [],
   scout: { contested: {} },
+  level: 8,
 });
 
 export const TEST_COMPS: Comp[] = [
@@ -80,4 +82,4 @@ export const TEST_COMPS: Comp[] = [
   ]),
 ];
 
-export const testEngine = (comps: Comp[] = TEST_COMPS) => new TftEngine(catalog, comps);
+export const testEngine = (comps: Comp[] = TEST_COMPS, stats?: ItemStats) => new TftEngine(catalog, comps, stats);

@@ -31,6 +31,10 @@ export function validateComps(comps: Comp[], catalog: Catalog): string[] {
       item(s.item, "slams");
       unit(s.unit, "slams");
     });
+    comp.keyItems.forEach((k) => {
+      if (!catalog.holdable(k.item)) problems.push(`${where} unknown key item "${k.item}"`);
+      unit(k.unit, "keyItems");
+    });
     comp.augmentModifiers.forEach((m) => {
       if (!catalog.hasAugment(m.augment)) problems.push(`${where} unknown augment "${m.augment}"`);
     });

@@ -32,6 +32,8 @@ export const CompSchema = z.object({
     .array(z.object({ augment: Id, bonus: z.number().min(-0.4).max(0.4), note: z.string() }))
     .max(5),
   frontlineAlternatives: z.array(Id),
+  /** Artifacts and emblems the comp is built around; holding one pushes the player toward it. */
+  keyItems: z.array(z.object({ item: Id, unit: Id })).default([]),
 });
 
 export type TargetItem = z.infer<typeof TargetItemSchema>;
@@ -49,6 +51,18 @@ export const StageAugmentsSchema = z.object({
   augments: z.array(z.object({ id: Id, tier: z.enum(AUGMENT_TIERS) })).min(1),
 });
 export type StageAugments = z.infer<typeof StageAugmentsSchema>;
+
+/** Item stats from tactics.tools (see scripts/fetch-tactics-items.ts). */
+export const ItemStatsSchema = z.object({
+  source: z.string().url(),
+  statsUpdated: z.string(),
+  fetchedAt: z.string(),
+  /** Artifact or emblem id -> units it lifts most; `delta` is the change in average placement (negative is better). */
+  holders: z.record(z.string(), z.array(z.object({ unit: Id, delta: z.number().max(0) }))),
+  /** Unit id -> its most-built completed items. */
+  topItems: z.record(z.string(), z.array(Id)),
+});
+export type ItemStats = z.infer<typeof ItemStatsSchema>;
 
 export interface SnapshotItem {
   id: string;

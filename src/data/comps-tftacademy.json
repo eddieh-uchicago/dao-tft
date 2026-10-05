@@ -131,7 +131,13 @@
           "note": "TFT Academy recommends Spreading Roots for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemJuggernaut",
+          "unit": "DA_18_Kennen"
+        }
+      ]
     },
     {
       "slug": "6-juggernaut-flex",
@@ -263,7 +269,13 @@
           "note": "TFT Academy recommends Seraphim's Staff for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemJuggernaut",
+          "unit": "DA_18_Kennen"
+        }
+      ]
     },
     {
       "slug": "aphelios-nidalee",
@@ -407,7 +419,13 @@
           "note": "TFT Academy recommends Buried Treasures III for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_Artifact_SilvermereDawn",
+          "unit": "DA_Nidalee18_AP"
+        }
+      ]
     },
     {
       "slug": "dragon-9",
@@ -558,7 +576,13 @@
           "note": "TFT Academy recommends Duo Queue for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_Artifact_GoldCollector",
+          "unit": "DA_18_ElderDragon"
+        }
+      ]
     },
     {
       "slug": "moo-nara",
@@ -683,7 +707,17 @@
           "note": "TFT Academy recommends Solo Plate for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemBlackthorn",
+          "unit": "DA_18_Yunara"
+        },
+        {
+          "item": "DA_Artifact_Dawncore",
+          "unit": "DA_18_Yunara"
+        }
+      ]
     },
     {
       "slug": "woodblossom",
@@ -807,7 +841,13 @@
           "note": "TFT Academy recommends Swordsmith for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemExecutioner",
+          "unit": "DA_18_Ahri"
+        }
+      ]
     },
     {
       "slug": "yi-rengar",
@@ -960,7 +1000,25 @@
           "note": "TFT Academy recommends Nesting Anvils for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemBrawler",
+          "unit": "DA_18_MasterYi_AD"
+        },
+        {
+          "item": "DA_Artifact_WitsEnd",
+          "unit": "DA_18_MasterYi_AD"
+        },
+        {
+          "item": "DA_Artifact_NavoriFlickerblade",
+          "unit": "DA_18_MasterYi_AD"
+        },
+        {
+          "item": "DA_Artifact_RapidFireCannon",
+          "unit": "DA_18_MasterYi_AD"
+        }
+      ]
     },
     {
       "slug": "warwick-reroll",
@@ -1074,7 +1132,13 @@
           "note": "TFT Academy recommends Heroic Grab Bag+ for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_Artifact_Mittens",
+          "unit": "DA_18_Warwick"
+        }
+      ]
     },
     {
       "slug": "solar-melee",
@@ -1215,7 +1279,25 @@
           "note": "TFT Academy recommends Worth the Wait for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_Artifact_Fishbones",
+          "unit": "DA_18_Camille"
+        },
+        {
+          "item": "DA_Artifact_LichBane",
+          "unit": "DA_18_Akali_AD"
+        },
+        {
+          "item": "DA_Artifact_Dawncore",
+          "unit": "DA_18_Akali_AD"
+        },
+        {
+          "item": "DA_Artifact_RapidFireCannon",
+          "unit": "DA_18_Akali_AD"
+        }
+      ]
     },
     {
       "slug": "rengar-reroll",
@@ -1350,7 +1432,33 @@
           "note": "TFT Academy recommends Booster Pack for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_Artifact_Mittens",
+          "unit": "DA_18_Rengar"
+        },
+        {
+          "item": "DA_Artifact_RapidFireCannon",
+          "unit": "DA_18_Rengar"
+        },
+        {
+          "item": "DA_Artifact_HellfireHatchet",
+          "unit": "DA_18_Rengar"
+        },
+        {
+          "item": "DA_Artifact_NavoriFlickerblade",
+          "unit": "DA_18_Rengar"
+        },
+        {
+          "item": "DA_Artifact_InfinityForce",
+          "unit": "DA_18_Rengar"
+        },
+        {
+          "item": "DA_Artifact_TitanicHydra",
+          "unit": "DA_18_Rengar"
+        }
+      ]
     },
     {
       "slug": "invoker-nidalee",
@@ -1479,7 +1587,21 @@
           "note": "TFT Academy recommends Beast Within+ for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_Artifact_BlightingJewel",
+          "unit": "DA_18_Morgana"
+        },
+        {
+          "item": "DA_Artifact_NavoriFlickerblade",
+          "unit": "DA_Nidalee18_AP"
+        },
+        {
+          "item": "DA_Artifact_StatikkShiv",
+          "unit": "DA_Nidalee18_AP"
+        }
+      ]
     },
     {
       "slug": "teemowood",
@@ -1599,7 +1721,8 @@
           "note": "TFT Academy recommends Solo Plate for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": []
     },
     {
       "slug": "solar-kayle",
@@ -1721,7 +1844,37 @@
           "note": "TFT Academy recommends Heroic Grab Bag+ for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_Artifact_NavoriFlickerblade",
+          "unit": "DA_18_Kayle"
+        },
+        {
+          "item": "DA_Artifact_WitsEnd",
+          "unit": "DA_18_Kayle"
+        },
+        {
+          "item": "DA_Artifact_StatikkShiv",
+          "unit": "DA_18_Kayle"
+        },
+        {
+          "item": "DA_Artifact_Mittens",
+          "unit": "DA_18_Kayle"
+        },
+        {
+          "item": "DA_Artifact_RapidFireCannon",
+          "unit": "DA_18_Kayle"
+        },
+        {
+          "item": "DA_Item_Artifact_TalismanOfAscension",
+          "unit": "DA_18_Kayle"
+        },
+        {
+          "item": "DA_Artifact_ZhonyasParadox",
+          "unit": "DA_18_Kayle"
+        }
+      ]
     },
     {
       "slug": "trait-ladder",
@@ -1851,7 +2004,13 @@
           "note": "TFT Academy recommends U.R.F for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemSlayer",
+          "unit": "DA_18_KhaZix"
+        }
+      ]
     },
     {
       "slug": "inferno-fast-9",
@@ -2009,7 +2168,13 @@
           "note": "TFT Academy recommends The Trait Tree for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemInferno",
+          "unit": "DA_18_Ashe"
+        }
+      ]
     },
     {
       "slug": "veigar-consuming-flora",
@@ -2110,7 +2275,17 @@
           "note": "TFT Academy recommends Consuming Flora for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_Artifact_Dawncore",
+          "unit": "DA_18_Veigar"
+        },
+        {
+          "item": "DA_Artifact_LudensTempest",
+          "unit": "DA_18_Veigar"
+        }
+      ]
     },
     {
       "slug": "emblem-rengar",
@@ -2241,7 +2416,17 @@
           "note": "TFT Academy recommends The Trait Tree for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemSprykin",
+          "unit": "DA_18_Rengar"
+        },
+        {
+          "item": "DA_18_EmblemFae",
+          "unit": "DA_18_Rengar"
+        }
+      ]
     },
     {
       "slug": "ravager-elise",
@@ -2394,7 +2579,13 @@
           "note": "TFT Academy recommends Heroic Grab Bag+ for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemSlayer",
+          "unit": "DA_18_Elise"
+        }
+      ]
     },
     {
       "slug": "fae-tristana",
@@ -2521,7 +2712,17 @@
           "note": "TFT Academy recommends Spreading Roots for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": [
+        {
+          "item": "DA_18_EmblemFae",
+          "unit": "DA_18_Sivir"
+        },
+        {
+          "item": "DA_Artifact_NavoriFlickerblade",
+          "unit": "DA_18_Tristana"
+        }
+      ]
     },
     {
       "slug": "unrivaled-reroll",
@@ -2657,7 +2858,153 @@
           "note": "TFT Academy recommends Big Grab Bag for this comp."
         }
       ],
-      "frontlineAlternatives": []
+      "frontlineAlternatives": [],
+      "keyItems": []
     }
-  ]
+  ],
+  "curatedKeyItems": {
+    "flora-malphite": [
+      {
+        "item": "DA_Artifact_MogulsMail",
+        "unit": "DA_18_Malphite"
+      },
+      {
+        "item": "DA_Artifact_LightshieldCrest",
+        "unit": "DA_18_Malphite"
+      },
+      {
+        "item": "DA_Artifact_TheIndomitable",
+        "unit": "DA_18_Malphite"
+      },
+      {
+        "item": "DA_18_EmblemExecutioner",
+        "unit": "DA_18_Zyra"
+      }
+    ],
+    "khazix-reroll": [
+      {
+        "item": "DA_Artifact_LichBane",
+        "unit": "DA_18_KhaZix"
+      },
+      {
+        "item": "DA_Artifact_WitsEnd",
+        "unit": "DA_18_KhaZix"
+      },
+      {
+        "item": "DA_Artifact_SeekersArmguard",
+        "unit": "DA_18_KhaZix"
+      },
+      {
+        "item": "DA_Artifact_LudensTempest",
+        "unit": "DA_18_KhaZix"
+      },
+      {
+        "item": "DA_Artifact_Dawncore",
+        "unit": "DA_18_KhaZix"
+      },
+      {
+        "item": "DA_Artifact_ZhonyasParadox",
+        "unit": "DA_18_KhaZix"
+      }
+    ],
+    "azir-rammus-reroll": [
+      {
+        "item": "DA_Artifact_NavoriFlickerblade",
+        "unit": "DA_18_Azir"
+      },
+      {
+        "item": "DA_Artifact_LightshieldCrest",
+        "unit": "DA_18_Rammus"
+      }
+    ],
+    "invoker-morgana-ahri": [
+      {
+        "item": "DA_18_EmblemInvoker",
+        "unit": "DA_18_Ahri"
+      }
+    ],
+    "draven-fast-9": [
+      {
+        "item": "DA_Artifact_GoldCollector",
+        "unit": "DA_Draven18"
+      },
+      {
+        "item": "DA_Artifact_NavoriFlickerblade",
+        "unit": "DA_Draven18"
+      },
+      {
+        "item": "DA_Artifact_Fishbones",
+        "unit": "DA_Draven18"
+      },
+      {
+        "item": "DA_Artifact_MogulsMail",
+        "unit": "DA_18_Maokai"
+      },
+      {
+        "item": "DA_Artifact_VoidGauntlet",
+        "unit": "DA_18_Maokai"
+      },
+      {
+        "item": "DA_Artifact_LightshieldCrest",
+        "unit": "DA_18_Maokai"
+      }
+    ],
+    "veigar-reroll": [
+      {
+        "item": "DA_Artifact_Dawncore",
+        "unit": "DA_18_Veigar"
+      },
+      {
+        "item": "DA_Artifact_LudensTempest",
+        "unit": "DA_18_Veigar"
+      }
+    ],
+    "caitlyn-reroll": [
+      {
+        "item": "DA_Artifact_NavoriFlickerblade",
+        "unit": "DA_18_Caitlyn"
+      },
+      {
+        "item": "DA_Artifact_GamblersBlade",
+        "unit": "DA_18_Caitlyn"
+      },
+      {
+        "item": "DA_Artifact_GoldCollector",
+        "unit": "DA_18_Caitlyn"
+      }
+    ],
+    "defender-cassiopeia": [
+      {
+        "item": "DA_18_EmblemDefender",
+        "unit": "DA_18_Rengar"
+      },
+      {
+        "item": "DA_Artifact_Manazane",
+        "unit": "DA_18_Cassiopeia"
+      },
+      {
+        "item": "DA_Artifact_Dawncore",
+        "unit": "DA_18_Cassiopeia"
+      },
+      {
+        "item": "DA_Artifact_BlightingJewel",
+        "unit": "DA_18_Cassiopeia"
+      },
+      {
+        "item": "DA_Artifact_EternalPact",
+        "unit": "DA_18_Cassiopeia"
+      }
+    ],
+    "primal-malphite": [
+      {
+        "item": "DA_18_EmblemHunter",
+        "unit": "DA_Nidalee18_AP"
+      },
+      {
+        "item": "DA_Artifact_SilvermereDawn",
+        "unit": "DA_Nidalee18_AP"
+      }
+    ],
+    "riftbeast-reroll": []
+  }
 }
