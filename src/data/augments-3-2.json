@@ -1,0 +1,508 @@
+{
+  "patch": "18.3b",
+  "source": "https://tactics.tools/info/augments",
+  "checkedAt": "2026-10-05",
+  "note": "Augments that can be offered at the 3-2 selection. Dark Ritual is omitted while disabled in 18.3b.",
+  "augments": [
+    {
+      "id": "DA_AdvancedLoanPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_ArcaneViktory",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_Ascension",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_AugmentedPower",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_BandOfThieves",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_BandOfThievesIIPlus",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_BaronsLair",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_18_PrimalAugment_Nidalee",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_18_PrimalAugment_Sivir",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_BeltOverflow",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_18_BigGrabBag",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_BonusGiftPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_BoosterPackPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_BoxingLessons",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_18_BranchingOutPlus",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_BronzeForLifeI",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_BronzeForLifeII",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_CelestialBlessingI",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_CelestialBlessingII",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_CelestialBlessingIII",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_ChallengersGrace",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_ChampDeliveryPlus",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_ClockworkAccelerator",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_CognitiveOverload",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_CognitiveTaxPlus",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_18_FloraFatalisAugment",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_Coronation",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_Corrosion",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_CryMeARiver",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_CyberneticImplants_Gold",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_CyberneticUplink_Gold",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_Dummify",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_ElectrochargeI",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_ElectrochargeII",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_18_FaeTraitAugment",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_EpicRolldown",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_EpochPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_ExclusiveCustomization",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_ExplosiveGrowth",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_FeelingLucky",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_FindYourCenter",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_FocusedFire",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_18_FOURcing",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_GainGold",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_GiantAndMighty",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_GlassCannon_Silver",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_GlassCannon_Gold",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_GoldDestinyPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_GoldenGamblePlus",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_GroupHugI",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_GroupHugII",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_HealingOrbsI",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_HealingOrbsII",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_HeroicGrabBagPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_HoldTheLine",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_InvestedPlus",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_ItsMeBaby",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_BlackthornTraitAugment",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_ItemGrabBag",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_JeweledLotus_I",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_JeweledLotus_II",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_Kingslayer",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_LateGameSpecialist",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_LuckyGlovesPlus",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_LuxurySubscription",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_MagicRoll",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_MakeshiftArmorI",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_MakeshiftArmorII",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_Min_Max",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_MissedConnections",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_MoneyHungryPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_18_ElderwoodTraitAugment",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_NestingAnvils",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_NestingDollsPlus",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_18_RiftbeastTraitAugment",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_OneBuffTwoBuff",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_PandorasBench",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_PandorasItemsI",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_PandorasItemsII",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_PandorasItemsIII",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_PartialAscension",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_Pilfer",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_PlotArmor",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_PortableForge",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_PrismaticDestinyPlus",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_PrismaticTicket",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_PromisedProtection",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_RadiantRascal",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_RadiantRelic",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_Recombobulator",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_Replication",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_18_ResidualMagicPlus",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_Retribution",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_RollingForDays",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_SalvageBinPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_SeraphimsStaff",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_SilverDestinyPlus",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_SlamminPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_18_SprykinAugment",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_SmallGrabBag",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_SoloPlate",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_SoulAwakening",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_SpiritOfRedemption",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_SpreadingRootsPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_StandUnited",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_18_LunarTraitAugment",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_SweetTreats",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_SwordOverflow",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_TeamBuilding",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_TheGoldenDragon",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_TheTower",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_TheTraitTreePlus",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_TonsOfStatsI",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_TonsOfStatsII",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_TradeSectorPlus",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_TwinGuardians",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_URF",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_18_RivalsAugment",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_UrfsGrabBag",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_VerticalityI",
+      "tier": "silver"
+    },
+    {
+      "id": "DA_VerticalityII",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_VerticalityIII",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_WandOverflow",
+      "tier": "prismatic"
+    },
+    {
+      "id": "DA_18_WeightTheWorth",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_18_WispRebatePlus",
+      "tier": "silver"
+    }
+  ]
+}

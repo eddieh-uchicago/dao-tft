@@ -1,9 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { augments21, catalog, comps, engine } from "@/data";
+import { augmentStages, catalog, comps, engine } from "@/data";
 import type { AugmentTier } from "@/data/schema";
-import { MAX_OFFERS, useGame } from "@/store/useGame";
+import type { Recommendation } from "@/engine/types";
+import { useGame } from "@/store/useGame";
 import { FlowNode } from "./flow";
 import { TagPill } from "./ui";
 
@@ -26,140 +27,144 @@ function augmentLabel(id: string): string {
 }
 
 export function AugmentPanel() {
+  const augments = useGame((s) => s.augments);
+  const skipped = useGame((s) => s.augmentSkipped);
+  const skip = useGame((s) => s.skipAugment);
+
+  return (
+    <FlowNode
+      step={3}
+      title="Your augments"
+      hint={`Click the augment you took at each selection, in order · patch ${augmentStages[0].patch}`}
+    >
+      <div className="space-y-3">
+        {augmentStages.map((pool, i) => (
+          <StagePanel key={pool.stage} selection={i} />
+        ))}
+      </div>
+
+      {augments.length === 0 && !skipped && (
+        <button onClick={skip} className="mt-3 text-sm text-muted underline decoration-line hover:text-gold-bright">
+          No augment yet — show my options
+        </button>
+      )}
+    </FlowNode>
+  );
+}
+
+function StagePanel({ selection }: { selection: number }) {
   const [filter, setFilter] = useState("");
   const components = useGame((s) => s.components);
   const items = useGame((s) => s.items);
+  const board = useGame((s) => s.board);
   const augments = useGame((s) => s.augments);
   const scout = useGame((s) => s.scout);
-  const offers = useGame((s) => s.offers);
-  const toggleOffer = useGame((s) => s.toggleOffer);
-  const take = useGame((s) => s.takeAugment);
-  const drop = useGame((s) => s.dropAugment);
-  const skip = useGame((s) => s.skipAugment);
-  const board = useGame((s) => s.board);
+  const pick = useGame((s) => s.pickAugment);
+
+  const pool = augmentStages[selection];
+  const locked = selection > augments.length;
+  const picked = augments[selection];
 
   const options = useMemo(() => {
     const q = filter.trim().toLowerCase();
-    return augments21.augments
-      .filter((a) => !augments.includes(a.id) && (!q || augmentLabel(a.id).toLowerCase().includes(q)))
+    return pool.augments
+      .filter(
+        (a) =>
+          a.id === picked ||
+          (!augments.includes(a.id) && (!q || augmentLabel(a.id).toLowerCase().includes(q))),
+      )
       .sort(
         (a, b) =>
           Number(relevant.has(b.id)) - Number(relevant.has(a.id)) ||
           TIER_ORDER[a.tier] - TIER_ORDER[b.tier] ||
           augmentLabel(a.id).localeCompare(augmentLabel(b.id)),
       );
-  }, [filter, augments]);
+  }, [pool, filter, augments, picked]);
 
-  const advice = useMemo(
-    () => engine.adviseAugments({ components, items, board, augments, scout }, offers),
-    [components, items, board, augments, scout, offers],
-  );
+  // How this pick moved the ranking, compared with the picks before it.
+  const outcome = useMemo(() => {
+    if (!picked) return null;
+    const before = { components, items, board, augments: augments.slice(0, selection), scout };
+    return engine.adviseAugments(before, [picked])[0];
+  }, [picked, selection, components, items, board, augments, scout]);
 
   return (
-    <FlowNode
-      step={3}
-      title="Your 2-1 augment"
-      hint={`Select up to ${MAX_OFFERS} offers to compare, then take one · patch ${augments21.patch}`}
-    >
-      {augments.length > 0 && (
-        <ul className="mb-3 flex flex-wrap gap-1.5">
-          {augments.map((id) => (
-            <li key={id}>
-              <button
-                onClick={() => drop(id)}
-                className="rounded-full border border-gold px-2.5 py-1 text-xs text-gold hover:bg-panel-2"
-                title="Remove this augment"
-              >
-                {augmentLabel(id)} ×
-              </button>
+    <div className={`rounded-lg border p-3 ${picked ? "border-gold/60" : "border-line"} ${locked ? "opacity-50" : ""}`}>
+      <h3 className="mb-2 flex items-baseline justify-between gap-2 text-sm font-semibold">
+        <span>{pool.stage} augment</span>
+        {picked && <span className="truncate text-xs font-normal text-gold">{augmentLabel(picked)}</span>}
+      </h3>
+
+      {locked ? (
+        <p className="text-xs text-muted">Pick your {augmentStages[selection - 1].stage} augment first.</p>
+      ) : (
+        <>
+          <input
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            placeholder="Search augments you are offered"
+            aria-label={`Search ${pool.stage} augments`}
+            className="mb-2 w-full rounded-md border border-line bg-ink px-3 py-1.5 text-sm placeholder:text-muted"
+          />
+          <ul className="flex max-h-32 flex-wrap gap-1.5 overflow-y-auto">
+            {options.map((a) => {
+              const on = a.id === picked;
+              return (
+                <li key={a.id}>
+                  <button
+                    onClick={() => {
+                      pick(selection, a.id);
+                      setFilter("");
+                    }}
+                    aria-pressed={on}
+                    title={`${a.tier[0].toUpperCase()}${a.tier.slice(1)} augment`}
+                    className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs ${
+                      on
+                        ? "border-gold bg-gold text-ink"
+                        : relevant.has(a.id)
+                          ? "border-line text-gold-bright hover:border-gold"
+                          : "border-line text-muted hover:border-muted"
+                    }`}
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${TIER_DOT[a.tier]}`} aria-hidden />
+                    {augmentLabel(a.id)}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
+
+      {outcome && <Outcome ranking={outcome.ranking} topChanged={outcome.topChanged} />}
+    </div>
+  );
+}
+
+function Outcome({ ranking, topChanged }: { ranking: Recommendation[]; topChanged: boolean }) {
+  const tagged = ranking.slice(0, 3).filter((r) => r.tags.length);
+  const boosted = ranking.filter((r) => r.augmentBonus > 0).map((r) => r.comp.name);
+  return (
+    <div className="mt-3 border-t border-line pt-2 text-xs text-muted">
+      <p>
+        Best comp is <span className="text-gold-bright">{ranking[0].comp.name}</span>
+        {topChanged ? " (this changed your top pick)" : ""}.
+      </p>
+      {tagged.length > 0 && (
+        <ul className="mt-1 space-y-1">
+          {tagged.map((r) => (
+            <li key={r.comp.slug} className="flex flex-wrap items-center gap-2 text-gold-bright">
+              {r.tags.map((t) => (
+                <TagPill key={t} tag={t} />
+              ))}
+              <span>{r.comp.name}</span>
             </li>
           ))}
         </ul>
       )}
-
-      <input
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-        placeholder="Search augments you are offered"
-        aria-label="Search augments"
-        className="mb-2 w-full rounded-md border border-line bg-ink px-3 py-1.5 text-sm placeholder:text-muted"
-      />
-      <ul className="flex max-h-32 flex-wrap gap-1.5 overflow-y-auto">
-        {options.map((a) => {
-          const on = offers.includes(a.id);
-          return (
-            <li key={a.id}>
-              <button
-                onClick={() => {
-                  toggleOffer(a.id);
-                  setFilter("");
-                }}
-                aria-pressed={on}
-                title={`${a.tier[0].toUpperCase()}${a.tier.slice(1)} augment`}
-                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs ${
-                  on
-                    ? "border-gold bg-gold text-ink"
-                    : relevant.has(a.id)
-                      ? "border-line text-gold-bright hover:border-gold"
-                      : "border-line text-muted hover:border-muted"
-                }`}
-              >
-                <span className={`h-1.5 w-1.5 rounded-full ${TIER_DOT[a.tier]}`} aria-hidden />
-                {augmentLabel(a.id)}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-
-      {augments.length === 0 && (
-        <button onClick={skip} className="mt-3 text-sm text-muted underline decoration-line hover:text-gold-bright">
-          No augment yet — show my options
-        </button>
-      )}
-
-      {advice.length > 0 && (
-        <ul className="mt-4 space-y-3 border-t border-line pt-3">
-          {advice.map(({ augment, ranking, topChanged }) => {
-            const tagged = ranking.slice(0, 3).filter((r) => r.tags.length);
-            const boosted = ranking.filter((r) => r.augmentBonus > 0).map((r) => r.comp.name);
-            return (
-              <li key={augment} className="text-sm">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-medium">{augmentLabel(augment)}</span>
-                  <button
-                    onClick={() => take(augment)}
-                    className="rounded border border-good px-2 py-0.5 text-xs text-good hover:bg-panel-2"
-                  >
-                    Take
-                  </button>
-                </div>
-                <p className="text-xs text-muted">
-                  Best comp becomes <span className="text-gold-bright">{ranking[0].comp.name}</span>
-                  {topChanged ? " (changes your top pick)" : ""}.
-                </p>
-                {tagged.length > 0 && (
-                  <ul className="mt-1 space-y-1">
-                    {tagged.map((r) => (
-                      <li key={r.comp.slug} className="flex flex-wrap items-center gap-2 text-xs">
-                        {r.tags.map((t) => (
-                          <TagPill key={t} tag={t} />
-                        ))}
-                        <span>{r.comp.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <p className="mt-1 text-xs text-muted">
-                  {boosted.length > 0
-                    ? `Boosts ${boosted.join(", ")}.`
-                    : "No curated comp is moved by this augment."}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </FlowNode>
+      <p className="mt-1">
+        {boosted.length > 0 ? `Your augments boost ${boosted.join(", ")}.` : "No curated comp is moved by your augments."}
+      </p>
+    </div>
   );
 }

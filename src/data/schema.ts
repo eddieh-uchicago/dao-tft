@@ -40,7 +40,7 @@ export type Comp = z.infer<typeof CompSchema>;
 export const AUGMENT_TIERS = ["silver", "gold", "prismatic"] as const;
 export type AugmentTier = (typeof AUGMENT_TIERS)[number];
 
-/** Hand-checked list of augments offered at the 2-1 selection (see src/data/augments-2-1.json). */
+/** Hand-checked list of augments offered at one selection (see src/data/augments-*.json). */
 export const StageAugmentsSchema = z.object({
   patch: z.string().min(1),
   source: z.string().url(),

@@ -1,13 +1,10 @@
 import { create } from "zustand";
 import type { AugmentId, ComponentId, GameState, ItemId, UnitId } from "@/engine/types";
 
-export const MAX_OFFERS = 3;
 export const MAX_CONTEST = 3;
 export const LEVELS = [2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface GameStore extends GameState {
-  /** Augments currently on offer, previewed before the player commits. */
-  offers: AugmentId[];
   /** The flow moves on without a board / augment when the player says they have none yet. */
   boardSkipped: boolean;
   augmentSkipped: boolean;
@@ -21,9 +18,11 @@ interface GameStore extends GameState {
   toggleUnit: (id: UnitId) => void;
   skipBoard: () => void;
   skipAugment: () => void;
-  toggleOffer: (id: AugmentId) => void;
-  takeAugment: (id: AugmentId) => void;
-  dropAugment: (id: AugmentId) => void;
+  /**
+   * Select or deselect the augment for one selection (0 = 2-1, 1 = 3-2, 2 = 4-2).
+   * Selections fill in order, so `augments[i]` is always the pick at selection i.
+   */
+  pickAugment: (selection: number, id: AugmentId) => void;
   setContested: (unit: UnitId, count: number) => void;
   reset: () => void;
 }
@@ -36,7 +35,6 @@ const initial = {
   boardSkipped: false,
   augmentSkipped: false,
   augments: [] as AugmentId[],
-  offers: [] as AugmentId[],
   scout: { contested: {} } as GameState["scout"],
 };
 
@@ -63,17 +61,13 @@ export const useGame = create<GameStore>((set) => ({
     }),
   skipBoard: () => set({ boardSkipped: true }),
   skipAugment: () => set({ augmentSkipped: true }),
-  toggleOffer: (id) =>
+  pickAugment: (selection, id) =>
     set((s) => {
-      if (s.offers.includes(id)) return { offers: s.offers.filter((o) => o !== id) };
-      return s.offers.length < MAX_OFFERS ? { offers: [...s.offers, id] } : s;
+      // Clearing a pick also clears the later ones, which depended on it.
+      if (s.augments[selection] === id) return { augments: s.augments.slice(0, selection) };
+      if (selection > s.augments.length || s.augments.some((a, i) => a === id && i !== selection)) return s;
+      return { augments: [...s.augments.slice(0, selection), id, ...s.augments.slice(selection + 1)] };
     }),
-  takeAugment: (id) =>
-    set((s) => ({
-      augments: s.augments.includes(id) ? s.augments : [...s.augments, id],
-      offers: [],
-    })),
-  dropAugment: (id) => set((s) => ({ augments: s.augments.filter((a) => a !== id) })),
   setContested: (unit, count) =>
     set((s) => {
       const contested = { ...s.scout.contested };

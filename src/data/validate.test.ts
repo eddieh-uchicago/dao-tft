@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { augments21, catalog, comps } from "./index";
+import { augmentStages, catalog, comps } from "./index";
 import { CompSchema } from "./schema";
 import { validateComps } from "./validate";
 
@@ -25,9 +25,9 @@ describe("curated comps", () => {
   });
 });
 
-describe("2-1 augment list", () => {
+describe.each(augmentStages)("$stage augment list", ({ augments }) => {
   it("only lists augments in the snapshot, once each", () => {
-    const ids = augments21.augments.map((a) => a.id);
+    const ids = augments.map((a) => a.id);
     expect(ids.filter((id) => !catalog.hasAugment(id))).toEqual([]);
     expect(new Set(ids).size).toBe(ids.length);
   });

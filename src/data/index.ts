@@ -1,6 +1,8 @@
 import { Catalog } from "@/engine/catalog";
 import { TftEngine } from "@/engine/router";
 import augments21Json from "./augments-2-1.json";
+import augments32Json from "./augments-3-2.json";
+import augments42Json from "./augments-4-2.json";
 import { CompSchema, StageAugmentsSchema, type Comp, type Snapshot } from "./schema";
 import snapshotJson from "./snapshot.json";
 import { validateComps } from "./validate";
@@ -41,9 +43,19 @@ export const comps: Comp[] = raw.map((c) => CompSchema.parse(c));
 const problems = validateComps(comps, catalog);
 if (problems.length) throw new Error(`Invalid comp data:\n${problems.join("\n")}`);
 
-export const augments21 = StageAugmentsSchema.parse(augments21Json);
-const unknownAugments = augments21.augments.filter((a) => !catalog.hasAugment(a.id)).map((a) => a.id);
-if (unknownAugments.length) throw new Error(`Unknown 2-1 augments: ${unknownAugments.join(", ")}`);
+/** The three augment selections, in the order they are offered. */
+export const augmentStages = (
+  [
+    ["2-1", augments21Json],
+    ["3-2", augments32Json],
+    ["4-2", augments42Json],
+  ] as const
+).map(([stage, json]) => {
+  const pool = StageAugmentsSchema.parse(json);
+  const unknown = pool.augments.filter((a) => !catalog.hasAugment(a.id)).map((a) => a.id);
+  if (unknown.length) throw new Error(`Unknown ${stage} augments: ${unknown.join(", ")}`);
+  return { stage, ...pool };
+});
 
 export const engine = new TftEngine(catalog, comps);
 
