@@ -37,6 +37,19 @@ export const CompSchema = z.object({
 export type TargetItem = z.infer<typeof TargetItemSchema>;
 export type Comp = z.infer<typeof CompSchema>;
 
+export const AUGMENT_TIERS = ["silver", "gold", "prismatic"] as const;
+export type AugmentTier = (typeof AUGMENT_TIERS)[number];
+
+/** Hand-checked list of augments offered at the 2-1 selection (see src/data/augments-2-1.json). */
+export const StageAugmentsSchema = z.object({
+  patch: z.string().min(1),
+  source: z.string().url(),
+  checkedAt: z.string(),
+  note: z.string(),
+  augments: z.array(z.object({ id: Id, tier: z.enum(AUGMENT_TIERS) })).min(1),
+});
+export type StageAugments = z.infer<typeof StageAugmentsSchema>;
+
 export interface SnapshotItem {
   id: string;
   name: string;
@@ -51,6 +64,13 @@ export interface SnapshotUnit {
   traits: string[];
   icon: string;
 }
+export interface SnapshotTrait {
+  id: string;
+  name: string;
+  icon: string;
+  /** Unit counts at which the trait activates a new tier, ascending. */
+  breakpoints: number[];
+}
 export interface Snapshot {
   set: number;
   source: string;
@@ -58,6 +78,6 @@ export interface Snapshot {
   components: { id: string; name: string; icon: string }[];
   items: SnapshotItem[];
   units: SnapshotUnit[];
-  traits: { id: string; name: string; icon: string }[];
+  traits: SnapshotTrait[];
   augments: { id: string; name: string; icon: string }[];
 }

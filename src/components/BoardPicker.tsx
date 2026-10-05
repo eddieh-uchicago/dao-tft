@@ -18,6 +18,8 @@ export function BoardPicker() {
   const full = board.length >= level;
   const skip = useGame((s) => s.skipBoard);
 
+  const traits = useMemo(() => boardTraits(board), [board]);
+
   const options = useMemo(() => {
     const q = filter.trim().toLowerCase();
     return catalog.snapshot.units.filter(
@@ -69,6 +71,31 @@ export function BoardPicker() {
         </ul>
       )}
 
+      {traits.length > 0 && (
+        <ul className="mb-3 flex flex-wrap gap-1.5" aria-label="Board traits">
+          {traits.map((t) => (
+            <li
+              key={t.name}
+              className={`flex items-center gap-1.5 rounded-md border px-1.5 py-0.5 text-xs ${
+                t.active ? "border-gold bg-panel-2" : "border-line text-muted"
+              }`}
+            >
+              {t.icon && <Icon src={t.icon} label={t.name} size={16} />}
+              <span className={t.active ? "font-medium" : ""}>{t.name}</span>
+              <span>
+                {t.breakpoints.map((b, i) => (
+                  <span key={b}>
+                    {i > 0 && <span className="text-muted">/</span>}
+                    <span className={t.count >= b ? "font-semibold text-gold-bright" : "text-muted"}>{b}</span>
+                  </span>
+                ))}
+              </span>
+              <span className="text-muted">({t.count})</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
       <input
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
@@ -108,4 +135,25 @@ export function BoardPicker() {
       )}
     </FlowNode>
   );
+}
+
+interface BoardTrait {
+  name: string;
+  icon: string;
+  count: number;
+  breakpoints: number[];
+  active: boolean;
+}
+
+/** Traits on the board with unit counts, active ones first. */
+function boardTraits(board: string[]): BoardTrait[] {
+  const counts = new Map<string, number>();
+  for (const id of board) for (const t of catalog.traitsOf(id)) counts.set(t, (counts.get(t) ?? 0) + 1);
+  return [...counts]
+    .map(([name, count]) => {
+      const trait = catalog.trait(name);
+      const breakpoints = trait?.breakpoints ?? [];
+      return { name, icon: trait?.icon ?? "", count, breakpoints, active: count >= (breakpoints[0] ?? Infinity) };
+    })
+    .sort((a, b) => Number(b.active) - Number(a.active) || b.count - a.count || a.name.localeCompare(b.name));
 }

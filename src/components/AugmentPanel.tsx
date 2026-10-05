@@ -1,12 +1,20 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { catalog, comps, engine } from "@/data";
+import { augments21, catalog, comps, engine } from "@/data";
+import type { AugmentTier } from "@/data/schema";
 import { MAX_OFFERS, useGame } from "@/store/useGame";
 import { FlowNode } from "./flow";
 import { TagPill } from "./ui";
 
 const relevant = new Set(comps.flatMap((c) => c.augmentModifiers.map((m) => m.augment)));
+
+const TIER_ORDER: Record<AugmentTier, number> = { silver: 0, gold: 1, prismatic: 2 };
+const TIER_DOT: Record<AugmentTier, string> = {
+  silver: "bg-slate-300",
+  gold: "bg-amber-400",
+  prismatic: "bg-fuchsia-400",
+};
 
 const nameCounts = new Map<string, number>();
 for (const a of catalog.snapshot.augments) nameCounts.set(a.name, (nameCounts.get(a.name) ?? 0) + 1);
@@ -31,9 +39,14 @@ export function AugmentPanel() {
 
   const options = useMemo(() => {
     const q = filter.trim().toLowerCase();
-    return catalog.snapshot.augments
+    return augments21.augments
       .filter((a) => !augments.includes(a.id) && (!q || augmentLabel(a.id).toLowerCase().includes(q)))
-      .sort((a, b) => Number(relevant.has(b.id)) - Number(relevant.has(a.id)) || a.name.localeCompare(b.name));
+      .sort(
+        (a, b) =>
+          Number(relevant.has(b.id)) - Number(relevant.has(a.id)) ||
+          TIER_ORDER[a.tier] - TIER_ORDER[b.tier] ||
+          augmentLabel(a.id).localeCompare(augmentLabel(b.id)),
+      );
   }, [filter, augments]);
 
   const advice = useMemo(
@@ -42,7 +55,11 @@ export function AugmentPanel() {
   );
 
   return (
-    <FlowNode step={3} title="Your 2-1 augment" hint={`Select up to ${MAX_OFFERS} offers to compare, then take one`}>
+    <FlowNode
+      step={3}
+      title="Your 2-1 augment"
+      hint={`Select up to ${MAX_OFFERS} offers to compare, then take one · patch ${augments21.patch}`}
+    >
       {augments.length > 0 && (
         <ul className="mb-3 flex flex-wrap gap-1.5">
           {augments.map((id) => (
@@ -77,7 +94,8 @@ export function AugmentPanel() {
                   setFilter("");
                 }}
                 aria-pressed={on}
-                className={`rounded-full border px-2.5 py-1 text-xs ${
+                title={`${a.tier[0].toUpperCase()}${a.tier.slice(1)} augment`}
+                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs ${
                   on
                     ? "border-gold bg-gold text-ink"
                     : relevant.has(a.id)
@@ -85,6 +103,7 @@ export function AugmentPanel() {
                       : "border-line text-muted hover:border-muted"
                 }`}
               >
+                <span className={`h-1.5 w-1.5 rounded-full ${TIER_DOT[a.tier]}`} aria-hidden />
                 {augmentLabel(a.id)}
               </button>
             </li>

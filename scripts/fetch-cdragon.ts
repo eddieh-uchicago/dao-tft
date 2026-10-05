@@ -25,6 +25,7 @@ interface RawTrait {
   apiName: string;
   name: string;
   icon: string;
+  effects?: { minUnits: number }[];
 }
 interface RawItem {
   apiName: string;
@@ -35,6 +36,7 @@ interface RawItem {
 }
 interface RawData {
   items: RawItem[];
+  setData: { mutator: string; augments: string[] }[];
   sets: Record<string, { champions: RawChampion[]; traits: RawTrait[] }>;
 }
 
@@ -82,7 +84,12 @@ async function main() {
     }))
     .sort((a, b) => a.id.localeCompare(b.id));
 
-  const traits = set.traits.map((t) => ({ id: t.apiName, name: t.name, icon: iconUrl(t.icon) }));
+  const traits = set.traits.map((t) => ({
+    id: t.apiName,
+    name: t.name,
+    icon: iconUrl(t.icon),
+    breakpoints: [...new Set((t.effects ?? []).map((e) => e.minUnits))].sort((a, b) => a - b),
+  }));
   const traitNames = new Set(traits.map((t) => t.name));
 
   const units = set.champions
@@ -97,8 +104,10 @@ async function main() {
     }))
     .sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name));
 
-  const augments = raw.items
-    .filter((i) => i.isAugment && i.apiName.startsWith("DA_18_"))
+  // The set's augment pool also lists legacy TFT_/TFTn_ ids; the live ones are DA_.
+  const pool = new Set(raw.setData.find((s) => s.mutator === `TFTSet${SET_KEY}`)?.augments ?? []);
+  const augments = [...new Map(raw.items.map((i) => [i.apiName, i])).values()]
+    .filter((i) => i.isAugment && i.apiName.startsWith("DA_") && pool.has(i.apiName))
     .map((i) => ({ id: i.apiName, name: i.name, icon: iconUrl(i.icon) }))
     .sort((a, b) => a.name.localeCompare(b.name));
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { catalog, comps } from "./index";
+import { augments21, catalog, comps } from "./index";
 import { CompSchema } from "./schema";
 import { validateComps } from "./validate";
 
@@ -22,6 +22,14 @@ describe("curated comps", () => {
         expect(t.weight).toBeLessThanOrEqual(3);
       }
     }
+  });
+});
+
+describe("2-1 augment list", () => {
+  it("only lists augments in the snapshot, once each", () => {
+    const ids = augments21.augments.map((a) => a.id);
+    expect(ids.filter((id) => !catalog.hasAugment(id))).toEqual([]);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 });
 

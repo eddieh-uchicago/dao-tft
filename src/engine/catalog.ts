@@ -1,4 +1,4 @@
-import type { Snapshot, SnapshotItem, SnapshotUnit } from "@/data/schema";
+import type { Snapshot, SnapshotItem, SnapshotTrait, SnapshotUnit } from "@/data/schema";
 import type { ComponentBag, ComponentId } from "./types";
 
 /** Lookup tables over a Community Dragon snapshot. */
@@ -6,6 +6,7 @@ export class Catalog {
   readonly componentIds: ComponentId[];
   private readonly items: Map<string, SnapshotItem>;
   private readonly units: Map<string, SnapshotUnit>;
+  private readonly traits: Map<string, SnapshotTrait>;
   private readonly componentNames: Map<string, string>;
   private readonly componentIcons: Map<string, string>;
   private readonly augmentNames: Map<string, string>;
@@ -14,6 +15,7 @@ export class Catalog {
     this.componentIds = snapshot.components.map((c) => c.id);
     this.items = new Map(snapshot.items.map((i) => [i.id, i]));
     this.units = new Map(snapshot.units.map((u) => [u.id, u]));
+    this.traits = new Map(snapshot.traits.map((t) => [t.name, t]));
     this.componentNames = new Map(snapshot.components.map((c) => [c.id, c.name]));
     this.componentIcons = new Map(snapshot.components.map((c) => [c.id, c.icon]));
     this.augmentNames = new Map(snapshot.augments.map((a) => [a.id, a.name]));
@@ -42,6 +44,10 @@ export class Catalog {
   /** Traits of a unit, or none if the id is unknown (comps may reference retired units). */
   traitsOf(id: string): string[] {
     return this.units.get(id)?.traits ?? [];
+  }
+  /** Trait by display name, which is how units reference their traits. */
+  trait(name: string): SnapshotTrait | undefined {
+    return this.traits.get(name);
   }
   componentName(id: ComponentId): string {
     return this.componentNames.get(id) ?? id;

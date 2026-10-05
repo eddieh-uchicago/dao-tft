@@ -1,6 +1,7 @@
 import { Catalog } from "@/engine/catalog";
 import { TftEngine } from "@/engine/router";
-import { CompSchema, type Comp, type Snapshot } from "./schema";
+import augments21Json from "./augments-2-1.json";
+import { CompSchema, StageAugmentsSchema, type Comp, type Snapshot } from "./schema";
 import snapshotJson from "./snapshot.json";
 import { validateComps } from "./validate";
 
@@ -39,6 +40,10 @@ export const comps: Comp[] = raw.map((c) => CompSchema.parse(c));
 
 const problems = validateComps(comps, catalog);
 if (problems.length) throw new Error(`Invalid comp data:\n${problems.join("\n")}`);
+
+export const augments21 = StageAugmentsSchema.parse(augments21Json);
+const unknownAugments = augments21.augments.filter((a) => !catalog.hasAugment(a.id)).map((a) => a.id);
+if (unknownAugments.length) throw new Error(`Unknown 2-1 augments: ${unknownAugments.join(", ")}`);
 
 export const engine = new TftEngine(catalog, comps);
 

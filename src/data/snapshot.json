@@ -1241,185 +1241,407 @@
     {
       "id": "DA_18_Elderwood",
       "name": "Elderwood",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_elderwood.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_elderwood.png",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        9,
+        11
+      ]
     },
     {
       "id": "DA_18_LuxUniqueTrait",
       "name": "Avatar",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_avatar.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_avatar.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_18_Slayer",
       "name": "Ravager",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_ravager.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_ravager.png",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ]
     },
     {
       "id": "DA_DravenUniqueTrait18",
       "name": "Bounty Seeker",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_bountyseeker.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_bountyseeker.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_18_Solar",
       "name": "Solar",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_solar.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_solar.png",
+      "breakpoints": [
+        3
+      ]
     },
     {
       "id": "DA_18_Sprykin",
       "name": "Sprykin",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_sprykin.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_sprykin.png",
+      "breakpoints": [
+        3,
+        5,
+        7
+      ]
     },
     {
       "id": "DA_18_Adaptor",
       "name": "Adaptor",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_adaptor.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_adaptor.png",
+      "breakpoints": [
+        2,
+        3,
+        4
+      ]
     },
     {
       "id": "DA_18_Coven",
       "name": "Coven",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_coven.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_coven.png",
+      "breakpoints": [
+        3,
+        4,
+        5,
+        7
+      ]
     },
     {
       "id": "DA_18_Eclipse",
       "name": "Eclipse",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_eclipse.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_eclipse.png",
+      "breakpoints": [
+        null
+      ]
     },
     {
       "id": "DA_18_Hunter",
       "name": "Hunter",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_hunter.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_hunter.png",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "id": "DA_18_Maokai_UniqueTrait",
       "name": "Old Growth",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgrowth.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgrowth.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_18_Battlemage",
       "name": "Monolith",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_monolith.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_monolith.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_Primal18",
       "name": "Primal",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_primal.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_primal.png",
+      "breakpoints": [
+        2,
+        4
+      ]
     },
     {
       "id": "DA_18_Greenfather",
       "name": "Greenfather",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_greenfather.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_greenfather.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_18_Invoker",
       "name": "Invoker",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_invoker.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_invoker.png",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "id": "DA_18_Rapidfire",
       "name": "Rapidfire",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rapidfire.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rapidfire.png",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "id": "DA_Juggernaut18",
       "name": "Juggernaut",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_juggernaut.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_juggernaut.png",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ]
     },
     {
       "id": "DA_18_Inferno",
       "name": "Inferno",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_inferno.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_inferno.png",
+      "breakpoints": [
+        2,
+        3,
+        5,
+        7
+      ]
     },
     {
       "id": "DA_AluneUniqueTrait18",
       "name": "Attuned",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_attuned.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_attuned.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_18_Rival",
       "name": "Rival",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rival.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_rival.png",
+      "breakpoints": [
+        1,
+        2
+      ]
     },
     {
       "id": "DA_18_Vanguard",
       "name": "Vanguard",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_vanguard.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_vanguard.png",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ]
     },
     {
       "id": "DA_18_Brawler",
       "name": "Brawler",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_brawler.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_brawler.png",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ]
     },
     {
       "id": "DA_18_Blackthorn",
       "name": "Blackthorn",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgod.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_oldgod.png",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ]
     },
     {
       "id": "DA_18_Executioner",
       "name": "Executioner",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_executioner.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_executioner.png",
+      "breakpoints": [
+        2,
+        3,
+        4
+      ]
     },
     {
       "id": "DA_18_ApexPredator",
       "name": "Apex Predator",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_apexpredator.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_apexpredator.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_Riftbeast18",
       "name": "Riftbeast",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_riftbeast.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_riftbeast.png",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        10
+      ]
     },
     {
       "id": "DA_18_Caustic",
       "name": "Caustic",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_caustic.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_caustic.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_18_Fae",
       "name": "Fae",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_fae.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_fae.png",
+      "breakpoints": [
+        2,
+        4
+      ]
     },
     {
       "id": "DA_18_Lunar",
       "name": "Lunar",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_lunar.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_lunar.png",
+      "breakpoints": [
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "id": "DA_18_Defender",
       "name": "Defender",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_defender.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_defender.png",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ]
     },
     {
       "id": "DA_18_Spellweaver",
       "name": "Spellweaver",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_spellweaver.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_spellweaver.png",
+      "breakpoints": [
+        2,
+        4,
+        6
+      ]
     },
     {
       "id": "DA_18_ZyraUniqueTrait",
       "name": "Thornmaiden",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_zyraorigin.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_zyraorigin.png",
+      "breakpoints": [
+        1
+      ]
     },
     {
       "id": "DA_FloraFatalis18",
       "name": "Flora Fatalis",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_florafatalis.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_florafatalis.png",
+      "breakpoints": [
+        1,
+        2
+      ]
     },
     {
       "id": "DA_18_Summoner",
       "name": "Summoner",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_summoner.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_summoner.png",
+      "breakpoints": [
+        2,
+        3
+      ]
     },
     {
       "id": "DA_18_Blossom",
       "name": "Blossom",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_blossom.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_blossom.png",
+      "breakpoints": [
+        3,
+        5,
+        7,
+        9,
+        11
+      ]
     },
     {
       "id": "DA_Emerald18",
       "name": "Emerald Aspect",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_emeraldaspect.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/ux/traiticons/trait_icon_18_emeraldaspect.png",
+      "breakpoints": [
+        1
+      ]
     }
   ],
   "augments": [
+    {
+      "id": "DA_AdvancedLoan",
+      "name": "Advanced Loan",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/advancedloan_ii.png"
+    },
+    {
+      "id": "DA_AdvancedLoanPlus",
+      "name": "Advanced Loan+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/advancedloan_ii.png"
+    },
+    {
+      "id": "DA_ArcaneViktory",
+      "name": "Arcane Viktor-y",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/arcaneviktory_ii.png"
+    },
+    {
+      "id": "DA_Ascension",
+      "name": "Ascension",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/ascension2.png"
+    },
+    {
+      "id": "DA_AugmentedPower",
+      "name": "Augmented Power",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/powerup_i.png"
+    },
+    {
+      "id": "DA_BacklineBlueprint",
+      "name": "Backline Blueprint",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/backlineblueprint_ii.png"
+    },
+    {
+      "id": "DA_BackupBows",
+      "name": "Backup Bows",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/recurvewrecker_i.png"
+    },
+    {
+      "id": "DA_BandOfThieves",
+      "name": "Band of Thieves",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bandthieves1.png"
+    },
+    {
+      "id": "DA_BandOfThievesII",
+      "name": "Band of Thieves II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bandthieves3.png"
+    },
+    {
+      "id": "DA_BandOfThievesIIPlus",
+      "name": "Band of Thieves II+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bandthieves3.png"
+    },
+    {
+      "id": "DA_BandOfThievesIIPlusPlus",
+      "name": "Band of Thieves II++",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bandthieves3.png"
+    },
+    {
+      "id": "DA_BaronsLair",
+      "name": "Baron's Lair",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/thebaronslair_iii.png"
+    },
     {
       "id": "DA_18_PrimalAugment_Sivir",
       "name": "Beast Within",
@@ -1441,14 +1663,64 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
     },
     {
+      "id": "DA_BeltOverflow",
+      "name": "Belt Overflow",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/beltoverflow_iii.png"
+    },
+    {
       "id": "DA_18_BigGrabBag",
       "name": "Big Grab Bag",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/grab-bag-ii.png"
     },
     {
+      "id": "DA_BirthdayPresent",
+      "name": "Birthday Present",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/golden-gifts-iii.png"
+    },
+    {
+      "id": "DA_BirthdayReunion",
+      "name": "Birthday Reunion",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/birthdayreunion_ii.png"
+    },
+    {
       "id": "DA_18_BlossomTraitAugment",
       "name": "Blossom's Call",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_BodyguardTraining",
+      "name": "Bodyguard Training",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bodyguardstraining_ii.png"
+    },
+    {
+      "id": "DA_BonusGift",
+      "name": "Bonus Gifts",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_BonusGiftPlus",
+      "name": "Bonus Gifts+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_BoosterPack",
+      "name": "Booster Pack",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/boosterpack1_ii.png"
+    },
+    {
+      "id": "DA_BoosterPackPlus",
+      "name": "Booster Pack+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/boosterpack1_ii.png"
+    },
+    {
+      "id": "DA_BoosterPackPlusPlus",
+      "name": "Booster Pack++",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/boosterpack1_ii.png"
+    },
+    {
+      "id": "DA_BoxingLessons",
+      "name": "Boxing Lessons",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/boxinglessons_i.png"
     },
     {
       "id": "DA_18_BranchingOut",
@@ -1461,9 +1733,94 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/branching-out-i.png"
     },
     {
+      "id": "DA_BronzeForLifeI",
+      "name": "Bronze For Life I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bronzeforlife_ii.png"
+    },
+    {
+      "id": "DA_BronzeForLifeII",
+      "name": "Bronze For Life II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bronzeforlife_iii.png"
+    },
+    {
+      "id": "DA_BuildABud",
+      "name": "Build A Bud",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/constructacompanion_iii.png"
+    },
+    {
+      "id": "DA_BuriedTreasuresIII",
+      "name": "Buried Treasures III",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/buried-treasures-iii.png"
+    },
+    {
+      "id": "DA_CallToChaos",
+      "name": "Call To Chaos",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/calltochaos_iii.png"
+    },
+    {
+      "id": "DA_CalledShot",
+      "name": "Called Shot",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/calledshot_i.png"
+    },
+    {
+      "id": "DA_CapitalGainsI",
+      "name": "Capital Gains I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_CapitalGainsII",
+      "name": "Capital Gains II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
       "id": "DA_18_CaretakersAlly",
       "name": "Caretaker's Ally",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/caretaker_s-chosen-i.png"
+    },
+    {
+      "id": "DA_CaretakersFavor",
+      "name": "Caretaker's Favor",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/caretaker_s-chosen-ii.png"
+    },
+    {
+      "id": "DA_CarveAPath",
+      "name": "Carve a Path",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/carveapath_i.png"
+    },
+    {
+      "id": "DA_CelestialBlessingI",
+      "name": "Celestial Blessing I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/celestialblessing1.png"
+    },
+    {
+      "id": "DA_CelestialBlessingII",
+      "name": "Celestial Blessing II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/celestialblessing2.png"
+    },
+    {
+      "id": "DA_CelestialBlessingIII",
+      "name": "Celestial Blessing III",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/celestialblessing3.png"
+    },
+    {
+      "id": "DA_ChallengersGrace",
+      "name": "Challenger's Grace",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/choiceui/precisiongrace_ii.png"
+    },
+    {
+      "id": "DA_ChampDelivery",
+      "name": "Champ Delivery",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_ChampDeliveryPlus",
+      "name": "Champ Delivery+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_ChampDeliveryPlusPlus",
+      "name": "Champ Delivery++",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
     },
     {
       "id": "DA_18_SolarTraitAugment",
@@ -1471,9 +1828,74 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
     },
     {
+      "id": "DA_ClearMind",
+      "name": "Clear Mind",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/clearmind2.png"
+    },
+    {
+      "id": "DA_ClockworkAccelerator",
+      "name": "Clockwork Accelerator",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/clockworkaccelerator_ii.png"
+    },
+    {
+      "id": "DA_ClutteredMind",
+      "name": "Cluttered Mind",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/dizzy-ii.png"
+    },
+    {
+      "id": "DA_CognitiveOverload",
+      "name": "Cognitive Overload",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/cognitiveoverload_ii.png"
+    },
+    {
+      "id": "DA_CognitiveTax",
+      "name": "Cognitive Tax",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/cognitivetax_i.png"
+    },
+    {
+      "id": "DA_CognitiveTaxPlus",
+      "name": "Cognitive Tax+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/cognitivetax_i.png"
+    },
+    {
+      "id": "DA_ComebackStory",
+      "name": "Comeback Story",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/comebackstory_iii.png"
+    },
+    {
+      "id": "DA_CommerceCore",
+      "name": "Commerce Core",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/trade3.png"
+    },
+    {
+      "id": "DA_ComponentBuffet",
+      "name": "Component Buffet",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/the-customer-is-always-right-i.png"
+    },
+    {
+      "id": "DA_ComponentQuest",
+      "name": "Component Quest",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
+    },
+    {
       "id": "DA_18_FloraFatalisAugment",
       "name": "Consuming Flora",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_CookingPot",
+      "name": "Cooking Pot",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/cookingpot_ii.png"
+    },
+    {
+      "id": "DA_Coronation",
+      "name": "Coronation",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/coronation_iii.png"
+    },
+    {
+      "id": "DA_Corrosion",
+      "name": "Corrosion",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/corrosion_i.png"
     },
     {
       "id": "DA_18_CovenTraitAugment",
@@ -1481,9 +1903,44 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
     },
     {
+      "id": "DA_CraftedCrafting",
+      "name": "Crafted Crafting",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/craftedcrafting_i.png"
+    },
+    {
+      "id": "DA_CryMeARiver",
+      "name": "Cry Me A River",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/crymeariver_ii.png"
+    },
+    {
+      "id": "DA_CyberneticImplants_Gold",
+      "name": "Cybernetic Implants",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/cybernetic2.png"
+    },
+    {
+      "id": "DA_CyberneticUplink_Gold",
+      "name": "Cybernetic Uplink",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/cybernetic-uplink-ii.png"
+    },
+    {
       "id": "DA_18_CovenTraitAugment_LootToAP",
       "name": "Dark Ritual",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_DeadlierBlades",
+      "name": "Deadlier Blades",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/deadlierblades_ii.png"
+    },
+    {
+      "id": "DA_DeadlierCaps",
+      "name": "Deadlier Caps",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/deadliercaps_ii.png"
+    },
+    {
+      "id": "DA_Dummify",
+      "name": "Dummify",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/dummify_i.png"
     },
     {
       "id": "DA_18_DuoQueue",
@@ -1491,9 +1948,79 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/duoqueue_ii.png"
     },
     {
+      "id": "DA_EarlyLearnings",
+      "name": "Early Learnings",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/earlylearning_ii.png"
+    },
+    {
+      "id": "DA_ElectrochargeI",
+      "name": "Electrocharge I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/electrocharge-i.png"
+    },
+    {
+      "id": "DA_ElectrochargeII",
+      "name": "Electrocharge II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/electrocharge-ii.png"
+    },
+    {
       "id": "DA_18_FaeTraitAugment",
       "name": "Embiggen",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_EpicRolldown",
+      "name": "Epic Rolldown",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/epicrolldown_ii.png"
+    },
+    {
+      "id": "DA_Epoch",
+      "name": "Epoch",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/epoch_ii.png"
+    },
+    {
+      "id": "DA_EpochPlus",
+      "name": "Epoch+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/epoch_ii.png"
+    },
+    {
+      "id": "DA_ExclusiveCustomization",
+      "name": "Exclusive Customization",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/exclusivecustomization_ii.png"
+    },
+    {
+      "id": "DA_ExpectedUnexpectedness",
+      "name": "Expected Unexpectedness",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/addicted-to-rolling-iii.png"
+    },
+    {
+      "id": "DA_Expedition",
+      "name": "Expedition",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/expedition_i.png"
+    },
+    {
+      "id": "DA_ExplosiveGrowth",
+      "name": "Explosive Growth",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/explosivegrowth_ii.png"
+    },
+    {
+      "id": "DA_ExplosiveGrowthPlus",
+      "name": "Explosive Growth+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/explosivegrowth_ii.png"
+    },
+    {
+      "id": "DA_ExtraBuckles",
+      "name": "Extra Buckles",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/extrabuckles_i.png"
+    },
+    {
+      "id": "DA_FeelingLucky",
+      "name": "Feeling Lucky",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/feelinglucky_i.png"
+    },
+    {
+      "id": "DA_FindYourCenter",
+      "name": "Find Your Center",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/findyourcenter_i.png"
     },
     {
       "id": "DA_18_InfernoTraitAugment",
@@ -1501,9 +2028,94 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
     },
     {
+      "id": "DA_Flexible",
+      "name": "Flexible",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/flexible_ii.png"
+    },
+    {
+      "id": "DA_FlowingTears",
+      "name": "Flowing Tears",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/griefofthegreatgoddess_i.png"
+    },
+    {
+      "id": "DA_FocusedFire",
+      "name": "Focused Fire",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/marksman_i.png"
+    },
+    {
+      "id": "DA_ForgedInStrength",
+      "name": "Forged In Strength",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/forgedinstrength_iii.png"
+    },
+    {
       "id": "DA_18_FOURcing",
       "name": "FOURcing",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_FrontlineFoundation",
+      "name": "Frontline Foundation",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/frontlinefoundation_ii.png"
+    },
+    {
+      "id": "DA_FutureFocused",
+      "name": "Future Focused",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_GainGold",
+      "name": "Gain 21 Gold",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/windfall2.png"
+    },
+    {
+      "id": "DA_GiantAndMighty",
+      "name": "Giant and Mighty",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/giantandmighty_iii.png"
+    },
+    {
+      "id": "DA_GildedSteel",
+      "name": "Gilded Steel",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/gildedsteel_ii.png"
+    },
+    {
+      "id": "DA_GlassCannon_Silver",
+      "name": "Glass Cannon I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/glasscannon_i.png"
+    },
+    {
+      "id": "DA_GlassCannon_Gold",
+      "name": "Glass Cannon II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/glasscannon_ii.png"
+    },
+    {
+      "id": "DA_GoingLong",
+      "name": "Going Long",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/going-long-iii.png"
+    },
+    {
+      "id": "DA_GoldDestiny",
+      "name": "Gold Destiny",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/goldendestiny_ii.png"
+    },
+    {
+      "id": "DA_GoldDestinyPlus",
+      "name": "Gold Destiny+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/goldendestiny_ii.png"
+    },
+    {
+      "id": "DA_GoldenGamble",
+      "name": "Golden Gamble",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/goldengamble_iii.png"
+    },
+    {
+      "id": "DA_GoldenGamblePlus",
+      "name": "Golden Gamble+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/goldengamble_iii.png"
+    },
+    {
+      "id": "DA_GoldenGamblePlusPlus",
+      "name": "Golden Gamble++",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/goldengamble_iii.png"
     },
     {
       "id": "DA_18_GoodForSomethingI",
@@ -1511,9 +2123,244 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/good-for-something-i.png"
     },
     {
+      "id": "DA_GroupHugI",
+      "name": "Group Hug I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/grouphug1_i.png"
+    },
+    {
+      "id": "DA_GroupHugII",
+      "name": "Group Hug II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/grouphug2_ii.png"
+    },
+    {
+      "id": "DA_HardBargain",
+      "name": "Hard Bargain",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/hardbargain_ii.png"
+    },
+    {
+      "id": "DA_HardCommit",
+      "name": "Hard Commit",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/hardcommit_iii.png"
+    },
+    {
+      "id": "DA_HealingOrbsI",
+      "name": "Healing Orbs I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/healing-orbs-i.png"
+    },
+    {
+      "id": "DA_HealingOrbsII",
+      "name": "Healing Orbs II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/healing-orbs-ii.png"
+    },
+    {
+      "id": "DA_HeartOfSteel",
+      "name": "Heart of Steel",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/healthygains_ii.png"
+    },
+    {
+      "id": "DA_HedgeFund",
+      "name": "Hedge Fund",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/richgetricher3.png"
+    },
+    {
+      "id": "DA_HeroicGrabBag",
+      "name": "Heroic Grab Bag",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/heroic-grab-bag-ii.png"
+    },
+    {
+      "id": "DA_HeroicGrabBagPlus",
+      "name": "Heroic Grab Bag+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/heroic-grab-bag-ii.png"
+    },
+    {
+      "id": "DA_HeroicGrabBagPlusPlus",
+      "name": "Heroic Grab Bag++",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/heroic-grab-bag-ii.png"
+    },
+    {
+      "id": "DA_HoldTheLine",
+      "name": "Hold the Line",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/holdtheline_iii.png"
+    },
+    {
+      "id": "DA_Hustler",
+      "name": "Hustler",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/hyperroll2.png"
+    },
+    {
+      "id": "DA_InfinityProtection",
+      "name": "Infinity Protection",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/infinityprotection_ii.png"
+    },
+    {
+      "id": "DA_InvestedPlus",
+      "name": "Invested+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/invested-iii.png"
+    },
+    {
+      "id": "DA_InvestedPlusPlus",
+      "name": "Invested++",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/invested-iii.png"
+    },
+    {
+      "id": "DA_InvestmentStrategyI",
+      "name": "Investment Strategy I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/investmentstrategy_ii.png"
+    },
+    {
+      "id": "DA_InvestmentStrategy",
+      "name": "Investment Strategy II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/investmentstrategy_iii.png"
+    },
+    {
+      "id": "DA_IronAssets",
+      "name": "Iron Assets",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/iron-assets-i.png"
+    },
+    {
+      "id": "DA_ItsMeBaby",
+      "name": "It's Me, Baby",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_BlackthornTraitAugment",
+      "name": "Item Extraction",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_ItemGrabBag",
+      "name": "Item Grab Bag I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/itemgrabbag1.png"
+    },
+    {
+      "id": "DA_JeweledLotus_I",
+      "name": "Jeweled Lotus I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/jeweled-lotus-ii.png"
+    },
+    {
+      "id": "DA_JeweledLotus_II",
+      "name": "Jeweled Lotus II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/jeweled-lotus-iii.png"
+    },
+    {
+      "id": "DA_KickStart",
+      "name": "Kick Start",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/kickstart_i.png"
+    },
+    {
+      "id": "DA_Kingslayer",
+      "name": "Kingslayer",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/kingslayer_i.png"
+    },
+    {
+      "id": "DA_KnowYourEnemy",
+      "name": "Know Your Enemy",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/know-your-enemy-ii.png"
+    },
+    {
+      "id": "DA_LateGameScaling",
+      "name": "Late Game Scaling",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/lategamescaling_ii.png"
+    },
+    {
+      "id": "DA_LateGameSpecialist",
+      "name": "Late Game Specialist",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/late-game-specialist-i.png"
+    },
+    {
+      "id": "DA_LatentForge",
+      "name": "Latent Forge",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/long-time-crafting-i.png"
+    },
+    {
+      "id": "DA_LegionOfThrees",
+      "name": "Legion Of Threes",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/legionofthrees_ii.png"
+    },
+    {
+      "id": "DA_LevelUp",
+      "name": "Level Up!",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/levelup3.png"
+    },
+    {
+      "id": "DA_LivingForge",
+      "name": "Living Forge",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/living-forge-iii.png"
+    },
+    {
+      "id": "DA_LoadedDice",
+      "name": "Loaded Dice",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_LuckyGloves",
+      "name": "Lucky Gloves",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/lucky-gloves-iii.png"
+    },
+    {
+      "id": "DA_LuckyGlovesPlus",
+      "name": "Lucky Gloves+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/lucky-gloves-iii.png"
+    },
+    {
+      "id": "DA_LuxurySubscription",
+      "name": "Luxury Subscription",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/luxurysubscription_iii.png"
+    },
+    {
+      "id": "DA_MagicRoll",
+      "name": "Magic Roll",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/a-magical-roll-ii.png"
+    },
+    {
+      "id": "DA_MakeshiftArmorI",
+      "name": "Makeshift Armor I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/makeshift1.png"
+    },
+    {
+      "id": "DA_MakeshiftArmorII",
+      "name": "Makeshift Armor II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/makeshift2.png"
+    },
+    {
+      "id": "DA_MaliciousMonetization",
+      "name": "Malicious Monetization",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/mirroredmonetization_ii.png"
+    },
+    {
       "id": "DA_18_LuxAugmentII",
       "name": "Master of All Origins",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
+    },
+    {
+      "id": "DA_MaxBuild",
+      "name": "Max Build",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/maxbuild_ii.png"
+    },
+    {
+      "id": "DA_Min_Max",
+      "name": "Min-Max",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/minmax_iii.png"
+    },
+    {
+      "id": "DA_MissedConnections",
+      "name": "Missed Connections",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missed-connections-i.png"
+    },
+    {
+      "id": "DA_MoneyHungry_NotBroken",
+      "name": "Money Hungry",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/moneyhungry1_ii.png"
+    },
+    {
+      "id": "DA_MoneyHungryPlus",
+      "name": "Money Hungry+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/moneyhungry2_ii.png"
+    },
+    {
+      "id": "DA_MoneyMonsoon",
+      "name": "Money Monsoon",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/moneymonsoon_iii.png"
     },
     {
       "id": "DA_18_ElderwoodTraitAugment",
@@ -1521,9 +2368,39 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
     },
     {
+      "id": "DA_NestingAnvils",
+      "name": "Nesting Anvils",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
+    },
+    {
+      "id": "DA_NestingAnvilsPlus",
+      "name": "Nesting Anvils+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
+    },
+    {
+      "id": "DA_NestingDollsPlus",
+      "name": "Nesting Dolls",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
+    },
+    {
+      "id": "DA_NestingDollsPlusPlus",
+      "name": "Nesting Dolls",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
+    },
+    {
+      "id": "DA_NoScoutNoPivot",
+      "name": "NO SCOUT NO PIVOT",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/noscoutnopivot_ii.png"
+    },
+    {
       "id": "DA_18_RiftbeastTraitAugment",
       "name": "Omega Riftbeast",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_OneBuffTwoBuff",
+      "name": "One Buff Two Buff",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/onebufftwobuff_iii.png"
     },
     {
       "id": "DA_18_OneTwoFive",
@@ -1534,6 +2411,101 @@
       "id": "DA_18_OnesTwosThree",
       "name": "Ones Two Three",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_PandorasBench",
+      "name": "Pandora's Bench",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/pandoras-bench-ii.png"
+    },
+    {
+      "id": "DA_PandorasItemsI",
+      "name": "Pandora's Items I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/pandora1.png"
+    },
+    {
+      "id": "DA_PandorasItemsII",
+      "name": "Pandora's Items II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/pandora2.png"
+    },
+    {
+      "id": "DA_PandorasItemsIII",
+      "name": "Pandora's Items III",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/pandora3.png"
+    },
+    {
+      "id": "DA_PartialAscension",
+      "name": "Partial Ascension",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/ascension1.png"
+    },
+    {
+      "id": "DA_PatienceIsAVirtue",
+      "name": "Patience Is A Virtue",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/patienceisavirtue_i.png"
+    },
+    {
+      "id": "DA_PatientStudy",
+      "name": "Patient Study",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/learning-from-experience-ii.png"
+    },
+    {
+      "id": "DA_Pilfer",
+      "name": "Pilfer",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/pilfer_ii.png"
+    },
+    {
+      "id": "DA_PlotArmor",
+      "name": "Plot Armor",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/plotarmor_ii.png"
+    },
+    {
+      "id": "DA_PortableForge",
+      "name": "Portable Forge",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/portableforge2.png"
+    },
+    {
+      "id": "DA_PrismaticDestiny",
+      "name": "Prismatic Destiny",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/prismaticdestiny_iii.png"
+    },
+    {
+      "id": "DA_PrismaticDestinyPlus",
+      "name": "Prismatic Destiny+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/prismaticdestiny_iii.png"
+    },
+    {
+      "id": "DA_PrismaticTicket",
+      "name": "Prismatic Ticket",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/goldenticket3.png"
+    },
+    {
+      "id": "DA_PromisedProtection",
+      "name": "Promised Protection",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/promisedprotection_ii.png"
+    },
+    {
+      "id": "DA_QuickStreaks",
+      "name": "Quick Streaks",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_RadiantRascal",
+      "name": "Radiant Rascal",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/roll-the-dice-iii.png"
+    },
+    {
+      "id": "DA_RadiantRelic",
+      "name": "Radiant Relics",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/radiantrelic-iii.png"
+    },
+    {
+      "id": "DA_Recombobulator",
+      "name": "Recombobulator",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/recombobulator-i.png"
+    },
+    {
+      "id": "DA_Replication",
+      "name": "Replication",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/replication-ii.png"
     },
     {
       "id": "DA_18_ResidualMagic",
@@ -1551,9 +2523,134 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
     },
     {
+      "id": "DA_Retribution",
+      "name": "Retribution",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/retribution_iii.png"
+    },
+    {
+      "id": "DA_RollingForDays",
+      "name": "Rolling For Days",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/rolling-for-days-i.png"
+    },
+    {
+      "id": "DA_SalvageBin",
+      "name": "Salvage Bin",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/salvage2.png"
+    },
+    {
+      "id": "DA_SalvageBinPlus",
+      "name": "Salvage Bin+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/salvage2.png"
+    },
+    {
+      "id": "DA_SeraphimsStaff",
+      "name": "Seraphim's Staff",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/seraphimsstaff_ii.png"
+    },
+    {
+      "id": "DA_ShimmerscaleEssence",
+      "name": "Shimmerscale Essence",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/shimmerscaleessence_iii.png"
+    },
+    {
+      "id": "DA_ShoppingSpree",
+      "name": "Shopping Spree",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/silver-ticket-iii.png"
+    },
+    {
+      "id": "DA_SilverDestiny",
+      "name": "Silver Destiny",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/silverdestiny_i.png"
+    },
+    {
+      "id": "DA_SilverDestinyPlus",
+      "name": "Silver Destiny+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/silverdestiny_i.png"
+    },
+    {
+      "id": "DA_SilverDestinyPlusPlus",
+      "name": "Silver Destiny++",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/silverdestiny_i.png"
+    },
+    {
+      "id": "DA_SilverSpoon",
+      "name": "Silver Spoon",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/silver-spoon-i.png"
+    },
+    {
+      "id": "DA_Slammin",
+      "name": "Slammin'",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/slammin_ii.png"
+    },
+    {
+      "id": "DA_SlamminPlus",
+      "name": "Slammin'+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/slammin_ii.png"
+    },
+    {
+      "id": "DA_SliceOfLife",
+      "name": "Slice of Life",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/slice_of_life_i.png"
+    },
+    {
+      "id": "DA_SlightlyMagicRoll",
+      "name": "Slightly Magic Roll",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/slightlymagicroll_i.png"
+    },
+    {
       "id": "DA_18_SprykinAugment",
       "name": "Small Furry Friend",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_SmallGrabBag",
+      "name": "Small Grab Bag",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/smallgrabbag_i.png"
+    },
+    {
+      "id": "DA_SoloLeveling",
+      "name": "Solo Leveling",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/sololeveling_ii.png"
+    },
+    {
+      "id": "DA_SoloPlate",
+      "name": "Solo Plate",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/soloplate_ii.png"
+    },
+    {
+      "id": "DA_SoulAwakening",
+      "name": "Soul Awakening",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/awakenedsoul_iii.png"
+    },
+    {
+      "id": "DA_SpeedyDoubleKill",
+      "name": "Speedy Double Kill",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/speedydoublekill_ii.png"
+    },
+    {
+      "id": "DA_SpiritOfRedemption",
+      "name": "Spirit Of Redemption",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/spiritofredemption_ii.png"
+    },
+    {
+      "id": "DA_SpreadingRoots",
+      "name": "Spreading Roots",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/spreadingroots_ii.png"
+    },
+    {
+      "id": "DA_SpreadingRootsPlus",
+      "name": "Spreading Roots+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/spreadingroots_ii.png"
+    },
+    {
+      "id": "DA_Staffsmith",
+      "name": "Staffsmith",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/rodsmith_ii.png"
+    },
+    {
+      "id": "DA_StandUnited",
+      "name": "Stand United",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/standunited1.png"
     },
     {
       "id": "DA_18_LunarTraitAugment",
@@ -1566,9 +2663,139 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
     },
     {
+      "id": "DA_SweetTreats",
+      "name": "Sweet Treats",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/sweettreats_iii.png"
+    },
+    {
+      "id": "DA_SwordOverflow",
+      "name": "Sword Overflow",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/bladeoverflow_iii.png"
+    },
+    {
+      "id": "DA_Swordsmith",
+      "name": "Swordsmith",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/swordsmith_ii.png"
+    },
+    {
+      "id": "DA_TacticiansKitchen",
+      "name": "Tactician's Kitchen",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/tacticianskitchen_iii.png"
+    },
+    {
+      "id": "DA_TeamBuilding",
+      "name": "Team Building",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/building-an-army-i.png"
+    },
+    {
+      "id": "DA_TheGoldenDragon",
+      "name": "The Golden Dragon",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/thegoldendragon_ii.png"
+    },
+    {
+      "id": "DA_GoldenEgg",
+      "name": "The Golden Egg",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/the-golden-egg-iii.png"
+    },
+    {
+      "id": "DA_TheTower",
+      "name": "The Tower",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/thetower_i.png"
+    },
+    {
+      "id": "DA_TheTraitTree",
+      "name": "The Trait Tree",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/thetraittree_iii.png"
+    },
+    {
+      "id": "DA_TheTraitTreePlus",
+      "name": "The Trait Tree+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/thetraittree_iii.png"
+    },
+    {
+      "id": "DA_TimeSkip",
+      "name": "Time Skip",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/timeskip_ii.png"
+    },
+    {
+      "id": "DA_TonsOfStatsI",
+      "name": "Tons of Stats!",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/tons-of-stats-ii.png"
+    },
+    {
+      "id": "DA_TonsOfStatsII",
+      "name": "TONS of Stats!",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/tons-of-stats-ii.png"
+    },
+    {
+      "id": "DA_TradeSector",
+      "name": "Trade Sector",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/trade2.png"
+    },
+    {
+      "id": "DA_TradeSectorPlus",
+      "name": "Trade Sector+",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/trade2.png"
+    },
+    {
+      "id": "DA_TraitLadder",
+      "name": "Trait Ladder",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
+    },
+    {
+      "id": "DA_TwinGuardians",
+      "name": "Twin Guardians",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/twinguardians_i.png"
+    },
+    {
+      "id": "DA_URF",
+      "name": "U.R.F",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/ultrarapidfire_ii.png"
+    },
+    {
       "id": "DA_18_RivalsAugment",
       "name": "Unrivaled",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_UpwardMobility",
+      "name": "Upward Mobility",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/upwardmobility_iii.png"
+    },
+    {
+      "id": "DA_UrfsGrabBag",
+      "name": "Urf's Grab Bag",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/urfs-grab-bag-iii.png"
+    },
+    {
+      "id": "DA_VerticalityI",
+      "name": "Verticality I",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_VerticalityII",
+      "name": "Verticality II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+    },
+    {
+      "id": "DA_VerticalityIII",
+      "name": "Verticality III",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
+    },
+    {
+      "id": "DA_WandOverflow",
+      "name": "Wand Overflow",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/wandoverflow_iii.png"
+    },
+    {
+      "id": "DA_Warpath",
+      "name": "Warpath",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/warpath_ii.png"
+    },
+    {
+      "id": "DA_WeStickTogether",
+      "name": "We Stick Together",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/westicktogether_iii.png"
     },
     {
       "id": "DA_18_WeightTheWorth",
@@ -1584,6 +2811,26 @@
       "id": "DA_18_WispRebatePlusPlus",
       "name": "Wisp Rebate+",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
+    },
+    {
+      "id": "DA_WorththeWait",
+      "name": "Worth the Wait",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/worththewait_ii.png"
+    },
+    {
+      "id": "DA_WorththeWaitII",
+      "name": "Worth the Wait II",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/worththewait_iii.png"
+    },
+    {
+      "id": "DA_WovenMagic",
+      "name": "Woven Magic",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/wovenmagic_iii.png"
+    },
+    {
+      "id": "DA_YoungAndWildAndFree",
+      "name": "Young and Wild and Free",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/young-and-wild-and-free-i.png"
     }
   ]
 }
