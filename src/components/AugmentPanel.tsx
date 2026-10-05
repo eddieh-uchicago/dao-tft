@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { augmentStages, catalog, comps, engine } from "@/data";
 import type { AugmentTier } from "@/data/schema";
 import type { Recommendation } from "@/engine/types";
-import { useGame } from "@/store/useGame";
+import { useGame, useScout } from "@/store/useGame";
 import { FlowNode } from "./flow";
 import { TagPill } from "./ui";
 
@@ -58,7 +58,7 @@ function StagePanel({ selection }: { selection: number }) {
   const items = useGame((s) => s.items);
   const board = useGame((s) => s.board);
   const augments = useGame((s) => s.augments);
-  const scout = useGame((s) => s.scout);
+  const scout = useScout();
   const pick = useGame((s) => s.pickAugment);
 
   const pool = augmentStages[selection];

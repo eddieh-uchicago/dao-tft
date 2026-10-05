@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { catalog } from "@/data";
-import type { Recommendation } from "@/engine/types";
+import type { HitTarget, Recommendation } from "@/engine/types";
 import { carrySwaps, openFrontline } from "@/engine/scout";
 import { Icon } from "./Icon";
 import { FitBadge, TagPill, TierPill } from "./ui";
@@ -10,10 +10,15 @@ interface Props {
   rank: number;
   ranking: Recommendation[];
   contested: Record<string, number>;
+  hits: HitTarget[];
 }
 
-export function RecommendationCard({ rec, rank, ranking, contested }: Props) {
+const HITS_SHOWN = 3;
+
+export function RecommendationCard({ rec, rank, ranking, contested, hits }: Props) {
   const { comp, allocation } = rec;
+  const slams = allocation.built.filter((b) => !b.held);
+  const held = allocation.built.filter((b) => b.held);
   const scout = { contested };
   const swaps = rec.scoutPenalty > 0 ? carrySwaps(comp, ranking, scout) : [];
   const frontline = rec.scoutPenalty > 0 ? openFrontline(comp, scout) : [];
@@ -43,22 +48,61 @@ export function RecommendationCard({ rec, rank, ranking, contested }: Props) {
 
       <div className="mt-3 space-y-3">
         <div>
-          <h3 className="mb-1 text-xs font-semibold uppercase tracking-wider text-good">Buildable now</h3>
-          {allocation.built.length ? (
-            <ul className="space-y-1">
-              {allocation.built.map((b) => (
-                <li key={b.item + b.unit} className="flex items-center gap-2 text-sm">
-                  <Icon src={catalog.item(b.item).icon} label={catalog.item(b.item).name} size={24} />
-                  <span>{catalog.item(b.item).name}</span>
-                  <span className="text-xs text-muted">
-                    on {catalog.unit(b.unit).name}
-                    {b.held && " · already held"}
-                  </span>
-                </li>
-              ))}
+          <h3 className="mb-1 text-xs font-semibold uppercase tracking-wider text-good">Slam now</h3>
+          {slams.length ? (
+            <ul className="space-y-1.5">
+              {slams.map((b) => {
+                const item = catalog.item(b.item);
+                const note = comp.slams.find((s) => s.item === b.item)?.note;
+                return (
+                  <li key={b.item + b.unit} className="flex items-start gap-2 text-sm">
+                    <Icon src={item.icon} label={item.name} size={24} />
+                    <div>
+                      <p>
+                        {item.name} <span className="text-xs text-muted">on {catalog.unit(b.unit).name}</span>
+                      </p>
+                      <p className="text-xs text-muted">
+                        {b.uses.map((c) => catalog.componentName(c)).join(" + ")}
+                        {note && <span className="text-gold-bright"> · {note}</span>}
+                      </p>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           ) : (
-            <p className="text-sm text-muted">Nothing completes yet.</p>
+            <p className="text-sm text-muted">Nothing completes for this comp yet. Hold your components.</p>
+          )}
+          {held.length > 0 && (
+            <p className="mt-1 text-xs text-muted">
+              Already holding{" "}
+              {held.map((b) => `${catalog.item(b.item).name} for ${catalog.unit(b.unit).name}`).join(", ")}.
+            </p>
+          )}
+        </div>
+        <div>
+          <h3 className="mb-1 text-xs font-semibold uppercase tracking-wider text-gold">Hit next</h3>
+          {hits.length ? (
+            <ul className="space-y-1">
+              {hits.slice(0, HITS_SHOWN).map((t) => {
+                const name = catalog.componentName(t.component);
+                return (
+                  <li key={t.component} className="flex items-center gap-2 text-sm">
+                    <Icon src={catalog.componentIcon(t.component)} label={name} size={24} />
+                    <span>{name}</span>
+                    <span className="text-xs text-muted">
+                      {t.unlocks.length > 0
+                        ? `completes ${t.unlocks.map((i) => catalog.item(i).name).join(", ")}`
+                        : t.toward
+                          ? `toward ${catalog.item(t.toward).name}`
+                          : "adds item progress"}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="text-sm text-muted">No single component moves this comp forward.</p>
           )}
         </div>
         <div>

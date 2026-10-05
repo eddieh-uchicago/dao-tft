@@ -7,12 +7,11 @@ import type {
   Allocation,
   AugmentId,
   AugmentOutcome,
-  CarouselTarget,
   ComponentBag,
   Fit,
   GameState,
+  HitTarget,
   Recommendation,
-  SlamSuggestion,
   TargetEntry,
 } from "./types";
 
@@ -72,61 +71,25 @@ export class TftEngine {
     return ranking;
   }
 
-  /** Completed items worth crafting now, weighted by how well the top comps fit. */
-  slamNow(ranking: Recommendation[], topN = 3, limit = 3): SlamSuggestion[] {
-    const byItem = new Map<string, SlamSuggestion & { total: number }>();
-    for (const rec of ranking.slice(0, topN)) {
-      for (const b of rec.allocation.built) {
-        if (b.held) continue;
-        const uses = b.uses as [string, string];
-        const entry = byItem.get(b.item) ?? { item: b.item, unit: b.unit, comps: [], uses, weight: 0, total: 0 };
-        entry.comps.push(rec.comp.slug);
-        entry.weight = Math.max(entry.weight, b.weight);
-        entry.total += b.weight * rec.score;
-        byItem.set(b.item, entry);
-      }
-    }
-    return [...byItem.values()]
-      .sort((a, b) => b.total - a.total)
-      .slice(0, limit)
-      .map((s) => ({ item: s.item, unit: s.unit, comps: s.comps, uses: s.uses, weight: s.weight }));
-  }
-
-  /** For each component: what would hitting it next (carousel, creep round) do? */
-  carouselTargets(state: GameState): CarouselTarget[] {
-    const before = this.rank(state);
-    const beforeBy = new Map(before.map((r) => [r.comp.slug, r]));
-    const topBefore = new Set(before.slice(0, 3).map((r) => r.comp.slug));
-
+  /**
+   * For one comp: which component, hit next (carousel, creep round), moves its
+   * items furthest, and what it completes or builds toward. Best first.
+   */
+  hitNext(comp: Comp, state: GameState): HitTarget[] {
+    const before = this.allocationWithHeld(comp, state.components, state.items);
+    const had = new Set(before.built.map((b) => b.item));
     return this.catalog.componentIds
-      .map((component): CarouselTarget => {
-        const after = this.rank({ ...state, components: withComponent(state.components, component) });
-        // Absolute progress, not the normalised score: a lone component can already
-        // "fully" fit a comp, yet the next one may complete an item.
-        let gain = 0;
-        let best = after[0];
-        for (const rec of after) {
-          const delta =
-            (rec.allocation.value - beforeBy.get(rec.comp.slug)!.allocation.value) * TIER_WEIGHT[rec.tier];
-          if (delta > gain) {
-            gain = delta;
-            best = rec;
-          }
-        }
-        const had = new Set(beforeBy.get(best.comp.slug)!.allocation.built.map((b) => b.item));
+      .map((component): HitTarget => {
+        const after = this.allocationWithHeld(comp, withComponent(state.components, component), state.items);
         return {
           component,
-          gain,
-          bestComp: best.comp.slug,
-          unlocks: best.allocation.built.map((b) => b.item).filter((i) => !had.has(i)),
-          entersTop3: after
-            .slice(0, 3)
-            .map((r) => r.comp.slug)
-            .filter((s) => !topBefore.has(s)),
+          gain: after.value - before.value,
+          unlocks: after.built.map((b) => b.item).filter((i) => !had.has(i)),
+          toward: before.pending.find((p) => p.need.includes(component))?.item,
         };
       })
       .filter((t) => t.gain > 0)
-      .sort((a, b) => b.gain - a.gain);
+      .sort((a, b) => b.gain - a.gain || b.unlocks.length - a.unlocks.length);
   }
 
   /** Re-rank as if each offered augment were picked. */
@@ -148,17 +111,14 @@ export class TftEngine {
   }
 
   private evaluate(comp: Comp, state: GameState, augments: AugmentId[]): Recommendation {
-    const targets = this.targets.get(comp.slug)!;
-    const n = bagSize(state.components);
-    const { claimed, rest } = claimHeld(targets, state.items);
+    const allocation = this.allocationWithHeld(comp, state.components, state.items);
+    const { claimed, rest } = claimHeld(this.targets.get(comp.slug)!, state.items);
     const heldWeight = claimed.reduce((sum, b) => sum + b.weight, 0);
-    const crafted = this.allocationFor(comp.slug, rest, state.components, state.items);
-    const allocation = { ...crafted, built: [...claimed, ...crafted.built], value: crafted.value + heldWeight };
     const bound =
       heldWeight +
       optimisticBound(
         rest.map((t) => t.weight),
-        n,
+        bagSize(state.components),
       );
     const coverage = bound > 0 ? Math.min(1, allocation.value / bound) : 0;
     const { bonus, notes } = augmentEffect(comp, augments);
@@ -198,6 +158,14 @@ export class TftEngine {
       }
     }
     return { fit: total / board.length, matches };
+  }
+
+  /** Held items claim their targets first; components craft the rest. */
+  private allocationWithHeld(comp: Comp, bag: ComponentBag, held: string[]): Allocation {
+    const { claimed, rest } = claimHeld(this.targets.get(comp.slug)!, held);
+    const heldWeight = claimed.reduce((sum, b) => sum + b.weight, 0);
+    const crafted = this.allocationFor(comp.slug, rest, bag, held);
+    return { ...crafted, built: [...claimed, ...crafted.built], value: crafted.value + heldWeight };
   }
 
   private allocationFor(slug: string, targets: TargetEntry[], bag: ComponentBag, held: string[]): Allocation {

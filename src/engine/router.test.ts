@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ITEM, TEST_COMPS, emptyState, makeComp, testEngine } from "./fixtures";
-import { carrySwaps, openFrontline, scoutPenalty } from "./scout";
+import { carrySwaps, openFrontline, scoutFromOpponents, scoutPenalty } from "./scout";
 import { fitFor } from "./router";
 
 describe("rank", () => {
@@ -43,34 +43,29 @@ describe("rank", () => {
   });
 });
 
-describe("slamNow", () => {
-  it("suggests items buildable now, strongest first", () => {
+describe("hitNext", () => {
+  it("shows which component completes one of the comp's items, best first", () => {
     const engine = testEngine();
-    const ranking = engine.rank(emptyState({ NeedlesslyLargeRod: 2, TearOfTheGoddess: 1 }));
-    const slams = engine.slamNow(ranking);
-    expect(slams[0].item).toBe(ITEM.rabadons);
-    expect(slams[0].comps).toContain("ap-mage");
+    const sniper = TEST_COMPS.find((c) => c.slug === "ad-sniper")!;
+    const hits = engine.hitNext(sniper, emptyState({ BFSword: 1 }));
+    expect(hits.length).toBeGreaterThan(0);
+    expect(hits.find((t) => t.component === "SparringGloves")?.unlocks).toContain(ITEM.infinityEdge);
+    for (let i = 1; i < hits.length; i++) expect(hits[i - 1].gain).toBeGreaterThanOrEqual(hits[i].gain);
   });
 
-  it("suggests nothing when no item can be completed", () => {
+  it("only lists components that help that comp", () => {
     const engine = testEngine();
-    expect(engine.slamNow(engine.rank(emptyState({ BFSword: 1 })))).toEqual([]);
-  });
-});
-
-describe("carouselTargets", () => {
-  it("shows which component completes an item, best first", () => {
-    const engine = testEngine();
-    const targets = engine.carouselTargets(emptyState({ BFSword: 1 }));
-    expect(targets.length).toBeGreaterThan(0);
-    const gloves = targets.find((t) => t.component === "SparringGloves");
-    expect(gloves?.unlocks).toContain(ITEM.infinityEdge);
-    for (let i = 1; i < targets.length; i++) expect(targets[i - 1].gain).toBeGreaterThanOrEqual(targets[i].gain);
+    for (const comp of TEST_COMPS) {
+      expect(engine.hitNext(comp, emptyState({ BFSword: 1 })).every((t) => t.gain > 0)).toBe(true);
+    }
   });
 
-  it("only lists components that help", () => {
-    const targets = testEngine().carouselTargets(emptyState({ BFSword: 1 }));
-    expect(targets.every((t) => t.gain > 0)).toBe(true);
+  it("names the item a component builds toward when it completes nothing", () => {
+    const engine = testEngine();
+    const mage = TEST_COMPS.find((c) => c.slug === "ap-mage")!;
+    const hits = engine.hitNext(mage, emptyState());
+    expect(hits.length).toBeGreaterThan(0);
+    expect(hits.every((t) => t.unlocks.length === 0 && t.toward)).toBe(true);
   });
 });
 
@@ -161,6 +156,14 @@ describe("scout", () => {
     expect(contested[0].comp.slug).toBe("a-comp");
   });
 
+  it("counts each opponent's comp units as contested", () => {
+    const [a, b] = TEST_COMPS;
+    const { contested } = scoutFromOpponents([a, undefined, a, b]);
+    expect(contested[a.carries[0]]).toBe(2);
+    expect(contested[b.carries[0]]).toBe(a.endBoard.includes(b.carries[0]) ? 3 : 1);
+    expect(scoutFromOpponents([undefined]).contested).toEqual({});
+  });
+
   it("suggests uncontested carries that share items", () => {
     const engine = testEngine();
     const scout = { contested: { "u-sniper": 2 } };
@@ -245,9 +248,10 @@ describe("held completed items", () => {
     expect(after).toBeGreaterThan(before);
   });
 
-  it("are not suggested as slams", () => {
+  it("do not count as progress for the next component", () => {
     const engine = testEngine();
-    const ranking = engine.rank({ ...emptyState(), items: [ITEM.rabadons] });
-    expect(engine.slamNow(ranking)).toEqual([]);
+    const mage = TEST_COMPS.find((c) => c.slug === "ap-mage")!;
+    const hits = engine.hitNext(mage, { ...emptyState(), items: [ITEM.rabadons] });
+    expect(hits.flatMap((t) => t.unlocks)).not.toContain(ITEM.rabadons);
   });
 });

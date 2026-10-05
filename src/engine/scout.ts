@@ -11,6 +11,18 @@ function contest(scout: ScoutState, unit: UnitId): number {
   return Math.min(CONTEST_CAP, scout.contested[unit] ?? 0);
 }
 
+/** Every unit on an opponent's comp counts as contested once per opponent playing it. */
+export function scoutFromOpponents(opponents: (Comp | undefined)[]): ScoutState {
+  const contested: Record<UnitId, number> = {};
+  for (const comp of opponents) {
+    if (!comp) continue;
+    for (const unit of new Set([...comp.carries, ...comp.frontline, ...comp.endBoard])) {
+      contested[unit] = (contested[unit] ?? 0) + 1;
+    }
+  }
+  return { contested };
+}
+
 /** How much to subtract from a comp's score because opponents are playing its units. */
 export function scoutPenalty(comp: Comp, scout: ScoutState): number {
   const carry = Math.max(0, ...comp.carries.map((u) => contest(scout, u)));

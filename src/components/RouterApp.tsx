@@ -3,13 +3,12 @@
 import { useMemo } from "react";
 import { engine } from "@/data";
 import { bagSize } from "@/engine/catalog";
-import { useGame } from "@/store/useGame";
+import { useGame, useScout } from "@/store/useGame";
 import { AugmentPanel } from "./AugmentPanel";
 import { BoardPicker } from "./BoardPicker";
 import { ComponentPicker } from "./ComponentPicker";
 import { HeldItemsPicker } from "./HeldItemsPicker";
 import { Branch, Connector, FlowLabel } from "./flow";
-import { CarouselPanel, SlamPanel } from "./InsightPanels";
 import { RecommendationCard } from "./RecommendationCard";
 import { ScoutPanel } from "./ScoutPanel";
 
@@ -21,7 +20,7 @@ export function RouterApp() {
   const items = useGame((s) => s.items);
   const board = useGame((s) => s.board);
   const augments = useGame((s) => s.augments);
-  const scout = useGame((s) => s.scout);
+  const scout = useScout();
   const boardSkipped = useGame((s) => s.boardSkipped);
   const augmentSkipped = useGame((s) => s.augmentSkipped);
 
@@ -35,8 +34,10 @@ export function RouterApp() {
     [components, items, board, augments, scout],
   );
   const ranking = useMemo(() => engine.rank(state), [state]);
-  const slams = useMemo(() => engine.slamNow(ranking), [ranking]);
-  const carousel = useMemo(() => engine.carouselTargets(state), [state]);
+  const hits = useMemo(
+    () => new Map(ranking.slice(0, BRANCHES + EXTRA).map((r) => [r.comp.slug, engine.hitNext(r.comp, state)])),
+    [ranking, state],
+  );
 
   const extra = ranking.slice(BRANCHES, BRANCHES + EXTRA);
 
@@ -46,6 +47,7 @@ export function RouterApp() {
       rank={i + 1}
       ranking={ranking}
       contested={scout.contested}
+      hits={hits.get(ranking[i].comp.slug) ?? []}
     />
   );
 
@@ -83,13 +85,7 @@ export function RouterApp() {
       {showResults && (
         <>
           <h1 className="sr-only">Your options</h1>
-          <Branch>
-            <SlamPanel slams={slams} />
-            <CarouselPanel targets={carousel} />
-            <ScoutPanel ranking={ranking} />
-          </Branch>
-
-          <div className="py-4">
+          <div className="pb-4">
             <Connector />
             <FlowLabel>Compositions you can play</FlowLabel>
           </div>
@@ -110,6 +106,11 @@ export function RouterApp() {
               ))}
             </div>
           </details>
+
+          <Connector />
+          <div className="animate-pop mx-auto max-w-2xl">
+            <ScoutPanel />
+          </div>
         </>
       )}
     </main>

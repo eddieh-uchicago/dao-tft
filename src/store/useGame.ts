@@ -1,10 +1,15 @@
+import { useMemo } from "react";
 import { create } from "zustand";
-import type { AugmentId, ComponentId, GameState, ItemId, UnitId } from "@/engine/types";
+import { compBySlug } from "@/data";
+import { scoutFromOpponents } from "@/engine/scout";
+import type { AugmentId, ComponentId, GameState, ItemId, ScoutState, UnitId } from "@/engine/types";
 
-export const MAX_CONTEST = 3;
+export const OPPONENTS = 7;
 export const LEVELS = [2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-interface GameStore extends GameState {
+interface GameStore extends Omit<GameState, "scout"> {
+  /** Comp slug each opponent is playing, or null if unknown. */
+  opponents: (string | null)[];
   /** The flow moves on without a board / augment when the player says they have none yet. */
   boardSkipped: boolean;
   augmentSkipped: boolean;
@@ -23,7 +28,7 @@ interface GameStore extends GameState {
    * Selections fill in order, so `augments[i]` is always the pick at selection i.
    */
   pickAugment: (selection: number, id: AugmentId) => void;
-  setContested: (unit: UnitId, count: number) => void;
+  setOpponent: (index: number, slug: string | null) => void;
   reset: () => void;
 }
 
@@ -35,7 +40,7 @@ const initial = {
   boardSkipped: false,
   augmentSkipped: false,
   augments: [] as AugmentId[],
-  scout: { contested: {} } as GameState["scout"],
+  opponents: Array<string | null>(OPPONENTS).fill(null),
 };
 
 export const useGame = create<GameStore>((set) => ({
@@ -68,13 +73,12 @@ export const useGame = create<GameStore>((set) => ({
       if (selection > s.augments.length || s.augments.some((a, i) => a === id && i !== selection)) return s;
       return { augments: [...s.augments.slice(0, selection), id, ...s.augments.slice(selection + 1)] };
     }),
-  setContested: (unit, count) =>
-    set((s) => {
-      const contested = { ...s.scout.contested };
-      const n = Math.max(0, Math.min(MAX_CONTEST, count));
-      if (n) contested[unit] = n;
-      else delete contested[unit];
-      return { scout: { contested } };
-    }),
+  setOpponent: (index, slug) => set((s) => ({ opponents: s.opponents.map((o, i) => (i === index ? slug : o)) })),
   reset: () => set(initial),
 }));
+
+/** Units the lobby is contesting, from the comps picked for each opponent. */
+export function useScout(): ScoutState {
+  const opponents = useGame((s) => s.opponents);
+  return useMemo(() => scoutFromOpponents(opponents.map((slug) => (slug ? compBySlug(slug) : undefined))), [opponents]);
+}

@@ -70,24 +70,15 @@ export interface Recommendation {
   tags: RecTag[];
 }
 
-export interface SlamSuggestion {
-  item: ItemId;
-  unit: UnitId;
-  /** Slugs of top comps that want this item. */
-  comps: string[];
-  uses: [ComponentId, ComponentId];
-  weight: number;
-}
-
-export interface CarouselTarget {
+/** A component worth hitting next for one comp. */
+export interface HitTarget {
   component: ComponentId;
-  /** Largest tier-weighted increase in craftable item value this component gives any comp. */
+  /** Increase in the comp's weighted item progress. */
   gain: number;
-  bestComp: string;
-  /** Items that become buildable that were not before, for the best comp. */
+  /** Items that become buildable that were not before. */
   unlocks: ItemId[];
-  /** Comps that enter the top 3 if this component is hit. */
-  entersTop3: string[];
+  /** A still-missing item this component goes into, when it completes nothing yet. */
+  toward?: ItemId;
 }
 
 export interface AugmentOutcome {

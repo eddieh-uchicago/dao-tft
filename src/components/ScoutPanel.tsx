@@ -1,52 +1,40 @@
 "use client";
 
-import { catalog } from "@/data";
-import type { Recommendation } from "@/engine/types";
-import { MAX_CONTEST, useGame } from "@/store/useGame";
-import { Icon } from "./Icon";
+import { comps } from "@/data";
+import { useGame } from "@/store/useGame";
 import { Panel } from "./ui";
 
-export function ScoutPanel({ ranking }: { ranking: Recommendation[] }) {
-  const contested = useGame((s) => s.scout.contested);
-  const setContested = useGame((s) => s.setContested);
+const byName = [...comps].sort((a, b) => a.name.localeCompare(b.name));
 
-  // Units that matter for the comps on screen, plus anything already flagged.
-  const ids = new Set<string>(Object.keys(contested));
-  for (const r of ranking.slice(0, 5)) {
-    r.comp.carries.forEach((u) => ids.add(u));
-    r.comp.frontline.forEach((u) => ids.add(u));
-  }
-  const units = [...ids].map((id) => catalog.unit(id)).sort((a, b) => b.cost - a.cost || a.name.localeCompare(b.name));
+export function ScoutPanel() {
+  const opponents = useGame((s) => s.opponents);
+  const setOpponent = useGame((s) => s.setOpponent);
 
   return (
-    <Panel title="Scout" hint="How many opponents are playing each unit?">
-      <ul className="max-h-80 space-y-1.5 overflow-y-auto pr-1">
-        {units.map((u) => {
-          const n = contested[u.id] ?? 0;
+    <Panel title="Scout" hint="What is each opponent playing? Contested comps rank lower">
+      <ul className="grid gap-2 sm:grid-cols-2">
+        {opponents.map((slug, i) => {
+          const label = `Opponent ${i + 1}`;
           return (
-            <li key={u.id} className="flex items-center gap-2">
-              <Icon src={u.icon} label={u.name} size={28} rounded="full" />
-              <span className="flex-1 text-sm">{u.name}</span>
-              <span className="text-xs text-muted">{u.cost}g</span>
-              <div className="flex items-center gap-1" role="group" aria-label={`Opponents on ${u.name}`}>
-                <button
-                  onClick={() => setContested(u.id, n - 1)}
-                  disabled={!n}
-                  aria-label={`Fewer opponents on ${u.name}`}
-                  className="h-6 w-6 rounded border border-line text-sm enabled:hover:border-muted disabled:opacity-30"
-                >
-                  −
-                </button>
-                <span className={`w-4 text-center text-sm ${n ? "font-bold text-bad" : "text-muted"}`}>{n}</span>
-                <button
-                  onClick={() => setContested(u.id, n + 1)}
-                  disabled={n >= MAX_CONTEST}
-                  aria-label={`More opponents on ${u.name}`}
-                  className="h-6 w-6 rounded border border-line text-sm enabled:hover:border-muted disabled:opacity-30"
-                >
-                  +
-                </button>
-              </div>
+            <li key={i} className="flex items-center gap-2">
+              <label htmlFor={`opponent-${i}`} className="w-24 shrink-0 text-sm text-muted">
+                {label}
+              </label>
+              <select
+                id={`opponent-${i}`}
+                value={slug ?? ""}
+                onChange={(e) => setOpponent(i, e.target.value || null)}
+                className={`min-w-0 flex-1 rounded-md border bg-ink px-2 py-1.5 text-sm ${
+                  slug ? "border-gold/60 text-gold-bright" : "border-line text-muted"
+                }`}
+              >
+                <option value="">Unknown</option>
+                {byName.map((c) => (
+                  <option key={c.slug} value={c.slug}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
             </li>
           );
         })}
