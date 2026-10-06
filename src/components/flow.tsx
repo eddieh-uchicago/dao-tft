@@ -7,15 +7,20 @@ export function FlowNode({
   step,
   title,
   hint,
+  wide = false,
   children,
 }: {
   step: number;
   title: string;
   hint?: string;
+  /** Span the width of the item pickers instead of the narrow step column. */
+  wide?: boolean;
   children: ReactNode;
 }) {
   return (
-    <section className="animate-pop mx-auto w-full max-w-2xl rounded-xl border border-gold/40 bg-panel p-5 shadow-lg shadow-black/30">
+    <section
+      className={`animate-pop mx-auto w-full ${wide ? "max-w-5xl" : "max-w-2xl"} rounded-xl border border-gold/40 bg-panel p-5 shadow-lg shadow-black/30`}
+    >
       <header className="mb-4 flex items-center gap-3">
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold text-sm font-bold text-ink">
           {step}

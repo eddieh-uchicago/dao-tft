@@ -34,10 +34,11 @@ export function AugmentPanel() {
   return (
     <FlowNode
       step={3}
+      wide
       title="Your augments"
       hint={`Click the augment you took at each selection, in order · patch ${augmentStages[0].patch}`}
     >
-      <div className="space-y-3">
+      <div className="grid items-start gap-3 md:grid-cols-3">
         {augmentStages.map((pool, i) => (
           <StagePanel key={pool.stage} selection={i} />
         ))}
@@ -108,7 +109,7 @@ function StagePanel({ selection }: { selection: number }) {
   }, [picked, selection, components, items, board, augments, scout, level]);
 
   return (
-    <div className={`rounded-lg border p-3 ${picked ? "border-gold/60" : "border-line"} ${locked ? "opacity-50" : ""}`}>
+    <div className={`min-w-0 rounded-lg border p-3 ${picked ? "border-gold/60" : "border-line"} ${locked ? "opacity-50" : ""}`}>
       <h3 className="mb-2 flex items-baseline justify-between gap-2 text-sm font-semibold">
         <span>{pool.stage} augment</span>
         {picked && <span className="truncate text-xs font-normal text-gold">{augmentLabel(picked)}</span>}
