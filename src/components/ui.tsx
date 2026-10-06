@@ -61,3 +61,38 @@ export function TierPill({ tier }: { tier: string }) {
     </span>
   );
 }
+
+/** A titled list section that expands and collapses on click. A search forces it open. */
+export function CollapsibleGroup({
+  title,
+  count,
+  open,
+  onToggle,
+  marker,
+  children,
+}: {
+  title: string;
+  count: number;
+  open: boolean;
+  onToggle: () => void;
+  marker?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div className="rounded-md border border-line">
+      <button
+        onClick={onToggle}
+        aria-expanded={open}
+        className="flex w-full items-center gap-2 px-2 py-1 text-left text-xs font-semibold text-muted hover:text-gold-bright"
+      >
+        <span aria-hidden className={`inline-block transition-transform ${open ? "rotate-90" : ""}`}>
+          ▸
+        </span>
+        {marker}
+        <span className="flex-1">{title}</span>
+        <span className="font-normal">{count}</span>
+      </button>
+      {open && <div className="border-t border-line p-1.5">{children}</div>}
+    </div>
+  );
+}
