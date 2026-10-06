@@ -6,6 +6,7 @@ import type { AugmentTier } from "@/data/schema";
 import type { Recommendation } from "@/engine/types";
 import { useGame, useScout } from "@/store/useGame";
 import { FlowNode } from "./flow";
+import { Icon } from "./Icon";
 import { CollapsibleGroup, TagPill } from "./ui";
 
 const relevant = new Set(comps.flatMap((c) => c.augmentModifiers.map((m) => m.augment)));
@@ -110,9 +111,14 @@ function StagePanel({ selection }: { selection: number }) {
 
   return (
     <div className={`min-w-0 rounded-lg border p-3 ${picked ? "border-gold/60" : "border-line"} ${locked ? "opacity-50" : ""}`}>
-      <h3 className="mb-2 flex items-baseline justify-between gap-2 text-sm font-semibold">
+      <h3 className="mb-2 flex items-center justify-between gap-2 text-sm font-semibold">
         <span>{pool.stage} augment</span>
-        {picked && <span className="truncate text-xs font-normal text-gold">{augmentLabel(picked)}</span>}
+        {picked && (
+          <span className="flex min-w-0 items-center gap-1.5 text-xs font-normal text-gold">
+            <Icon src={catalog.augmentIcon(picked)} label={augmentLabel(picked)} size={18} />
+            <span className="truncate">{augmentLabel(picked)}</span>
+          </span>
+        )}
       </h3>
 
       {locked ? (
@@ -152,7 +158,7 @@ function StagePanel({ selection }: { selection: number }) {
                             onClick={() => choose(a.id)}
                             aria-pressed={on}
                             title={`${a.tier[0].toUpperCase()}${a.tier.slice(1)} augment`}
-                            className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs ${
+                            className={`flex items-center gap-1.5 rounded-full border py-0.5 pl-0.5 pr-2.5 text-xs ${
                               on
                                 ? "border-gold bg-gold text-ink"
                                 : relevant.has(a.id)
@@ -160,7 +166,7 @@ function StagePanel({ selection }: { selection: number }) {
                                   : "border-line text-muted hover:border-muted"
                             }`}
                           >
-                            <span className={`h-1.5 w-1.5 rounded-full ${TIER_DOT[a.tier]}`} aria-hidden />
+                            <Icon src={catalog.augmentIcon(a.id)} label={augmentLabel(a.id)} size={20} rounded="full" />
                             {augmentLabel(a.id)}
                           </button>
                         </li>

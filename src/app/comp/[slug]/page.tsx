@@ -127,10 +127,13 @@ export default async function CompPage({ params }: PageProps<"/comp/[slug]">) {
         <Panel title="Augments that change the plan">
           <ul className="space-y-1 text-sm">
             {comp.augmentModifiers.map((m) => (
-              <li key={m.augment}>
-                <span className={m.bonus >= 0 ? "text-good" : "text-bad"}>{m.bonus >= 0 ? "+" : "−"}</span>{" "}
-                <span className="font-medium">{catalog.augmentName(m.augment)}</span>{" "}
-                <span className="text-muted">— {m.note}</span>
+              <li key={m.augment} className="flex items-start gap-2">
+                <span className={m.bonus >= 0 ? "text-good" : "text-bad"}>{m.bonus >= 0 ? "+" : "−"}</span>
+                <Icon src={catalog.augmentIcon(m.augment)} label={catalog.augmentName(m.augment)} size={20} />
+                <span>
+                  <span className="font-medium">{catalog.augmentName(m.augment)}</span>{" "}
+                  <span className="text-muted">— {m.note}</span>
+                </span>
               </li>
             ))}
           </ul>

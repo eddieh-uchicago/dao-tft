@@ -18,6 +18,7 @@ export class Catalog {
   private readonly componentNames: Map<string, string>;
   private readonly componentIcons: Map<string, string>;
   private readonly augmentNames: Map<string, string>;
+  private readonly augmentIcons: Map<string, string>;
 
   constructor(readonly snapshot: Snapshot) {
     this.componentIds = snapshot.components.map((c) => c.id);
@@ -29,6 +30,10 @@ export class Catalog {
     this.componentNames = new Map(snapshot.components.map((c) => [c.id, c.name]));
     this.componentIcons = new Map(snapshot.components.map((c) => [c.id, c.icon]));
     this.augmentNames = new Map(snapshot.augments.map((a) => [a.id, a.name]));
+    // Augments without art point at a shared TFT-logo placeholder; drop it so Icon shows letters instead.
+    this.augmentIcons = new Map(
+      snapshot.augments.map((a) => [a.id, /\/missing-t\d\.png$/.test(a.icon) ? "" : a.icon]),
+    );
   }
 
   hasItem(id: string): boolean {
@@ -71,6 +76,9 @@ export class Catalog {
   }
   augmentName(id: string): string {
     return this.augmentNames.get(id) ?? id;
+  }
+  augmentIcon(id: string): string {
+    return this.augmentIcons.get(id) ?? "";
   }
 }
 
