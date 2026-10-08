@@ -51,7 +51,7 @@ describe("validateComps", () => {
   });
 
   it("reports an unknown augment", () => {
-    const bad = { ...good, augmentModifiers: [{ augment: "DA_Nope", bonus: 0.1, note: "x" }] };
+    const bad = { ...good, augmentModifiers: [{ augment: "DA_Nope", bonus: 0.1, note: "x", unplayable: false }] };
     expect(validateComps([bad], catalog).some((p) => p.includes('unknown augment "DA_Nope"'))).toBe(true);
   });
 
@@ -63,11 +63,6 @@ describe("validateComps", () => {
 });
 
 describe("CompSchema", () => {
-  it("rejects more augment modifiers than the cap", () => {
-    const mod = { augment: "DA_18_BigGrabBag", bonus: 0.1, note: "x" };
-    const many = Array(MAX_COMP_AUGMENTS + 1).fill(mod);
-    expect(CompSchema.safeParse({ ...comps[0], augmentModifiers: many }).success).toBe(false);
-  });
 
   it("rejects an item weight outside 1 to 3", () => {
     const bad = { ...comps[0], targetItems: [{ ...comps[0].targetItems[0], weight: 5 }] };
@@ -91,9 +86,34 @@ describe("comp-augments.json", () => {
 });
 
 describe("applyCompAugments", () => {
-  const comp = comps[0];
-  const file = (entries: unknown[]) =>
-    CompAugmentsSchema.parse({ ...compAugmentsJson, comps: { [comp.slug]: entries } });
+  const comp = { ...comps[0], reroll: false };
+  const file = (entries: unknown[], rules: unknown[] = []) =>
+    CompAugmentsSchema.parse({ ...compAugmentsJson, comps: { [comp.slug]: entries }, rules });
+
+  it("rejects a comp list longer than the cap", () => {
+    const many = Array.from({ length: MAX_COMP_AUGMENTS + 1 }, () => ({ augment: "DA_18_BigGrabBag", strength: "good" }));
+    expect(() => file(many)).toThrow();
+  });
+
+  it("applies a rule to every comp it matches, unless the comp lists the augment itself", () => {
+    const rule = { augment: "DA_NoScoutNoPivot", when: { reroll: false }, strength: "unplayable", note: "Locked in." };
+    const reroll = { ...comp, slug: "a-reroll", reroll: true };
+    const { comps: out } = applyCompAugments([comp, reroll], file([], [rule]), catalog);
+    expect(out[0].augmentModifiers).toEqual([{ augment: "DA_NoScoutNoPivot", bonus: 0, note: "Locked in.", unplayable: true }]);
+    expect(out[1].augmentModifiers).toEqual([]);
+
+    const own = file([{ augment: "DA_NoScoutNoPivot", strength: "good", note: "Fine here." }], [rule]);
+    expect(applyCompAugments([comp], own, catalog).comps[0].augmentModifiers).toEqual([
+      { augment: "DA_NoScoutNoPivot", bonus: AUGMENT_STRENGTH_BONUS.good, note: "Fine here.", unplayable: false },
+    ]);
+  });
+
+  it("reports a rule for an unknown augment", () => {
+    const rule = { augment: "DA_Nope", when: { reroll: false }, strength: "unplayable", note: "x" };
+    expect(applyCompAugments([comp], file([], [rule]), catalog).problems).toContain(
+      'comp-augments.json rules: unknown augment "DA_Nope"',
+    );
+  });
 
   it("turns strengths into bonuses and fills in a note", () => {
     const { comps: out, problems } = applyCompAugments(
@@ -106,8 +126,13 @@ describe("applyCompAugments", () => {
     );
     expect(problems).toEqual([]);
     expect(out[0].augmentModifiers).toEqual([
-      { augment: "DA_18_BigGrabBag", bonus: AUGMENT_STRENGTH_BONUS.core, note: "Custom." },
-      { augment: "DA_SmallGrabBag", bonus: AUGMENT_STRENGTH_BONUS.avoid, note: "Small Grab Bag works against this comp." },
+      { augment: "DA_18_BigGrabBag", bonus: AUGMENT_STRENGTH_BONUS.core, note: "Custom.", unplayable: false },
+      {
+        augment: "DA_SmallGrabBag",
+        bonus: AUGMENT_STRENGTH_BONUS.avoid,
+        note: "Small Grab Bag works against this comp.",
+        unplayable: false,
+      },
     ]);
   });
 

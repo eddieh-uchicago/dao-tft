@@ -49,6 +49,7 @@ export function RouterApp() {
       ranking={ranking}
       contested={scout.contested}
       hits={hits.get(ranking[i].comp.slug) ?? []}
+      taken={augments}
     />
   );
 

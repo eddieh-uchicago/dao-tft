@@ -49,14 +49,16 @@ Infeasible branches are cut as soon as the pool runs out, and a bag holds a hand
 
 ```
 score = (value / best possible value for n components) × tier weight
-      + augment bonus + held item bonus + board bonus − scout penalty
+      + augment bonus + held item bonus + board bonus − scout penalty − dead item penalty
 ```
 
 **Items lead, the early board follows.** A held artifact or emblem also takes one of its wearer's item slots: the unit TFT Academy puts it on, or the comp carry tactics.tools rates highest with it. It fills whichever of that unit's items the components could least afford, so the comp's fit rises as if that item were built. On top of that, held artifacts and emblems that a comp does not already build pull toward it ([`src/engine/items.ts`](src/engine/items.ts)): +0.2 if TFT Academy builds the item in that comp, plus the placement gain tactics.tools measures for the item on the comp's carry (×0.6) or another end-board unit (×0.3), or +0.08 for an emblem whose trait the comp already runs. An item's best reason counts in full and agreeing reasons add half; one item adds at most 0.4 and all of them 0.45. The board adds at most 0.05 at levels 3-6, 0.1 at 7 and 0.15 from 8, because an early board is cheap to replace and items are not.
 
 **Reroll comps need their carries.** A reroll comp (flagged `reroll` in its comp file, or set from the guide's style by `npm run fetch-comps`) whose carries are all missing from a non-empty board drops exactly one fit grade, however well the items suit it. An empty board is not penalised, since it says nothing yet.
 
-**Augments steer the ranking.** Each comp lists the augments it wants in [`src/data/comp-augments.json`](src/data/comp-augments.json), each with a strength: `core` +0.3 (the comp is built around it, e.g. Unrivaled for Kha'Zix), `strong` +0.2 (a trait or carry augment the comp runs), `good` +0.1 (a solid pick TFT Academy recommends) or `avoid` −0.1. Every augment the player has taken that a comp lists adds its bonus, up to +0.5 in total. A comp an augment lifts clearly into first is tagged *lock-in*; one a strong pick lifts into the top three is a *flex enabler*.
+**Held items need a holder.** Each completed item, artifact or emblem the player holds that no unit in a comp would use well costs that comp 0.3, one and a half fit grades. An item has a holder if the comp builds it, a guide or tactics.tools puts it on one of the comp's units, the comp runs the emblem's trait, or one of its units builds it in any guide. Failing that, the item's role in [`src/engine/items.ts`](src/engine/items.ts) decides: tank items fit any frontline, AD and AP items fit carries already building that damage type, and hybrid items fit anyone. So Deathblade sinks an AP comp, while Sunfire Cape sinks nothing.
+
+**Augments steer the ranking.** Each comp lists the augments it wants in [`src/data/comp-augments.json`](src/data/comp-augments.json), each with a strength: `core` +0.3 (the comp is built around it, e.g. Unrivaled for Kha'Zix), `strong` +0.2 (a trait or carry augment the comp runs), `good` +0.1 (a solid pick TFT Academy recommends), `avoid` −0.1 or `unplayable`. Every augment the player has taken that a comp lists adds its bonus, up to +0.5 in total. An `unplayable` augment grades the comp D and sorts it below every playable comp: No Scout No Pivot locks in the units that fight, so it rules out every level 8-9 comp. Each recommendation card lists the comp's core, strong, avoid and unplayable augments with the reason, before the player picks. A comp an augment lifts clearly into first is tagged *lock-in*; one a strong pick lifts into the top three is a *flex enabler*.
 
 Normalising by the best possible value for the number of components held means a comp with a long flex list is not punished. The same search drives the other features: *Slam now* is the items it chose to craft, and *Hit next* re-runs it with one extra component and reports the gain.
 
@@ -101,8 +103,14 @@ This is an MVP built in a week, so it is deliberately narrow.
 ```
 
 - `augment` is the Community Dragon id; search `src/data/snapshot.json` for the augment's name to find it.
-- `strength` is `core`, `strong`, `good` or `avoid`. `note` is optional and shown on the recommendation card when the augment is taken; give one for every `core` and `strong` pick (a test checks).
-- A comp lists at most 10 augments. Update `patch` and `checkedAt` when you review the file.
+- `strength` is `core`, `strong`, `good`, `avoid` or `unplayable`. `note` is optional and shown on the recommendation card; give one for every `core` and `strong` pick (a test checks).
+- `rules` apply one augment to every comp matching `when` (today only `{"reroll": false}` or `{"reroll": true}`), so a broad effect is written once. A comp that lists the same augment keeps its own entry:
+
+  ```json
+  {"augment": "DA_NoScoutNoPivot", "when": {"reroll": false}, "strength": "unplayable", "note": "Units that fight can't be benched or sold, ..."}
+  ```
+- A comp lists at most 10 augments of its own. Update `patch` and `checkedAt` when you review the file.
+- A patch that adds a crafted item fails a test until the item gets a role in `ITEM_ROLE` (`src/engine/items.ts`).
 - `npm run fetch-comps` prints the augments TFT Academy recommends that the file is missing, and comps it does not cover yet, so you know what to add.
 - The build fails on an unknown augment id, an augment listed twice for one comp, or a slug that matches no comp (for example after TFT Academy renames a guide).
 

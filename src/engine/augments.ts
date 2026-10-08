@@ -10,16 +10,27 @@ const FLEX_ENABLER_BONUS = 0.2;
 /** Most all of a player's augments can add to one comp, so augments steer the ranking without drowning out items. */
 export const AUGMENT_CAP = 0.5;
 
-export function augmentEffect(comp: Comp, selected: AugmentId[]): { bonus: number; notes: string[] } {
+/**
+ * What the selected augments do to a comp: their summed bonus with the reasons,
+ * and the reasons any of them rule the comp out.
+ */
+export function augmentEffect(
+  comp: Comp,
+  selected: AugmentId[],
+): { bonus: number; notes: string[]; unplayable: string[] } {
   let bonus = 0;
   const notes: string[] = [];
+  const unplayable: string[] = [];
   for (const mod of comp.augmentModifiers) {
-    if (selected.includes(mod.augment)) {
+    if (!selected.includes(mod.augment)) continue;
+    if (mod.unplayable) {
+      unplayable.push(mod.note);
+    } else {
       bonus += mod.bonus;
       notes.push(mod.note);
     }
   }
-  return { bonus: Math.min(bonus, AUGMENT_CAP), notes };
+  return { bonus: Math.min(bonus, AUGMENT_CAP), notes, unplayable };
 }
 
 /**

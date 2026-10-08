@@ -4,13 +4,14 @@ import { notFound } from "next/navigation";
 import { Icon } from "@/components/Icon";
 import { Panel, TierPill } from "@/components/ui";
 import { catalog, compBySlug, comps } from "@/data";
-import { AUGMENT_STRENGTH_BONUS, type AugmentStrength } from "@/data/schema";
+import { augmentStrength, type AugmentStrength } from "@/data/schema";
 
 const STRENGTH_GROUPS: { strength: AugmentStrength; label: string; style: string }[] = [
   { strength: "core", label: "Core", style: "text-gold" },
   { strength: "strong", label: "Strong", style: "text-good" },
   { strength: "good", label: "Good", style: "text-muted" },
-  { strength: "avoid", label: "Avoid", style: "text-bad" },
+  { strength: "avoid", label: "Avoid", style: "text-warn" },
+  { strength: "unplayable", label: "Unplayable with", style: "text-bad" },
 ];
 
 export const dynamicParams = false;
@@ -135,7 +136,7 @@ export default async function CompPage({ params }: PageProps<"/comp/[slug]">) {
         <Panel title="Augments that change the plan">
           <div className="space-y-3 text-sm">
             {STRENGTH_GROUPS.map(({ strength, label, style }) => {
-              const mods = comp.augmentModifiers.filter((m) => m.bonus === AUGMENT_STRENGTH_BONUS[strength]);
+              const mods = comp.augmentModifiers.filter((m) => augmentStrength(m) === strength);
               if (!mods.length) return null;
               // Core and strong picks carry a reason; the rest are a plain list.
               const explained = strength !== "good";

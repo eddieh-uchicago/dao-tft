@@ -2,7 +2,7 @@ import type { Comp, ItemStats, Tier } from "@/data/schema";
 import { allocate, claimHeld, optimisticBound } from "./allocate";
 import { augmentEffect, tagRecommendations } from "./augments";
 import { Catalog, bagSize, withComponent } from "./catalog";
-import { NO_ITEM_STATS, heldItemEffect, slotFillers } from "./items";
+import { NO_ITEM_STATS, hasGoodHolder, heldItemEffect, slotFillers } from "./items";
 import { scoutPenalty } from "./scout";
 import type {
   Allocation,
@@ -40,8 +40,14 @@ export function boardWeight(level: number): number {
   if (level === 7) return 0.1;
   return 0.15;
 }
-/** How far a reroll comp without its carries falls: the gap between fit bands. */
-export const REROLL_MISS = 0.2;
+/** Score between one fit grade and the next. */
+const FIT_BAND_GAP = 0.2;
+/** How far a reroll comp without its carries falls: one fit grade. */
+export const REROLL_MISS = FIT_BAND_GAP;
+/** Taken off for each held item no unit in the comp would use well: one and a half fit grades. */
+export const ORPHAN_ITEM_PENALTY = 1.5 * FIT_BAND_GAP;
+/** Taken off a comp an augment rules out, which also sorts it below every playable comp. */
+const UNPLAYABLE_DROP = 1;
 
 /**
  * Moves a score down exactly one fit grade. It falls by the band gap when that
@@ -69,6 +75,8 @@ const bagKey = (bag: ComponentBag) =>
 export class TftEngine {
   private readonly targets = new Map<string, TargetEntry[]>();
   private readonly allocations = new Map<string, Allocation>();
+  /** Unit id -> every item any comp's guide gives it, so a held item can find a holder across guides. */
+  private readonly guideUse = new Map<string, Set<string>>();
 
   constructor(
     readonly catalog: Catalog,
@@ -85,6 +93,10 @@ export class TftEngine {
           components: catalog.item(t.item).components,
         })),
       );
+      for (const t of comp.targetItems) {
+        if (!this.guideUse.has(t.unit)) this.guideUse.set(t.unit, new Set());
+        this.guideUse.get(t.unit)!.add(t.item);
+      }
     }
   }
 
@@ -132,7 +144,10 @@ export class TftEngine {
       .map((comp) => this.evaluate(comp, state, augments))
       .sort(
         (a, b) =>
-          b.score - a.score || TIER_WEIGHT[b.tier] - TIER_WEIGHT[a.tier] || a.comp.slug.localeCompare(b.comp.slug),
+          Number(a.unplayable.length > 0) - Number(b.unplayable.length > 0) ||
+          b.score - a.score ||
+          TIER_WEIGHT[b.tier] - TIER_WEIGHT[a.tier] ||
+          a.comp.slug.localeCompare(b.comp.slug),
       );
   }
 
@@ -145,19 +160,22 @@ export class TftEngine {
         bagSize(state.components),
       );
     const coverage = bound > 0 ? Math.min(1, allocation.value / bound) : 0;
-    const { bonus, notes } = augmentEffect(comp, augments);
+    const { bonus, notes, unplayable } = augmentEffect(comp, augments);
     const held = heldItemEffect(comp, spare, this.catalog, this.itemStats);
+    const orphanItems = spare.filter((id) => !hasGoodHolder(comp, id, this.catalog, this.itemStats, this.guideUse));
+    const orphanPenalty = ORPHAN_ITEM_PENALTY * orphanItems.length;
     const penalty = scoutPenalty(comp, state.scout);
     const { fit: boardFit, matches } = this.boardFit(comp, state.board);
     const boardBonus = boardWeight(state.level) * boardFit;
-    const base = coverage * TIER_WEIGHT[comp.tier] + bonus + held.bonus + boardBonus - penalty;
-    const score = this.missesRerollCarries(comp, state.board) ? demoteOneFit(base) : base;
-    const rerollPenalty = base - score;
+    const base = coverage * TIER_WEIGHT[comp.tier] + bonus + held.bonus + boardBonus - penalty - orphanPenalty;
+    const playable = this.missesRerollCarries(comp, state.board) ? demoteOneFit(base) : base;
+    const rerollPenalty = base - playable;
+    const score = unplayable.length ? playable - UNPLAYABLE_DROP : playable;
     return {
       comp,
       tier: comp.tier,
       score,
-      fit: fitFor(score),
+      fit: unplayable.length ? "D" : fitFor(score),
       coverage,
       allocation,
       augmentBonus: bonus,
@@ -168,6 +186,9 @@ export class TftEngine {
       boardMatches: matches,
       boardBonus,
       rerollPenalty,
+      orphanItems,
+      orphanPenalty,
+      unplayable,
       tags: [],
     };
   }

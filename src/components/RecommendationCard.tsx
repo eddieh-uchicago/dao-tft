@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { catalog } from "@/data";
+import { augmentStrength, type AugmentStrength } from "@/data/schema";
 import type { HitTarget, Recommendation } from "@/engine/types";
 import { carrySwaps, openFrontline } from "@/engine/scout";
 import { Icon } from "./Icon";
@@ -11,11 +12,21 @@ interface Props {
   ranking: Recommendation[];
   contested: Record<string, number>;
   hits: HitTarget[];
+  /** Augments the player has taken. */
+  taken: string[];
 }
 
 const HITS_SHOWN = 3;
 
-export function RecommendationCard({ rec, rank, ranking, contested, hits }: Props) {
+/** Augments worth calling out on a card; the comp page lists the merely good ones too. */
+const CALLOUT: Partial<Record<AugmentStrength, { label: string; style: string }>> = {
+  core: { label: "Core", style: "border-gold text-gold" },
+  strong: { label: "Strong", style: "border-good text-good" },
+  avoid: { label: "Avoid", style: "border-warn text-warn" },
+  unplayable: { label: "Unplayable", style: "border-bad text-bad" },
+};
+
+export function RecommendationCard({ rec, rank, ranking, contested, hits, taken }: Props) {
   const { comp, allocation } = rec;
   const slams = allocation.built.filter((b) => !b.held);
   const held = allocation.built.filter((b) => b.held);
@@ -23,6 +34,9 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits }: Prop
   const swaps = rec.scoutPenalty > 0 ? carrySwaps(comp, ranking, scout) : [];
   const frontline = rec.scoutPenalty > 0 ? openFrontline(comp, scout) : [];
   const carry = catalog.unit(comp.carries[0]);
+  const callouts = comp.augmentModifiers
+    .map((m) => ({ ...m, strength: augmentStrength(m) }))
+    .filter((m) => CALLOUT[m.strength]);
 
   return (
     <article className="rounded-lg border border-line bg-panel p-4">
@@ -44,6 +58,11 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits }: Prop
           <FitBadge fit={rec.fit} />
         </div>
         <p className="mt-2 text-sm text-muted">{comp.summary}</p>
+        {rec.unplayable.map((n) => (
+          <p key={n} className="mt-1 text-sm font-medium text-bad">
+            ✕ Not playable with your augments. {n}
+          </p>
+        ))}
       </header>
 
       <div className="mt-3 space-y-3">
@@ -126,12 +145,37 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits }: Prop
             ))}
           </ul>
         </div>
+        {callouts.length > 0 && (
+          <div>
+            <h3 className="mb-1 text-xs font-semibold uppercase tracking-wider text-muted">Augments</h3>
+            <ul className="space-y-1.5">
+              {callouts.map((m) => {
+                const name = catalog.augmentName(m.augment);
+                const { label, style } = CALLOUT[m.strength]!;
+                return (
+                  <li key={m.augment} className="flex items-start gap-2 text-sm">
+                    <Icon src={catalog.augmentIcon(m.augment)} label={name} size={24} />
+                    <div className="min-w-0">
+                      <p className="flex flex-wrap items-center gap-1.5">
+                        <span className={taken.includes(m.augment) ? "font-semibold text-gold-bright" : ""}>{name}</span>
+                        <span className={`rounded border px-1 text-[10px] uppercase tracking-wide ${style}`}>{label}</span>
+                        {taken.includes(m.augment) && <span className="text-xs text-gold">taken</span>}
+                      </p>
+                      <p className="text-xs text-muted">{m.note}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </div>
 
       {(rec.itemNotes.length > 0 ||
         rec.augmentNotes.length > 0 ||
         rec.scoutPenalty > 0 ||
         rec.rerollPenalty > 0 ||
+        rec.orphanItems.length > 0 ||
         rec.boardMatches.length > 0) && (
         <ul className="mt-3 space-y-1 border-t border-line pt-3 text-sm">
           {rec.itemNotes.map((n) => (
@@ -147,6 +191,11 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits }: Prop
           {rec.augmentNotes.map((n) => (
             <li key={n} className="text-good">
               + {n}
+            </li>
+          ))}
+          {[...new Set(rec.orphanItems)].map((id) => (
+            <li key={id} className="text-bad">
+              − No unit in this comp uses your {catalog.holdable(id)?.name ?? id} well, so it is ranked lower.
             </li>
           ))}
           {rec.rerollPenalty > 0 && (

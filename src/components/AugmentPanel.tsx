@@ -21,6 +21,9 @@ const TIER_DOT: Record<AugmentTier, string> = {
   prismatic: "bg-fuchsia-400",
 };
 
+/** Comps an augment rules out, named before the rest are counted. */
+const RULED_OUT_SHOWN = 3;
+
 const nameCounts = new Map<string, number>();
 for (const a of catalog.snapshot.augments) nameCounts.set(a.name, (nameCounts.get(a.name) ?? 0) + 1);
 
@@ -192,6 +195,7 @@ function StagePanel({ selection }: { selection: number }) {
 function Outcome({ ranking, topChanged }: { ranking: Recommendation[]; topChanged: boolean }) {
   const tagged = ranking.slice(0, 3).filter((r) => r.tags.length);
   const boosted = ranking.filter((r) => r.augmentBonus > 0).map((r) => r.comp.name);
+  const ruledOut = ranking.filter((r) => r.unplayable.length).map((r) => r.comp.name);
   return (
     <div className="mt-3 border-t border-line pt-2 text-xs text-muted">
       <p>
@@ -213,6 +217,12 @@ function Outcome({ ranking, topChanged }: { ranking: Recommendation[]; topChange
       <p className="mt-1">
         {boosted.length > 0 ? `Your augments boost ${boosted.join(", ")}.` : "No curated comp is moved by your augments."}
       </p>
+      {ruledOut.length > 0 && (
+        <p className="mt-1 text-bad">
+          They rule out {ruledOut.length} comp{ruledOut.length === 1 ? "" : "s"}: {ruledOut.slice(0, RULED_OUT_SHOWN).join(", ")}
+          {ruledOut.length > RULED_OUT_SHOWN ? ` and ${ruledOut.length - RULED_OUT_SHOWN} more` : ""}.
+        </p>
+      )}
     </div>
   );
 }

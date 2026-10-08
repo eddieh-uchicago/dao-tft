@@ -6,11 +6,13 @@ const DEFAULT_NOTE: Record<AugmentStrength, string> = {
   strong: "{name} is a strong augment for this comp.",
   good: "{name} is a good augment for this comp.",
   avoid: "{name} works against this comp.",
+  unplayable: "{name} makes this comp unplayable.",
 };
 
 /**
- * Gives each comp the augment modifiers listed for it in comp-augments.json.
- * Returns every problem found; the comps are only usable when there are none.
+ * Gives each comp the augment modifiers listed for it in comp-augments.json,
+ * then the rules that match it. Returns every problem found; the comps are
+ * only usable when there are none.
  */
 export function applyCompAugments(
   comps: Comp[],
@@ -26,6 +28,9 @@ export function applyCompAugments(
   for (const slug of Object.keys(file.comps)) {
     if (!slugs.has(slug)) problems.push(`comp-augments.json: no comp has the slug "${slug}"`);
   }
+  for (const { augment } of file.rules) {
+    if (!catalog.hasAugment(augment)) problems.push(`comp-augments.json rules: unknown augment "${augment}"`);
+  }
 
   const merged = comps.map((comp) => {
     const entries = file.comps[comp.slug] ?? [];
@@ -35,10 +40,13 @@ export function applyCompAugments(
       if (seen.has(augment)) problems.push(`comp-augments.json ${comp.slug}: "${augment}" is listed twice`);
       seen.add(augment);
     }
-    const augmentModifiers = entries.map(({ augment, strength, note }) => ({
+    // A comp's own entry for an augment wins over a rule for it.
+    const rules = file.rules.filter((r) => r.when.reroll === comp.reroll && !seen.has(r.augment));
+    const augmentModifiers = [...entries, ...rules].map(({ augment, strength, note }) => ({
       augment,
       bonus: AUGMENT_STRENGTH_BONUS[strength],
       note: note ?? DEFAULT_NOTE[strength].replace("{name}", catalog.augmentName(augment)),
+      unplayable: strength === "unplayable",
     }));
     return { ...comp, augmentModifiers };
   });

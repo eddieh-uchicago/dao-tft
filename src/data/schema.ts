@@ -9,10 +9,19 @@ const Id = z.string().min(1);
 /** Most augments one comp may list (PRD open question 2 started at 5; one shared file makes 10 maintainable). */
 export const MAX_COMP_AUGMENTS = 10;
 
-/** How much an augment lifts a comp's score, by how much the comp wants it. */
-export const AUGMENT_STRENGTH_BONUS = { core: 0.3, strong: 0.2, good: 0.1, avoid: -0.1 } as const;
+/**
+ * How much an augment lifts a comp's score, by how much the comp wants it.
+ * An `unplayable` augment adds nothing; it rules the comp out instead.
+ */
+export const AUGMENT_STRENGTH_BONUS = { core: 0.3, strong: 0.2, good: 0.1, avoid: -0.1, unplayable: 0 } as const;
 export type AugmentStrength = keyof typeof AUGMENT_STRENGTH_BONUS;
 const STRENGTHS = Object.keys(AUGMENT_STRENGTH_BONUS) as [AugmentStrength, ...AugmentStrength[]];
+
+/** The strength a merged augment modifier came from. */
+export function augmentStrength(mod: { bonus: number; unplayable: boolean }): AugmentStrength {
+  if (mod.unplayable) return "unplayable";
+  return STRENGTHS.find((s) => s !== "unplayable" && AUGMENT_STRENGTH_BONUS[s] === mod.bonus) ?? "good";
+}
 
 /** One completed item the comp wants, and the unit that should hold it. */
 export const TargetItemSchema = z.object({
@@ -39,8 +48,15 @@ export const CompSchema = z.object({
   stages: z.array(z.object({ stage: z.string().min(1), tip: z.string().min(1) })).min(1),
   /** Filled from src/data/comp-augments.json when the data loads; comp files leave it out. */
   augmentModifiers: z
-    .array(z.object({ augment: Id, bonus: z.number().min(-0.4).max(0.4), note: z.string() }))
-    .max(MAX_COMP_AUGMENTS)
+    .array(
+      z.object({
+        augment: Id,
+        bonus: z.number().min(-0.4).max(0.4),
+        note: z.string(),
+        /** Taking this augment rules the comp out, whatever its items. */
+        unplayable: z.boolean().default(false),
+      }),
+    )
     .default([]),
   frontlineAlternatives: z.array(Id),
   /** Artifacts and emblems the comp is built around; holding one pushes the player toward it. */
@@ -63,18 +79,23 @@ export const StageAugmentsSchema = z.object({
 });
 export type StageAugments = z.infer<typeof StageAugmentsSchema>;
 
+const CompAugmentEntry = z.object({ augment: Id, strength: z.enum(STRENGTHS), note: z.string().min(1).optional() });
+
 /** Hand-edited augments each comp wants (see src/data/comp-augments.json). */
 export const CompAugmentsSchema = z.object({
   patch: z.string().min(1),
   checkedAt: z.string(),
   sources: z.array(z.string().url()).min(1),
   note: z.string(),
-  comps: z.record(
-    z.string(),
-    z
-      .array(z.object({ augment: Id, strength: z.enum(STRENGTHS), note: z.string().min(1).optional() }))
-      .max(MAX_COMP_AUGMENTS),
-  ),
+  comps: z.record(z.string(), z.array(CompAugmentEntry).max(MAX_COMP_AUGMENTS)),
+  /**
+   * Augments that affect every comp matching `when`, so a broad effect (No Scout
+   * No Pivot ruling out level 8-9 comps) is written once. A comp that lists the
+   * same augment itself keeps its own entry.
+   */
+  rules: z
+    .array(CompAugmentEntry.extend({ when: z.object({ reroll: z.boolean() }), note: z.string().min(1) }))
+    .default([]),
 });
 export type CompAugments = z.infer<typeof CompAugmentsSchema>;
 

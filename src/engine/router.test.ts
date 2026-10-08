@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import type { Comp, ItemStats } from "@/data/schema";
 import { ITEM, TEST_COMPS, catalog, emptyState, makeComp, testEngine } from "./fixtures";
-import { NO_ITEM_STATS } from "./items";
+import { ITEM_ROLE, NO_ITEM_STATS } from "./items";
 import { AUGMENT_CAP } from "./augments";
 import { carrySwaps, openFrontline, scoutFromOpponents, scoutPenalty } from "./scout";
-import { REROLL_MISS, boardWeight, demoteOneFit, fitFor } from "./router";
+import { ORPHAN_ITEM_PENALTY, REROLL_MISS, boardWeight, demoteOneFit, fitFor } from "./router";
 import type { Recommendation } from "./types";
 
 describe("rank", () => {
@@ -77,7 +77,7 @@ describe("augments", () => {
   const withMods = () => {
     const comps = TEST_COMPS.map((c) =>
       c.slug === "tank-line"
-        ? { ...c, augmentModifiers: [{ augment: "aug-tank", bonus: 0.3, note: "Loves tank items" }] }
+        ? { ...c, augmentModifiers: [{ augment: "aug-tank", bonus: 0.3, note: "Loves tank items", unplayable: false }] }
         : c,
     );
     return testEngine(comps);
@@ -105,7 +105,7 @@ describe("augments", () => {
   it("does not flag a comp lifted by less than a strong pick", () => {
     // Just enough to pass ad-bruiser (0.17) into third, but short of a strong pick.
     const comps = TEST_COMPS.map((c) =>
-      c.slug === "tank-line" ? { ...c, augmentModifiers: [{ augment: "aug-generic", bonus: 0.19, note: "" }] } : c,
+      c.slug === "tank-line" ? { ...c, augmentModifiers: [{ augment: "aug-generic", bonus: 0.19, note: "", unplayable: false }] } : c,
     );
     const bag = emptyState({ BFSword: 1, SparringGloves: 1, NeedlesslyLargeRod: 1, TearOfTheGoddess: 1 });
     const ranking = testEngine(comps).rank({ ...bag, augments: ["aug-generic"] });
@@ -116,7 +116,7 @@ describe("augments", () => {
   it("flags a clearly leading boosted comp as a lock-in", () => {
     const comps = TEST_COMPS.map((c) =>
       c.slug === "ad-sniper"
-        ? { ...c, augmentModifiers: [{ augment: "aug-ad", bonus: 0.4, note: "AD all day" }] }
+        ? { ...c, augmentModifiers: [{ augment: "aug-ad", bonus: 0.4, note: "AD all day", unplayable: false }] }
         : c,
     );
     const ranking = testEngine(comps).rank({ ...emptyState({ BFSword: 1, SparringGloves: 1 }), augments: ["aug-ad"] });
@@ -125,7 +125,7 @@ describe("augments", () => {
   });
 
   it("adds several picks together, up to a cap", () => {
-    const mods = ["a", "b", "c"].map((augment) => ({ augment, bonus: 0.3, note: augment }));
+    const mods = ["a", "b", "c"].map((augment) => ({ augment, bonus: 0.3, note: augment, unplayable: false }));
     const comps = TEST_COMPS.map((c) => (c.slug === "tank-line" ? { ...c, augmentModifiers: mods } : c));
     const tank = (augments: string[]) =>
       testEngine(comps).rank({ ...state, augments }).find((r) => r.comp.slug === "tank-line")!;
@@ -264,9 +264,14 @@ describe("board", () => {
   });
 
   it("loses to a held artifact early, but not once the board is committed", () => {
-    // Same items and tier; the board fits "bloom" perfectly, the artifact suits "other"'s carry.
+    // Same items and tier; the board fits "bloom" perfectly, the artifact suits "other"'s carry far better.
+    // Ahri can still hold it, so "bloom" is not penalised for a dead item.
     const other = makeComp("other", "A", "u-other", items);
-    const stats = { ...NO_ITEM_STATS, holders: { DA_Artifact_Dawncore: [{ unit: "u-other", delta: -0.2 }] } };
+    const holders = [
+      { unit: "u-other", delta: -0.2 },
+      { unit: AHRI, delta: -0.01 },
+    ];
+    const stats = { ...NO_ITEM_STATS, holders: { DA_Artifact_Dawncore: holders } };
     const state = { ...emptyState(bag), board: [KARMA], items: ["DA_Artifact_Dawncore"] };
     const top = (level: number) => testEngine([bloom, other], stats).rank({ ...state, level })[0].comp.slug;
     expect(top(4)).toBe("other");
@@ -438,5 +443,82 @@ describe("held completed items", () => {
     const mage = TEST_COMPS.find((c) => c.slug === "ap-mage")!;
     const hits = engine.hitNext(mage, { ...emptyState(), items: [ITEM.rabadons] });
     expect(hits.flatMap((t) => t.unlocks)).not.toContain(ITEM.rabadons);
+  });
+});
+
+describe("unplayable augments", () => {
+  const nsnp = { augment: "aug-lock", bonus: 0, note: "Locked in.", unplayable: true };
+  const comps = TEST_COMPS.map((c) => (c.slug === "ap-mage" ? { ...c, augmentModifiers: [nsnp] } : c));
+  const state = emptyState({ NeedlesslyLargeRod: 2, TearOfTheGoddess: 2 });
+
+  it("sorts the comp below every playable one and grades it D", () => {
+    const engine = testEngine(comps);
+    expect(engine.rank(state)[0].comp.slug).toBe("ap-mage");
+    const ranking = engine.rank({ ...state, augments: ["aug-lock"] });
+    const mage = ranking.at(-1)!;
+    expect(mage.comp.slug).toBe("ap-mage");
+    expect(mage.fit).toBe("D");
+    expect(mage.unplayable).toEqual(["Locked in."]);
+    expect(mage.augmentBonus).toBe(0);
+  });
+
+  it("does nothing until the augment is taken", () => {
+    expect(testEngine(comps).rank(state)[0].unplayable).toEqual([]);
+  });
+});
+
+describe("held items without a holder", () => {
+  // An AP comp with a frontline: Deathblade is an AD item none of its units want.
+  const items: [string, number][] = [[ITEM.archangels, 3]];
+  const bag = { NeedlesslyLargeRod: 1, TearOfTheGoddess: 1 };
+  const mage = makeComp("mage", "S", "u-mage", items);
+  const rank = (held: string[], stats?: ItemStats, comp = mage) =>
+    testEngine([comp], stats).rank({ ...emptyState(bag), items: held })[0];
+
+  it("drops a comp at least one and a half grades for an item none of its units use", () => {
+    const clean = rank([]);
+    const dead = rank([ITEM.deathblade]);
+    expect(dead.orphanItems).toEqual([ITEM.deathblade]);
+    expect(dead.orphanPenalty).toBeCloseTo(ORPHAN_ITEM_PENALTY);
+    expect(clean.score - dead.score).toBeGreaterThanOrEqual(1.5 * 0.2 - 1e-9);
+    // 1.0 sits high in S, so it lands in A; an A-tier comp at 0.85 sits low in S and falls to B.
+    expect([clean.fit, dead.fit]).toEqual(["S", "A"]);
+    const aTier = makeComp("mage", "A", "u-mage", items);
+    expect([rank([], undefined, aTier).fit, rank([ITEM.deathblade], undefined, aTier).fit]).toEqual(["S", "B"]);
+  });
+
+  it("counts each dead copy", () => {
+    expect(rank([ITEM.deathblade, ITEM.deathblade]).orphanPenalty).toBeCloseTo(2 * ORPHAN_ITEM_PENALTY);
+  });
+
+  it("lets any frontliner hold a tank item", () => {
+    expect(rank([ITEM.bramble]).orphanItems).toEqual([]);
+    expect(rank([ITEM.bramble], undefined, { ...mage, frontline: [] }).orphanItems).toEqual([ITEM.bramble]);
+  });
+
+  it("lets a carry hold an item of its damage type, and any carry a hybrid item", () => {
+    expect(rank([ITEM.rabadons]).orphanItems).toEqual([]);
+    expect(rank(["DA_GuinsoosRageblade"]).orphanItems).toEqual([]);
+  });
+
+  it("leaves items a unit builds in some guide or commonly on tactics.tools alone", () => {
+    const stats = { ...NO_ITEM_STATS, topItems: { "u-mage": [ITEM.deathblade] } };
+    expect(rank([ITEM.deathblade], stats).orphanItems).toEqual([]);
+    const other = makeComp("other", "B", "u-mage", [[ITEM.deathblade, 3]]);
+    const both = testEngine([mage, other]).rank({ ...emptyState(bag), items: [ITEM.deathblade] });
+    expect(both.find((r) => r.comp.slug === "mage")!.orphanItems).toEqual([]);
+  });
+
+  it("leaves an artifact a unit in the comp wears well alone", () => {
+    const stats = { ...NO_ITEM_STATS, holders: { DA_Artifact_Dawncore: [{ unit: "u-mage", delta: -0.3 }] } };
+    expect(rank(["DA_Artifact_Dawncore"], stats).orphanItems).toEqual([]);
+    expect(rank(["DA_Artifact_Dawncore"]).orphanItems).toEqual(["DA_Artifact_Dawncore"]);
+  });
+});
+
+describe("ITEM_ROLE", () => {
+  it("gives every crafted item in the snapshot a role", () => {
+    const missing = catalog.snapshot.items.filter((i) => i.kind === "item" && !ITEM_ROLE[i.id]).map((i) => i.id);
+    expect(missing).toEqual([]);
   });
 });

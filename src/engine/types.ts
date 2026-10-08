@@ -76,6 +76,11 @@ export interface Recommendation {
   boardBonus: number;
   /** Taken off a reroll comp when the board has none of its carries. */
   rerollPenalty: number;
+  /** Held items no unit in this comp would use well, one entry per copy. */
+  orphanItems: ItemId[];
+  orphanPenalty: number;
+  /** Why a taken augment rules this comp out; empty while it is playable. */
+  unplayable: string[];
   tags: RecTag[];
 }
 
