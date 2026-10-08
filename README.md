@@ -54,7 +54,11 @@ score = (value / best possible value for n components) × tier weight
 
 **Items lead, the early board follows.** A held artifact or emblem also takes one of its wearer's item slots: the unit TFT Academy puts it on, or the comp carry tactics.tools rates highest with it. It fills whichever of that unit's items the components could least afford, so the comp's fit rises as if that item were built. On top of that, held artifacts and emblems that a comp does not already build pull toward it ([`src/engine/items.ts`](src/engine/items.ts)): +0.2 if TFT Academy builds the item in that comp, plus the placement gain tactics.tools measures for the item on the comp's carry (×0.6) or another end-board unit (×0.3), or +0.08 for an emblem whose trait the comp already runs. An item's best reason counts in full and agreeing reasons add half; one item adds at most 0.4 and all of them 0.45. The board adds at most 0.05 at levels 3-6, 0.1 at 7 and 0.15 from 8, because an early board is cheap to replace and items are not.
 
-**Reroll comps need their carries.** A reroll comp (flagged `reroll` in its comp file, or set from the guide's style by `npm run fetch-comps`) whose carries are all missing from a non-empty board drops exactly one fit grade, however well the items suit it. An empty board is not penalised, since it says nothing yet.
+**Comps have a style.** Each comp is `reroll-1`, `reroll-2`, `reroll-3`, `fast-8`, `fast-9` or `lose-streak` (set by hand in its comp file, or from the guide's style by `npm run fetch-comps`, which stops on a style it does not know).
+
+**Your economy decides which styles are realistic.** Given the player's stage, gold, level and HP, [`src/engine/economy.ts`](src/engine/economy.ts) plays the game forward round by round: income plus interest, 2 free XP a round, and a typical loss on most player rounds. It stops when the player can buy up to the style's roll level and still has its roll-down gold. A style reached only after its deadline, or after the projected HP runs out, is *unrealistic*: graded D and listed last. One reached after its usual spike, or at more than half the player's HP, or a reroll the player has out-levelled by two, is a *stretch* and drops one fit grade. Level 8 with 30 gold and 20 HP on 4-2 rules out Fast 9; level 5 with 60 gold on 3-5 leaves only 1- and 2-cost rerolls realistic. More than ten rounds out the projection only rules a style out, so every style stays open at 2-1. With no stage or gold given, nothing changes.
+
+**Reroll comps need their carries.** A reroll comp whose carries are all missing from a non-empty board drops exactly one fit grade, however well the items suit it. An empty board is not penalised, since it says nothing yet.
 
 **Held items need a holder.** Each completed item, artifact or emblem the player holds that no unit in a comp would use well costs that comp 0.3, one and a half fit grades. An item has a holder if the comp builds it, a guide or tactics.tools puts it on one of the comp's units, the comp runs the emblem's trait, or one of its units builds it in any guide. Failing that, the item's role in [`src/engine/items.ts`](src/engine/items.ts) decides: tank items fit any frontline, AD and AP items fit carries already building that damage type, and hybrid items fit anyone. So Deathblade sinks an AP comp, while Sunfire Cape sinks nothing.
 
@@ -104,15 +108,19 @@ This is an MVP built in a week, so it is deliberately narrow.
 
 - `augment` is the Community Dragon id; search `src/data/snapshot.json` for the augment's name to find it.
 - `strength` is `core`, `strong`, `good`, `avoid` or `unplayable`. `note` is optional and shown on the recommendation card; give one for every `core` and `strong` pick (a test checks).
-- `rules` apply one augment to every comp matching `when` (today only `{"reroll": false}` or `{"reroll": true}`), so a broad effect is written once. A comp that lists the same augment keeps its own entry:
+- `rules` apply one augment to every comp whose style is in `when.styles`, so a broad effect is written once. A comp that lists the same augment keeps its own entry:
 
   ```json
-  {"augment": "DA_NoScoutNoPivot", "when": {"reroll": false}, "strength": "unplayable", "note": "Units that fight can't be benched or sold, ..."}
+  {"augment": "DA_NoScoutNoPivot", "when": {"styles": ["fast-8", "fast-9", "lose-streak"]}, "strength": "unplayable", "note": "Units that fight can't be benched or sold, ..."}
   ```
 - A comp lists at most 10 augments of its own. Update `patch` and `checkedAt` when you review the file.
 - A patch that adds a crafted item fails a test until the item gets a role in `ITEM_ROLE` (`src/engine/items.ts`).
 - `npm run fetch-comps` prints the augments TFT Academy recommends that the file is missing, and comps it does not cover yet, so you know what to add.
 - The build fails on an unknown augment id, an augment listed twice for one comp, or a slug that matches no comp (for example after TFT Academy renames a guide).
+
+## Updating the economy model
+
+[`src/data/economy.json`](src/data/economy.json) holds the estimates behind the economy check, so they can be tuned without touching code: the XP to reach each level, free XP per round, how much of the next level's XP a player is assumed to have banked (the app does not ask), income and interest, which rounds are carousels and PvE, the typical loss by stage and how often a greedy player loses. Each style has a `rollLevel`, the `rollGold` it needs there, the `ideal` stage it usually spikes and the `deadline` after which it is out of reach. The economy tests pin the two worked examples above, so a change that breaks them fails CI.
 
 ## Disclaimer
 

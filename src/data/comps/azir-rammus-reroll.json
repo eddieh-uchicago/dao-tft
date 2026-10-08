@@ -2,7 +2,7 @@
   "slug": "azir-rammus-reroll",
   "name": "Azir Rammus Reroll",
   "tier": "A",
-  "reroll": true,
+  "style": "reroll-3",
   "summary": "A 3-cost reroll around Azir, backed by Rammus and Zyra/Soraka.",
   "playWhen": [
     "You have lots of Rods",

@@ -4,8 +4,8 @@ import { ITEM, TEST_COMPS, catalog, emptyState, makeComp, testEngine } from "./f
 import { ITEM_ROLE, NO_ITEM_STATS } from "./items";
 import { AUGMENT_CAP } from "./augments";
 import { carrySwaps, openFrontline, scoutFromOpponents, scoutPenalty } from "./scout";
-import { ORPHAN_ITEM_PENALTY, REROLL_MISS, boardWeight, demoteOneFit, fitFor } from "./router";
-import type { Recommendation } from "./types";
+import { ORPHAN_ITEM_PENALTY, REROLL_MISS, boardWeight, demoteOneFit, fitFor, isRuledOut } from "./router";
+import type { GameState, Recommendation } from "./types";
 
 describe("rank", () => {
   it("puts the comp whose items the components build on top", () => {
@@ -284,7 +284,7 @@ describe("reroll comps", () => {
   const KARMA = "DA_Karma18";
   const KOBUKO = "DA_18_Kobuko";
   const items: [string, number][] = [[ITEM.archangels, 3]];
-  const reroll = makeComp("reroll", "A", AHRI, items, { reroll: true, endBoard: [AHRI, KARMA] });
+  const reroll = makeComp("reroll", "A", AHRI, items, { style: "reroll-2", endBoard: [AHRI, KARMA] });
   const bag = { NeedlesslyLargeRod: 1, TearOfTheGoddess: 1 };
   const rank = (comp: Comp, board: string[]) => testEngine([comp]).rank({ ...emptyState(bag), board })[0];
 
@@ -292,7 +292,7 @@ describe("reroll comps", () => {
     // The items are complete, so only the missing carry holds it back.
     const rec = rank(reroll, [KOBUKO]);
     expect(rec.rerollPenalty).toBeCloseTo(REROLL_MISS);
-    expect(rank({ ...reroll, reroll: false }, [KOBUKO]).fit).toBe("S");
+    expect(rank({ ...reroll, style: "fast-8" }, [KOBUKO]).fit).toBe("S");
     expect(rec.fit).toBe("A");
   });
 
@@ -312,7 +312,7 @@ describe("reroll comps", () => {
 
   it("leaves an empty board and non-reroll comps alone", () => {
     expect(rank(reroll, []).rerollPenalty).toBe(0);
-    expect(rank({ ...reroll, reroll: false }, [KOBUKO]).rerollPenalty).toBe(0);
+    expect(rank({ ...reroll, style: "fast-8" }, [KOBUKO]).rerollPenalty).toBe(0);
   });
 
   it("ranks below a comp one tier lower that the items fit just as well", () => {
@@ -520,5 +520,41 @@ describe("ITEM_ROLE", () => {
   it("gives every crafted item in the snapshot a role", () => {
     const missing = catalog.snapshot.items.filter((i) => i.kind === "item" && !ITEM_ROLE[i.id]).map((i) => i.id);
     expect(missing).toEqual([]);
+  });
+});
+
+describe("economy", () => {
+  // Same items and tier, so only the style separates them.
+  const items: [string, number][] = [[ITEM.archangels, 3]];
+  const fast9 = makeComp("fast9", "S", "u-mage", items, { style: "fast-9" });
+  const reroll = makeComp("reroll", "A", "u-mage", items, { style: "reroll-2" });
+  const bag = { NeedlesslyLargeRod: 1, TearOfTheGoddess: 1 };
+  const rank = (economy: Partial<Pick<GameState, "level" | "gold" | "hp" | "stage">>) =>
+    testEngine([fast9, reroll]).rank({ ...emptyState(bag), ...economy });
+
+  it("changes nothing while gold or stage is unknown", () => {
+    const ranking = rank({ level: 8, hp: 20 });
+    expect(ranking[0].comp.slug).toBe("fast9");
+    expect(ranking.every((r) => r.economy === null)).toBe(true);
+  });
+
+  it("grades a style the player cannot reach D and lists it last, with the reason", () => {
+    const ranking = rank({ level: 8, gold: 30, hp: 20, stage: "4-2" });
+    const last = ranking.at(-1)!;
+    expect(last.comp.slug).toBe("fast9");
+    expect(last.fit).toBe("D");
+    expect(last.economy?.verdict).toBe("unrealistic");
+    expect(isRuledOut(last)).toBe(true);
+  });
+
+  it("drops a style the player can only just reach one grade", () => {
+    // Level 5 on 3-5 can reach a 3-cost reroll only by 4-1, past its usual 3-5.
+    const r3 = makeComp("r3", "S", "u-mage", items, { style: "reroll-3" });
+    const engine = testEngine([r3]);
+    const state = { ...emptyState(bag), level: 5, hp: 100, stage: "3-5" };
+    const known = engine.rank({ ...state, gold: 60 })[0];
+    const unknown = engine.rank(state)[0];
+    expect(known.economy?.verdict).toBe("stretch");
+    expect([unknown.fit, known.fit]).toEqual(["S", "A"]);
   });
 });

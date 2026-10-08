@@ -1,0 +1,25 @@
+{
+  "patch": "18.4b",
+  "checkedAt": "2026-10-08",
+  "sources": [
+    "https://noxutft.com/guide/leveling",
+    "https://bunnymuffins.lol/tft-leveling-guide/"
+  ],
+  "note": "Hand-edited estimates used to judge which comp styles a player's gold, level, HP and stage can still reach. xpToLevel is the XP needed to reach each level from the one below; the player is assumed to have banked bankedXpShare of the next level's XP, since the app does not ask. lossDamage is a typical loss by stage, and lossRate is how often a player greeding toward a style is assumed to lose. Each style rolls at rollLevel and needs rollGold to roll once there; it should get there by ideal and must by deadline.",
+  "xpToLevel": {"3": 2, "4": 6, "5": 10, "6": 20, "7": 36, "8": 60, "9": 68, "10": 68},
+  "passiveXp": 2,
+  "bankedXpShare": 0.5,
+  "buyXp": {"gold": 4, "xp": 4},
+  "income": {"base": 5, "interestPer": 10, "interestMax": 5},
+  "rounds": {"perStage": 7, "carousel": 4, "pve": 7},
+  "lossDamage": {"2": 5, "3": 7, "4": 10, "5": 13, "6": 16, "7": 18},
+  "lossRate": 0.75,
+  "styles": {
+    "reroll-1": {"label": "1-cost reroll", "rollLevel": 5, "rollGold": 30, "ideal": "3-1", "deadline": "4-1"},
+    "reroll-2": {"label": "2-cost reroll", "rollLevel": 6, "rollGold": 30, "ideal": "3-2", "deadline": "4-1"},
+    "reroll-3": {"label": "3-cost reroll", "rollLevel": 7, "rollGold": 40, "ideal": "3-5", "deadline": "4-2"},
+    "fast-8": {"label": "Fast 8", "rollLevel": 8, "rollGold": 30, "ideal": "4-2", "deadline": "4-5"},
+    "fast-9": {"label": "Fast 9", "rollLevel": 9, "rollGold": 30, "ideal": "5-2", "deadline": "5-5"},
+    "lose-streak": {"label": "Lose streak", "rollLevel": 8, "rollGold": 40, "ideal": "4-1", "deadline": "4-5"}
+  }
+}

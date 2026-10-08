@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { catalog } from "@/data";
+import { catalog, economyModel, engine } from "@/data";
+import { COMP_STYLES } from "@/data/schema";
+import { stageLabels, type Verdict } from "@/engine/economy";
 import { LEVELS, useGame } from "@/store/useGame";
 import { FlowNode } from "./flow";
 import { traitStyle, type TraitStyle } from "@/engine/traits";
@@ -19,6 +21,13 @@ export function BoardPicker() {
   const toggle = useGame((s) => s.toggleUnit);
   const full = board.length >= level;
   const skip = useGame((s) => s.skipBoard);
+  const gold = useGame((s) => s.gold);
+  const hp = useGame((s) => s.hp);
+  const stage = useGame((s) => s.stage);
+  const setGold = useGame((s) => s.setGold);
+  const setHp = useGame((s) => s.setHp);
+  const setStage = useGame((s) => s.setStage);
+  const outlooks = useMemo(() => engine.styleOutlooks({ level, gold, hp, stage }), [level, gold, hp, stage]);
 
   const traits = useMemo(() => boardTraits(board), [board]);
 
@@ -46,7 +55,11 @@ export function BoardPicker() {
     });
 
   return (
-    <FlowNode step={2} title="Current Board" hint="Keep this updated as you play; recommendations follow your board">
+    <FlowNode
+      step={2}
+      title="Current Board"
+      hint="Keep this updated as you play; recommendations follow your board, level, gold, HP and stage"
+    >
       <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
         <span className="text-muted">Level</span>
         <div role="radiogroup" aria-label="Player level" className="flex flex-wrap gap-1">
@@ -68,6 +81,42 @@ export function BoardPicker() {
           {board.length}/{level} units
         </span>
       </div>
+
+      <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+        <label className="flex items-center gap-2">
+          <span className="text-muted">Stage</span>
+          <select
+            value={stage ?? ""}
+            onChange={(e) => setStage(e.target.value || null)}
+            className="rounded-md border border-line bg-ink px-2 py-1 text-sm"
+          >
+            <option value="">—</option>
+            {STAGES.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+        </label>
+        <NumberField label="Gold" value={gold} onChange={setGold} max={200} />
+        <NumberField label="HP" value={hp} onChange={setHp} max={100} />
+      </div>
+      {outlooks.size > 0 ? (
+        <p className="mb-3 text-xs text-muted" aria-live="polite">
+          At this economy:{" "}
+          {VERDICTS.map(({ verdict, label, style }) => {
+            const styles = COMP_STYLES.filter((s) => outlooks.get(s)?.verdict === verdict);
+            if (!styles.length) return null;
+            return (
+              <span key={verdict} className="mr-2">
+                <span className={style}>{label}</span> {styles.map((s) => economyModel.styles[s].label).join(", ")}.
+              </span>
+            );
+          })}
+        </p>
+      ) : (
+        <p className="mb-3 text-xs text-muted">Add your stage and gold to rule out comp styles you cannot reach.</p>
+      )}
 
       {board.length > 0 && (
         <ul className="mb-3 flex flex-wrap gap-2">
@@ -171,6 +220,46 @@ export function BoardPicker() {
         </button>
       )}
     </FlowNode>
+  );
+}
+
+const STAGES = stageLabels(economyModel);
+
+const VERDICTS: { verdict: Verdict; label: string; style: string }[] = [
+  { verdict: "realistic", label: "Realistic:", style: "text-good" },
+  { verdict: "stretch", label: "Stretch:", style: "text-warn" },
+  { verdict: "unrealistic", label: "Not realistic:", style: "text-bad" },
+];
+
+/** A whole-number input where empty means "not given". */
+function NumberField({
+  label,
+  value,
+  onChange,
+  max,
+}: {
+  label: string;
+  value: number | null;
+  onChange: (value: number | null) => void;
+  max: number;
+}) {
+  return (
+    <label className="flex items-center gap-2">
+      <span className="text-muted">{label}</span>
+      <input
+        type="number"
+        inputMode="numeric"
+        min={0}
+        max={max}
+        value={value ?? ""}
+        onChange={(e) => {
+          const n = e.target.valueAsNumber;
+          onChange(Number.isNaN(n) ? null : Math.max(0, Math.min(max, Math.round(n))));
+        }}
+        placeholder="—"
+        className="w-16 rounded-md border border-line bg-ink px-2 py-1 text-sm placeholder:text-muted"
+      />
+    </label>
   );
 }
 

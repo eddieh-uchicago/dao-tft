@@ -2,7 +2,7 @@
   "slug": "invoker-morgana-ahri",
   "name": "Invoker Morgana and Ahri",
   "tier": "A",
-  "reroll": false,
+  "style": "fast-8",
   "summary": "AP Invoker line with Ahri and Morgana as carries, and Sentinel and Sett up front.",
   "playWhen": [
     "You have lots of items",

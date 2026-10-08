@@ -2,7 +2,7 @@
   "slug": "riftbeast-reroll",
   "name": "Riftbeast Reroll",
   "tier": "A",
-  "reroll": true,
+  "style": "reroll-1",
   "summary": "A 1-cost reroll around Cinderling and Pebbles with Riftbeast frontline.",
   "playWhen": [
     "You find copies of Pebbles or Cinderling",

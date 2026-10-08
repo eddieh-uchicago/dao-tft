@@ -16,6 +16,9 @@ interface GameStore extends Omit<GameState, "scout"> {
   /** Player level caps how many units can be on the board. */
   level: number;
   setLevel: (level: number) => void;
+  setGold: (gold: number | null) => void;
+  setHp: (hp: number | null) => void;
+  setStage: (stage: string | null) => void;
   addComponent: (id: ComponentId) => void;
   removeComponent: (id: ComponentId) => void;
   addItem: (id: ItemId) => void;
@@ -37,6 +40,9 @@ const initial = {
   items: [] as ItemId[],
   board: [] as UnitId[],
   level: 4,
+  gold: null as number | null,
+  hp: null as number | null,
+  stage: null as string | null,
   boardSkipped: false,
   augmentSkipped: false,
   augments: [] as AugmentId[],
@@ -59,6 +65,9 @@ export const useGame = create<GameStore>((set) => ({
       return i < 0 ? s : { items: s.items.filter((_, j) => j !== i) };
     }),
   setLevel: (level) => set((s) => ({ level, board: s.board.slice(0, level) })),
+  setGold: (gold) => set({ gold }),
+  setHp: (hp) => set({ hp }),
+  setStage: (stage) => set({ stage }),
   toggleUnit: (id) =>
     set((s) => {
       if (s.board.includes(id)) return { board: s.board.filter((u) => u !== id) };

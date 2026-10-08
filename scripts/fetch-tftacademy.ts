@@ -97,6 +97,23 @@ const PLAY_WHEN: Record<string, string> = {
   "Fast 9": "You have the economy to reach level 9 and find {carry}",
 };
 
+/** TFT Academy's guide styles, as our comp styles. */
+const STYLES: Record<string, Comp["style"]> = {
+  "1-Cost Reroll": "reroll-1",
+  "2-Cost Reroll": "reroll-2",
+  "3-Cost Reroll": "reroll-3",
+  "4-Cost Fast 8": "fast-8",
+  "Fast 9": "fast-9",
+  "Lose Streak": "lose-streak",
+};
+
+/** A new style must be mapped by hand rather than guessed, since it decides which economies can play the comp. */
+function compStyle(guide: Guide): Comp["style"] {
+  const style = STYLES[guide.style?.trim()];
+  if (!style) throw new Error(`Unknown TFT Academy style "${guide.style}" on "${guide.title}"; add it to STYLES`);
+  return style;
+}
+
 /** Artifacts and emblems the guide builds anywhere: final board, alternate builds or level 10 cap. */
 function keyItems(guide: Guide, snapshot: Snapshot): Comp["keyItems"] {
   const units = new Set(snapshot.units.map((u) => u.id));
@@ -162,7 +179,7 @@ function convert(guide: Guide, snapshot: Snapshot): ConvertedComp {
     slug: slugify(guide.title),
     name: guide.title.trim(),
     tier: situational ? "C" : (guide.tier as Comp["tier"]),
-    reroll: /reroll/i.test(guide.style ?? ""),
+    style: compStyle(guide),
     summary:
       `${guide.style ? `A ${guide.style} comp` : "A comp"} carried by ${carryNames}` +
       (tank ? `, with ${name(tank.apiName)} tanking.` : "."),

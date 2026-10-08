@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { augmentStages, catalog, comps } from "./index";
 import compAugmentsJson from "./comp-augments.json";
 import { applyCompAugments } from "./compAugments";
-import { AUGMENT_STRENGTH_BONUS, CompAugmentsSchema, CompSchema, MAX_COMP_AUGMENTS } from "./schema";
+import { AUGMENT_STRENGTH_BONUS, CompAugmentsSchema, CompSchema, MAX_COMP_AUGMENTS, type Comp } from "./schema";
 import { validateComps } from "./validate";
 
 describe("curated comps", () => {
@@ -86,7 +86,7 @@ describe("comp-augments.json", () => {
 });
 
 describe("applyCompAugments", () => {
-  const comp = { ...comps[0], reroll: false };
+  const comp: Comp = { ...comps[0], style: "fast-8" };
   const file = (entries: unknown[], rules: unknown[] = []) =>
     CompAugmentsSchema.parse({ ...compAugmentsJson, comps: { [comp.slug]: entries }, rules });
 
@@ -96,8 +96,8 @@ describe("applyCompAugments", () => {
   });
 
   it("applies a rule to every comp it matches, unless the comp lists the augment itself", () => {
-    const rule = { augment: "DA_NoScoutNoPivot", when: { reroll: false }, strength: "unplayable", note: "Locked in." };
-    const reroll = { ...comp, slug: "a-reroll", reroll: true };
+    const rule = { augment: "DA_NoScoutNoPivot", when: { styles: ["fast-8"] }, strength: "unplayable", note: "Locked in." };
+    const reroll: Comp = { ...comp, slug: "a-reroll", style: "reroll-2" };
     const { comps: out } = applyCompAugments([comp, reroll], file([], [rule]), catalog);
     expect(out[0].augmentModifiers).toEqual([{ augment: "DA_NoScoutNoPivot", bonus: 0, note: "Locked in.", unplayable: true }]);
     expect(out[1].augmentModifiers).toEqual([]);
@@ -109,7 +109,7 @@ describe("applyCompAugments", () => {
   });
 
   it("reports a rule for an unknown augment", () => {
-    const rule = { augment: "DA_Nope", when: { reroll: false }, strength: "unplayable", note: "x" };
+    const rule = { augment: "DA_Nope", when: { styles: ["fast-8"] }, strength: "unplayable", note: "x" };
     expect(applyCompAugments([comp], file([], [rule]), catalog).problems).toContain(
       'comp-augments.json rules: unknown augment "DA_Nope"',
     );

@@ -58,6 +58,9 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits, taken 
           <FitBadge fit={rec.fit} />
         </div>
         <p className="mt-2 text-sm text-muted">{comp.summary}</p>
+        {rec.economy?.verdict === "unrealistic" && (
+          <p className="mt-1 text-sm font-medium text-bad">✕ Not realistic for your economy. {rec.economy.note}</p>
+        )}
         {rec.unplayable.map((n) => (
           <p key={n} className="mt-1 text-sm font-medium text-bad">
             ✕ Not playable with your augments. {n}
@@ -176,6 +179,7 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits, taken 
         rec.scoutPenalty > 0 ||
         rec.rerollPenalty > 0 ||
         rec.orphanItems.length > 0 ||
+        rec.economy?.verdict === "stretch" ||
         rec.boardMatches.length > 0) && (
         <ul className="mt-3 space-y-1 border-t border-line pt-3 text-sm">
           {rec.itemNotes.map((n) => (
@@ -198,6 +202,9 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits, taken 
               − No unit in this comp uses your {catalog.holdable(id)?.name ?? id} well, so it is ranked lower.
             </li>
           ))}
+          {rec.economy?.verdict === "stretch" && (
+            <li className="text-warn">− A stretch for your economy, so it is ranked one fit grade lower. {rec.economy.note}</li>
+          )}
           {rec.rerollPenalty > 0 && (
             <li className="text-bad">
               − Your board has no {comp.carries.map((u) => catalog.unit(u).name).join(" or ")}. Reroll comps need

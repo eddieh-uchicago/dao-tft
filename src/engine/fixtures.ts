@@ -1,5 +1,6 @@
+import economyJson from "@/data/economy.json";
 import snapshot from "@/data/snapshot.json";
-import type { Comp, ItemStats, Snapshot, TargetItem, Tier } from "@/data/schema";
+import { EconomyModelSchema, type Comp, type ItemStats, type Snapshot, type TargetItem, type Tier } from "@/data/schema";
 import { Catalog } from "./catalog";
 import { TftEngine } from "./router";
 import type { ComponentBag, GameState } from "./types";
@@ -34,7 +35,7 @@ export function makeComp(
     slug,
     name: slug,
     tier,
-    reroll: false,
+    style: "fast-8",
     summary: "test comp",
     playWhen: ["always"],
     carries: [carry],
@@ -58,6 +59,9 @@ export const emptyState = (components: ComponentBag = {}): GameState => ({
   augments: [],
   scout: { contested: {} },
   level: 8,
+  gold: null,
+  hp: null,
+  stage: null,
 });
 
 export const TEST_COMPS: Comp[] = [
@@ -83,4 +87,6 @@ export const TEST_COMPS: Comp[] = [
   ]),
 ];
 
-export const testEngine = (comps: Comp[] = TEST_COMPS, stats?: ItemStats) => new TftEngine(catalog, comps, stats);
+export const economyModel = EconomyModelSchema.parse(economyJson);
+export const testEngine = (comps: Comp[] = TEST_COMPS, stats?: ItemStats) =>
+  new TftEngine(catalog, comps, stats, economyModel);

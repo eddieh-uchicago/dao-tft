@@ -52,12 +52,29 @@ export default function About() {
         </div>
       </Panel>
 
+      <Panel title="Your economy">
+        <div className="space-y-3 text-sm text-muted">
+          <p>
+            Give your stage, gold and HP next to your level, and Dao TFT checks which comp styles you can still reach.
+            It plays the game forward round by round, saving gold and taking free XP while you lose most fights, until
+            you can buy up to the style&apos;s roll level (5 for a 1-cost reroll up to 9 for Fast 9) and still roll.
+          </p>
+          <p>
+            A style you would reach only after its cutoff, or would die before reaching, is graded D and listed last. One
+            you reach late or at a heavy HP cost drops a grade. At level 8 with 30 gold and 20 HP on 4-2, Fast 9 is out;
+            at level 5 with 60 gold on 3-5, only 1- and 2-cost rerolls are realistic. These are estimates: streaks and
+            board strength matter more than the projection early on, so nothing is called a stretch more than ten
+            rounds ahead.
+          </p>
+        </div>
+      </Panel>
+
       <Panel title="Augments and scouting">
         <div className="space-y-3 text-sm text-muted">
           <p>
             Augments are judged against your components, not a global tier list. An augment can lift a comp into your
-            top 3 (<em>flex enabler</em>) or make one comp clearly the best line (<em>lock-in</em>). Each comp lists at most
-            five augment modifiers.
+            top 3 (<em>flex enabler</em>) or make one comp clearly the best line (<em>lock-in</em>). Some augments rule
+            comps out instead: No Scout No Pivot locks in the units that fight, so no level 8-9 comp is playable with it.
           </p>
           <p>
             Scouting is manual: pick the comp each opponent is playing. A contested carry or frontline lowers a

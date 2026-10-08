@@ -2,7 +2,7 @@
   "slug": "aphelios-flex",
   "name": "Aphelios Flex",
   "tier": "A",
-  "reroll": false,
+  "style": "fast-8",
   "summary": "An AD opener that bridges into Aphelios when you cannot reach level 9.",
   "playWhen": [
     "You have a good AD opener",

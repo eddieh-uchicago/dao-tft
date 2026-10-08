@@ -1,7 +1,8 @@
-import type { Comp, ItemStats, Tier } from "@/data/schema";
+import { COMP_STYLES, isReroll, type Comp, type CompStyle, type EconomyModel, type ItemStats, type Tier } from "@/data/schema";
 import { allocate, claimHeld, optimisticBound } from "./allocate";
 import { augmentEffect, tagRecommendations } from "./augments";
 import { Catalog, bagSize, withComponent } from "./catalog";
+import { styleOutlook, type Economy, type StyleOutlook } from "./economy";
 import { NO_ITEM_STATS, hasGoodHolder, heldItemEffect, slotFillers } from "./items";
 import { scoutPenalty } from "./scout";
 import type {
@@ -46,7 +47,10 @@ const FIT_BAND_GAP = 0.2;
 export const REROLL_MISS = FIT_BAND_GAP;
 /** Taken off for each held item no unit in the comp would use well: one and a half fit grades. */
 export const ORPHAN_ITEM_PENALTY = 1.5 * FIT_BAND_GAP;
-/** Taken off a comp an augment rules out, which also sorts it below every playable comp. */
+/** A taken augment or the player's economy rules this comp out; it is graded D and listed last. */
+export const isRuledOut = (rec: Recommendation) => rec.unplayable.length > 0 || rec.economy?.verdict === "unrealistic";
+
+/** Taken off a comp that is ruled out, which also sorts it below every playable comp. */
 const UNPLAYABLE_DROP = 1;
 
 /**
@@ -82,6 +86,8 @@ export class TftEngine {
     readonly catalog: Catalog,
     readonly comps: Comp[],
     readonly itemStats: ItemStats = NO_ITEM_STATS,
+    /** Without one, the player's gold, HP and stage are ignored. */
+    readonly economy?: EconomyModel,
   ) {
     for (const comp of comps) {
       this.targets.set(
@@ -139,19 +145,36 @@ export class TftEngine {
     });
   }
 
+  /** What the player's economy says about each comp style; empty while it is unknown. */
+  styleOutlooks(economy: Economy): Map<CompStyle, StyleOutlook> {
+    const outlooks = new Map<CompStyle, StyleOutlook>();
+    if (!this.economy) return outlooks;
+    for (const style of COMP_STYLES) {
+      const outlook = styleOutlook(style, economy, this.economy);
+      if (outlook) outlooks.set(style, outlook);
+    }
+    return outlooks;
+  }
+
   private rankWith(state: GameState, augments: AugmentId[]): Recommendation[] {
+    const outlooks = this.styleOutlooks(state);
     return this.comps
-      .map((comp) => this.evaluate(comp, state, augments))
+      .map((comp) => this.evaluate(comp, state, augments, outlooks.get(comp.style) ?? null))
       .sort(
         (a, b) =>
-          Number(a.unplayable.length > 0) - Number(b.unplayable.length > 0) ||
+          Number(isRuledOut(a)) - Number(isRuledOut(b)) ||
           b.score - a.score ||
           TIER_WEIGHT[b.tier] - TIER_WEIGHT[a.tier] ||
           a.comp.slug.localeCompare(b.comp.slug),
       );
   }
 
-  private evaluate(comp: Comp, state: GameState, augments: AugmentId[]): Recommendation {
+  private evaluate(
+    comp: Comp,
+    state: GameState,
+    augments: AugmentId[],
+    economy: StyleOutlook | null,
+  ): Recommendation {
     const { allocation, heldWeight, rest, spare } = this.holdings(comp, state.components, state.items);
     const bound =
       heldWeight +
@@ -168,14 +191,17 @@ export class TftEngine {
     const { fit: boardFit, matches } = this.boardFit(comp, state.board);
     const boardBonus = boardWeight(state.level) * boardFit;
     const base = coverage * TIER_WEIGHT[comp.tier] + bonus + held.bonus + boardBonus - penalty - orphanPenalty;
-    const playable = this.missesRerollCarries(comp, state.board) ? demoteOneFit(base) : base;
-    const rerollPenalty = base - playable;
-    const score = unplayable.length ? playable - UNPLAYABLE_DROP : playable;
+    const carried = this.missesRerollCarries(comp, state.board) ? demoteOneFit(base) : base;
+    const rerollPenalty = base - carried;
+    // A style the player's economy can only just reach drops a grade; one it cannot reach is ruled out.
+    const playable = economy?.verdict === "stretch" ? demoteOneFit(carried) : carried;
+    const ruledOut = unplayable.length > 0 || economy?.verdict === "unrealistic";
+    const score = ruledOut ? playable - UNPLAYABLE_DROP : playable;
     return {
       comp,
       tier: comp.tier,
       score,
-      fit: unplayable.length ? "D" : fitFor(score),
+      fit: ruledOut ? "D" : fitFor(score),
       coverage,
       allocation,
       augmentBonus: bonus,
@@ -189,6 +215,7 @@ export class TftEngine {
       orphanItems,
       orphanPenalty,
       unplayable,
+      economy,
       tags: [],
     };
   }
@@ -198,7 +225,7 @@ export class TftEngine {
    * to a board that has none of them. An empty board says nothing yet.
    */
   private missesRerollCarries(comp: Comp, board: string[]): boolean {
-    return comp.reroll && board.length > 0 && !comp.carries.some((c) => board.includes(c));
+    return isReroll(comp) && board.length > 0 && !comp.carries.some((c) => board.includes(c));
   }
 
   /** Average credit per board unit: 1 if it is in the comp's opener or end board, 0.5 if it shares a trait. */

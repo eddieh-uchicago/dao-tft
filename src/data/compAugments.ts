@@ -41,7 +41,7 @@ export function applyCompAugments(
       seen.add(augment);
     }
     // A comp's own entry for an augment wins over a rule for it.
-    const rules = file.rules.filter((r) => r.when.reroll === comp.reroll && !seen.has(r.augment));
+    const rules = file.rules.filter((r) => r.when.styles.includes(comp.style) && !seen.has(r.augment));
     const augmentModifiers = [...entries, ...rules].map(({ augment, strength, note }) => ({
       augment,
       bonus: AUGMENT_STRENGTH_BONUS[strength],

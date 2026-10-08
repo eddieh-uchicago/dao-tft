@@ -1,4 +1,5 @@
 import type { Comp, Tier } from "@/data/schema";
+import type { StyleOutlook } from "./economy";
 
 export type ComponentId = string;
 export type UnitId = string;
@@ -23,6 +24,10 @@ export interface GameState {
   scout: ScoutState;
   /** Player level; the board counts for more as it rises. */
   level: number;
+  /** Gold, HP and the current round ("4-2"); null when the player has not said. */
+  gold: number | null;
+  hp: number | null;
+  stage: string | null;
 }
 
 /** A target item with its recipe resolved against the catalog. */
@@ -81,6 +86,8 @@ export interface Recommendation {
   orphanPenalty: number;
   /** Why a taken augment rules this comp out; empty while it is playable. */
   unplayable: string[];
+  /** Whether the player's gold, level, HP and stage can reach this comp's style; null while unknown. */
+  economy: StyleOutlook | null;
   tags: RecTag[];
 }
 

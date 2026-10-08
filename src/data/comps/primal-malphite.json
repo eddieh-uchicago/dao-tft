@@ -2,7 +2,7 @@
   "slug": "primal-malphite",
   "name": "Primal Malphite",
   "tier": "C",
-  "reroll": false,
+  "style": "fast-8",
   "summary": "AD Primal with Nidalee and Sivir carrying, Malphite and Sentinel tanking.",
   "playWhen": [
     "You have two sets of AD items",

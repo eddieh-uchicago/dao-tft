@@ -6,10 +6,12 @@ import augments42Json from "./augments-4-2.json";
 import { applyCompAugments } from "./compAugments";
 import compAugmentsJson from "./comp-augments.json";
 import compsTftAcademy from "./comps-tftacademy.json";
+import economyJson from "./economy.json";
 import itemStatsJson from "./item-stats.json";
 import {
   CompAugmentsSchema,
   CompSchema,
+  EconomyModelSchema,
   ItemStatsSchema,
   StageAugmentsSchema,
   type Comp,
@@ -81,6 +83,7 @@ export const augmentStages = (
 });
 
 export const itemStats = ItemStatsSchema.parse(itemStatsJson);
-export const engine = new TftEngine(catalog, comps, itemStats);
+export const economyModel = EconomyModelSchema.parse(economyJson);
+export const engine = new TftEngine(catalog, comps, itemStats, economyModel);
 
 export const compBySlug = (slug: string) => comps.find((c) => c.slug === slug);

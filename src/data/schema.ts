@@ -6,6 +6,14 @@ export type Tier = z.infer<typeof TierSchema>;
 
 const Id = z.string().min(1);
 
+/**
+ * How a comp is played: reroll a 1-, 2- or 3-cost carry at a low level, level
+ * fast to 8 or 9 for 4- and 5-costs, or lose streak into a level 8 roll.
+ */
+export const COMP_STYLES = ["reroll-1", "reroll-2", "reroll-3", "fast-8", "fast-9", "lose-streak"] as const;
+export type CompStyle = (typeof COMP_STYLES)[number];
+export const isReroll = (comp: { style: CompStyle }) => comp.style.startsWith("reroll");
+
 /** Most augments one comp may list (PRD open question 2 started at 5; one shared file makes 10 maintainable). */
 export const MAX_COMP_AUGMENTS = 10;
 
@@ -35,8 +43,8 @@ export const CompSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1),
   tier: TierSchema,
-  /** Rerolls low-cost carries for 3 stars; without one of its carries on the board it is a worse pick. */
-  reroll: z.boolean().default(false),
+  /** How the comp is played; reroll comps need their carries on the board early. */
+  style: z.enum(COMP_STYLES),
   summary: z.string().min(1),
   playWhen: z.array(z.string().min(1)).min(1),
   carries: z.array(Id).min(1),
@@ -94,10 +102,50 @@ export const CompAugmentsSchema = z.object({
    * same augment itself keeps its own entry.
    */
   rules: z
-    .array(CompAugmentEntry.extend({ when: z.object({ reroll: z.boolean() }), note: z.string().min(1) }))
+    .array(
+      CompAugmentEntry.extend({ when: z.object({ styles: z.array(z.enum(COMP_STYLES)).min(1) }), note: z.string().min(1) }),
+    )
     .default([]),
 });
 export type CompAugments = z.infer<typeof CompAugmentsSchema>;
+
+const StageLabel = z.string().regex(/^[2-7]-[1-7]$/, "a stage like 4-2");
+
+/** Hand-edited estimates of TFT's economy (see src/data/economy.json). */
+export const EconomyModelSchema = z.object({
+  patch: z.string().min(1),
+  checkedAt: z.string(),
+  sources: z.array(z.string().url()).min(1),
+  note: z.string(),
+  xpToLevel: z.record(z.string(), z.number().int().positive()),
+  passiveXp: z.number().int().nonnegative(),
+  /** Share of the next level's XP the player is assumed to have banked already. */
+  bankedXpShare: z.number().min(0).max(1),
+  buyXp: z.object({ gold: z.number().int().positive(), xp: z.number().int().positive() }),
+  income: z.object({
+    base: z.number().int().nonnegative(),
+    interestPer: z.number().int().positive(),
+    interestMax: z.number().int().nonnegative(),
+  }),
+  rounds: z.object({
+    perStage: z.number().int().positive(),
+    carousel: z.number().int().positive(),
+    pve: z.number().int().positive(),
+  }),
+  lossDamage: z.record(z.string(), z.number().nonnegative()),
+  lossRate: z.number().min(0).max(1),
+  styles: z.record(
+    z.enum(COMP_STYLES),
+    z.object({
+      label: z.string().min(1),
+      rollLevel: z.number().int().min(2).max(10),
+      rollGold: z.number().int().nonnegative(),
+      ideal: StageLabel,
+      deadline: StageLabel,
+    }),
+  ),
+});
+export type EconomyModel = z.infer<typeof EconomyModelSchema>;
 
 /** Item stats from tactics.tools (see scripts/fetch-tactics-items.ts). */
 export const ItemStatsSchema = z.object({
