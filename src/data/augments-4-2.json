@@ -1,8 +1,8 @@
 {
-  "patch": "18.3b",
+  "patch": "18.4b",
   "source": "https://tactics.tools/info/augments",
-  "checkedAt": "2026-10-05",
-  "note": "Augments that can be offered at the 4-2 selection.",
+  "checkedAt": "2026-10-08",
+  "note": "Augments that can be offered at the 4-2 selection. Nesting Dolls++ is omitted: tactics.tools lists it, but Community Dragon dropped it from the set's augment pool.",
   "augments": [
     {
       "id": "DA_ArcaneViktory",
@@ -234,10 +234,6 @@
     },
     {
       "id": "DA_NestingAnvilsPlus",
-      "tier": "prismatic"
-    },
-    {
-      "id": "DA_NestingDollsPlusPlus",
       "tier": "prismatic"
     },
     {

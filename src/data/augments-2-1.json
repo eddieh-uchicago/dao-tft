@@ -1,8 +1,8 @@
 {
-  "patch": "18.3b",
+  "patch": "18.4b",
   "source": "https://tactics.tools/info/augments",
-  "checkedAt": "2026-10-04",
-  "note": "Augments that can be offered at the 2-1 selection. Dark Ritual and Infinity Protection are omitted while disabled in 18.3b.",
+  "checkedAt": "2026-10-08",
+  "note": "Augments that can be offered at the 2-1 selection.",
   "augments": [
     {
       "id": "DA_BacklineBlueprint",
@@ -125,6 +125,10 @@
       "tier": "gold"
     },
     {
+      "id": "DA_18_CovenTraitAugment_LootToAP",
+      "tier": "gold"
+    },
+    {
       "id": "DA_DeadlierBlades",
       "tier": "prismatic"
     },
@@ -218,6 +222,10 @@
     },
     {
       "id": "DA_Hustler",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_InfinityProtection",
       "tier": "gold"
     },
     {

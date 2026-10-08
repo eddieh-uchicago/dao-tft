@@ -171,13 +171,6 @@
       {"augment": "DA_UrfsGrabBag", "strength": "good"},
       {"augment": "DA_SpreadingRoots", "strength": "good"}
     ],
-    "woodblossom": [
-      {"augment": "DA_18_ElderwoodTraitAugment", "strength": "strong", "note": "Nature's Shelter powers up the Elderwood board."},
-      {"augment": "DA_BodyguardTraining", "strength": "good"},
-      {"augment": "DA_18_LuxAugmentII", "strength": "good"},
-      {"augment": "DA_SwordOverflow", "strength": "good"},
-      {"augment": "DA_Swordsmith", "strength": "good"}
-    ],
     "yi-rengar": [
       {"augment": "DA_LatentForge", "strength": "good"},
       {"augment": "DA_PortableForge", "strength": "good"},
@@ -237,7 +230,7 @@
       {"augment": "DA_PandorasBench", "strength": "good"},
       {"augment": "DA_NoScoutNoPivot", "strength": "good"}
     ],
-    "solar-kayle": [
+    "eclipse-kayle": [
       {"augment": "DA_18_SolarTraitAugment", "strength": "core", "note": "Chosen of the Sun powers up Solar Kayle."},
       {"augment": "DA_PandorasBench", "strength": "good"},
       {"augment": "DA_PrismaticTicket", "strength": "good"},
@@ -287,7 +280,7 @@
       {"augment": "DA_18_BigGrabBag", "strength": "good"}
     ],
     "ravager-elise": [
-      {"augment": "DA_18_CovenTraitAugment_LootToAP", "strength": "core", "note": "Dark Ritual turns Coven cashouts into AP for Elise."},
+      {"augment": "DA_18_CovenTraitAugment_LootToAP", "strength": "strong", "note": "Dark Ritual turns Coven cashouts into AP for Elise; Coven Elise leans on it harder."},
       {"augment": "DA_18_CovenTraitAugment", "strength": "strong", "note": "Coven Acolyte supports Coven Elise."},
       {"augment": "DA_WorththeWaitII", "strength": "good"},
       {"augment": "DA_CookingPot", "strength": "good"},
@@ -315,6 +308,46 @@
       {"augment": "DA_GoldenGamblePlus", "strength": "good"},
       {"augment": "DA_SmallGrabBag", "strength": "good"},
       {"augment": "DA_SalvageBinPlus", "strength": "good"}
+    ],
+    "invoker-morgana": [
+      {"augment": "DA_18_CovenTraitAugment_LootToAP", "strength": "strong", "note": "Dark Ritual turns the Coven cashout this comp plays for into AP for Morgana."},
+      {"augment": "DA_18_CovenTraitAugment", "strength": "strong", "note": "Coven Acolyte supports Coven Morgana."},
+      {"augment": "DA_WandOverflow", "strength": "good"},
+      {"augment": "DA_SeraphimsStaff", "strength": "good"},
+      {"augment": "DA_Staffsmith", "strength": "good"},
+      {"augment": "DA_DeadlierCaps", "strength": "good"},
+      {"augment": "DA_BoosterPack", "strength": "good"},
+      {"augment": "DA_18_OnesTwosThree", "strength": "good"}
+    ],
+    "elderwood-executioners": [
+      {"augment": "DA_18_ElderwoodTraitAugment", "strength": "strong", "note": "Nature's Shelter powers up Elderwood Ezreal."},
+      {"augment": "DA_BodyguardTraining", "strength": "good"},
+      {"augment": "DA_18_LuxAugmentII", "strength": "good"},
+      {"augment": "DA_SwordOverflow", "strength": "good"},
+      {"augment": "DA_Swordsmith", "strength": "good"},
+      {"augment": "DA_Staffsmith", "strength": "good"},
+      {"augment": "DA_WandOverflow", "strength": "good"},
+      {"augment": "DA_CommerceCore", "strength": "good"}
+    ],
+    "solara-yunara": [
+      {"augment": "DA_18_CaretakersAlly", "strength": "good"},
+      {"augment": "DA_Swordsmith", "strength": "good"},
+      {"augment": "DA_SwordOverflow", "strength": "good"},
+      {"augment": "DA_HeroicGrabBag", "strength": "good"},
+      {"augment": "DA_SoloPlate", "strength": "good"},
+      {"augment": "DA_PandorasBench", "strength": "good"},
+      {"augment": "DA_PrismaticTicket", "strength": "good"},
+      {"augment": "DA_KickStart", "strength": "good"}
+    ],
+    "coven-elise": [
+      {"augment": "DA_18_CovenTraitAugment_LootToAP", "strength": "core", "note": "The guide plays Coven Elise with Dark Ritual, turning cashouts into AP."},
+      {"augment": "DA_18_CovenTraitAugment", "strength": "strong", "note": "Coven Acolyte supports the Coven carries."},
+      {"augment": "DA_WorththeWaitII", "strength": "good"},
+      {"augment": "DA_CookingPot", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlus", "strength": "good"},
+      {"augment": "DA_SoloPlate", "strength": "good"},
+      {"augment": "DA_Staffsmith", "strength": "good"},
+      {"augment": "DA_Expedition", "strength": "good"}
     ]
   }
 }

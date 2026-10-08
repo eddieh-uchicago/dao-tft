@@ -1,8 +1,8 @@
 {
-  "patch": "18.3b",
+  "patch": "18.4b",
   "source": "https://tactics.tools/info/augments",
-  "checkedAt": "2026-10-05",
-  "note": "Augments that can be offered at the 3-2 selection. Dark Ritual is omitted while disabled in 18.3b.",
+  "checkedAt": "2026-10-08",
+  "note": "Augments that can be offered at the 3-2 selection. Nesting Dolls+ is omitted: tactics.tools lists it, but Community Dragon dropped it from the set's augment pool.",
   "augments": [
     {
       "id": "DA_AdvancedLoanPlus",
@@ -126,6 +126,10 @@
     },
     {
       "id": "DA_CyberneticUplink_Gold",
+      "tier": "gold"
+    },
+    {
+      "id": "DA_18_CovenTraitAugment_LootToAP",
       "tier": "gold"
     },
     {
@@ -294,10 +298,6 @@
     },
     {
       "id": "DA_NestingAnvils",
-      "tier": "prismatic"
-    },
-    {
-      "id": "DA_NestingDollsPlus",
       "tier": "prismatic"
     },
     {

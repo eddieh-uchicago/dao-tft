@@ -74,8 +74,8 @@ export default function About() {
           </li>
           <li>
             The {comps.length} comps come from two places: a hand-curated set informed by the BunnyMuffins Patch 18.3b
-            guide, and the rest converted from TFT Academy&apos;s comp tier list (its Situational comps are listed as C
-            tier). Treat tiers as editorial judgement, not statistics.
+            guide, with tiers updated to TFT Academy&apos;s 18.4b list, and the rest converted from that tier list (its
+            Situational comps are listed as C tier). Treat tiers as editorial judgement, not statistics.
           </li>
           <li>Opener, slam and stage notes are short drafts. They are not a replacement for reading the full guides.</li>
           <li>Not yet built: patch history, a live overlay, and automatic scouting through the Riot API.</li>

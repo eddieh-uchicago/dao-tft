@@ -83,7 +83,7 @@ GitHub Actions runs lint, typecheck, tests and the production build on every pus
 
 This is an MVP built in a week, so it is deliberately narrow.
 
-- Comps, item priorities and tiers are hand-curated from community guides (chiefly the BunnyMuffins Patch 18.3b guide). They are editorial judgement, not statistics. Opener, slam and stage notes are short drafts.
+- Comps and item priorities are hand-curated from community guides (chiefly the BunnyMuffins Patch 18.3b guide). Their tiers follow TFT Academy's 18.4b tier list where it covers the comp; Aphelios Flex and Ashe Fast 9 keep their 18.3b tiers. They are editorial judgement, not statistics. Opener, slam and stage notes are short drafts.
 - The rest of the comps are converted from [TFT Academy's tier list](https://tftacademy.com/tierlist/comps) by `npm run fetch-comps`. Boards, items and stage tips come from the guides; summaries and "play when" lines are generated from them, and Situational comps are listed as C tier. Comps the curated set already covers are skipped.
 - Augment picks are hand-edited in `src/data/comp-augments.json`: TFT Academy's recommended augments for each guide, plus strengths judged from the guides' tips and comp names and from [SeeMeta's augment pages](https://seemeta.com/en/tft/set-18/augments). They are editorial, not measured lifts.
 - Scouting is manual input only.

@@ -1,7 +1,7 @@
 {
   "set": 18,
   "source": "https://raw.communitydragon.org/latest/cdragon/tft/en_us.json",
-  "fetchedAt": "2026-10-03",
+  "fetchedAt": "2026-10-08",
   "components": [
     {
       "id": "NegatronCloak",
@@ -567,7 +567,7 @@
     },
     {
       "id": "DA_WarmogsArmor",
-      "name": "Warmogs Armor",
+      "name": "Warmog's Armor",
       "kind": "item",
       "components": [
         "GiantsBelt",
@@ -717,7 +717,7 @@
     },
     {
       "id": "DA_Artifact_MogulsMail",
-      "name": "Mogul'sMail",
+      "name": "Mogul's Mail",
       "kind": "artifact",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/items/hexcore/tft7_item_shimmerscalemogulsmail.png"
     },
@@ -1959,6 +1959,11 @@
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/buried-treasures-iii.png"
     },
     {
+      "id": "DA_CalculatedLoss",
+      "name": "Calculated Loss",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/calculatedloss2.png"
+    },
+    {
       "id": "DA_CallToChaos",
       "name": "Call To Chaos",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/calltochaos_iii.png"
@@ -2031,7 +2036,7 @@
     {
       "id": "DA_18_SolarTraitAugment",
       "name": "Chosen of the Sun",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t2.png"
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t1.png"
     },
     {
       "id": "DA_ClearMind",
@@ -2142,6 +2147,11 @@
       "id": "DA_DeadlierCaps",
       "name": "Deadlier Caps",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/deadliercaps_ii.png"
+    },
+    {
+      "id": "DA_DoubleTrouble",
+      "name": "Double Trouble",
+      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/double-trouble-ii.png"
     },
     {
       "id": "DA_Dummify",
@@ -2581,16 +2591,6 @@
     {
       "id": "DA_NestingAnvilsPlus",
       "name": "Nesting Anvils+",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
-    },
-    {
-      "id": "DA_NestingDollsPlus",
-      "name": "Nesting Dolls",
-      "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
-    },
-    {
-      "id": "DA_NestingDollsPlusPlus",
-      "name": "Nesting Dolls",
       "icon": "https://raw.communitydragon.org/latest/game/assets/maps/tft/icons/augments/hexcore/missing-t3.png"
     },
     {
