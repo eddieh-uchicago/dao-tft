@@ -18,6 +18,8 @@ export const CompSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   name: z.string().min(1),
   tier: TierSchema,
+  /** Rerolls low-cost carries for 3 stars; without one of its carries on the board it is a worse pick. */
+  reroll: z.boolean().default(false),
   summary: z.string().min(1),
   playWhen: z.array(z.string().min(1)).min(1),
   carries: z.array(Id).min(1),

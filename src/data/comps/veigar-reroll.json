@@ -2,6 +2,7 @@
   "slug": "veigar-reroll",
   "name": "Veigar Reroll",
   "tier": "A",
+  "reroll": true,
   "summary": "A 1-cost reroll around Veigar that wants artifacts or emblems and Consuming Flora.",
   "playWhen": [
     "You have artifacts or emblems",

@@ -2,6 +2,7 @@
   "slug": "caitlyn-reroll",
   "name": "Caitlyn Reroll",
   "tier": "B",
+  "reroll": true,
   "summary": "A 2-cost reroll around Caitlyn with Guinsoo's and Kraken's Fury.",
   "playWhen": [
     "You find Guinsoo's and Kraken's Fury for Caitlyn",

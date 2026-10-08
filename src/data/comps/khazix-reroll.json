@@ -2,6 +2,7 @@
   "slug": "khazix-reroll",
   "name": "Kha'Zix Reroll",
   "tier": "A",
+  "reroll": true,
   "summary": "An early 3-cost reroll around Kha'Zix, supported by Diana, Hecarim and Ezreal.",
   "playWhen": [
     "You find Kha'Zix at 2-1 to 2-3",

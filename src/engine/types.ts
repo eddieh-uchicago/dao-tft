@@ -74,6 +74,8 @@ export interface Recommendation {
   /** Board units that appear in this comp's opener or end board. */
   boardMatches: UnitId[];
   boardBonus: number;
+  /** Taken off a reroll comp when the board has none of its carries. */
+  rerollPenalty: number;
   tags: RecTag[];
 }
 

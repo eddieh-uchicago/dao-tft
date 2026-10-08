@@ -2,6 +2,7 @@
   "slug": "ashe-fast-9",
   "name": "Ashe Fast 9",
   "tier": "S",
+  "reroll": false,
   "summary": "Econ into level 9, with Ashe as the Blossom/Hunter carry and Ahri and a durable frontline carrying the mid-game.",
   "playWhen": [
     "You can reach level 9 by 5-2",

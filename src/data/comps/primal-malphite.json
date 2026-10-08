@@ -2,6 +2,7 @@
   "slug": "primal-malphite",
   "name": "Primal Malphite",
   "tier": "A",
+  "reroll": false,
   "summary": "AD Primal with Nidalee and Sivir carrying, Malphite and Sentinel tanking.",
   "playWhen": [
     "You have two sets of AD items",

@@ -158,6 +158,7 @@ function convert(guide: Guide, snapshot: Snapshot): Comp {
     slug: slugify(guide.title),
     name: guide.title.trim(),
     tier: situational ? "C" : (guide.tier as Comp["tier"]),
+    reroll: /reroll/i.test(guide.style ?? ""),
     summary:
       `${guide.style ? `A ${guide.style} comp` : "A comp"} carried by ${carryNames}` +
       (tank ? `, with ${name(tank.apiName)} tanking.` : "."),

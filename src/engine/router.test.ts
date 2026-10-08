@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { ItemStats } from "@/data/schema";
+import type { Comp, ItemStats } from "@/data/schema";
 import { ITEM, TEST_COMPS, catalog, emptyState, makeComp, testEngine } from "./fixtures";
 import { NO_ITEM_STATS } from "./items";
 import { carrySwaps, openFrontline, scoutFromOpponents, scoutPenalty } from "./scout";
-import { boardWeight, fitFor } from "./router";
+import { REROLL_MISS, boardWeight, demoteOneFit, fitFor } from "./router";
 import type { Recommendation } from "./types";
 
 describe("rank", () => {
@@ -249,6 +249,50 @@ describe("board", () => {
     const top = (level: number) => testEngine([bloom, other], stats).rank({ ...state, level })[0].comp.slug;
     expect(top(4)).toBe("other");
     expect(top(8)).toBe("bloom");
+  });
+});
+
+describe("reroll comps", () => {
+  const AHRI = "DA_18_Ahri";
+  const KARMA = "DA_Karma18";
+  const KOBUKO = "DA_18_Kobuko";
+  const items: [string, number][] = [[ITEM.archangels, 3]];
+  const reroll = makeComp("reroll", "A", AHRI, items, { reroll: true, endBoard: [AHRI, KARMA] });
+  const bag = { NeedlesslyLargeRod: 1, TearOfTheGoddess: 1 };
+  const rank = (comp: Comp, board: string[]) => testEngine([comp]).rank({ ...emptyState(bag), board })[0];
+
+  it("drops one fit grade when the board has none of its carries", () => {
+    // The items are complete, so only the missing carry holds it back.
+    const rec = rank(reroll, [KOBUKO]);
+    expect(rec.rerollPenalty).toBeCloseTo(REROLL_MISS);
+    expect(rank({ ...reroll, reroll: false }, [KOBUKO]).fit).toBe("S");
+    expect(rec.fit).toBe("A");
+  });
+
+  it("counts only carries, not the rest of the comp", () => {
+    expect(rank(reroll, [KARMA]).rerollPenalty).toBeCloseTo(REROLL_MISS);
+    expect(rank(reroll, [KARMA, AHRI]).rerollPenalty).toBe(0);
+  });
+
+  it("drops exactly one grade from any score", () => {
+    for (const score of [1.3, 1.05, 0.85, 0.7, 0.65, 0.5, 0.25, 0.1]) {
+      const grades = ["S", "A", "B", "C", "D"];
+      const expected = grades[Math.min(grades.indexOf(fitFor(score)) + 1, grades.length - 1)];
+      expect(fitFor(demoteOneFit(score))).toBe(expected);
+      expect(demoteOneFit(score)).toBeLessThan(score);
+    }
+  });
+
+  it("leaves an empty board and non-reroll comps alone", () => {
+    expect(rank(reroll, []).rerollPenalty).toBe(0);
+    expect(rank({ ...reroll, reroll: false }, [KOBUKO]).rerollPenalty).toBe(0);
+  });
+
+  it("ranks below a comp one tier lower that the items fit just as well", () => {
+    const sTierReroll = { ...reroll, tier: "S" as const };
+    const other = makeComp("other", "A", "u-other", items);
+    const ranking = testEngine([sTierReroll, other]).rank({ ...emptyState(bag), board: [KOBUKO] });
+    expect(ranking[0].comp.slug).toBe("other");
   });
 });
 

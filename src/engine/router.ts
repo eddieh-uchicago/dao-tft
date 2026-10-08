@@ -40,6 +40,21 @@ export function boardWeight(level: number): number {
   if (level === 7) return 0.1;
   return 0.15;
 }
+/** How far a reroll comp without its carries falls: the gap between fit bands. */
+export const REROLL_MISS = 0.2;
+
+/**
+ * Moves a score down exactly one fit grade. It falls by the band gap when that
+ * lands in the next band, and is clamped into that band when it would not
+ * (a score above the top band, or rounding at a band edge).
+ */
+export function demoteOneFit(score: number): number {
+  const band = FIT_BANDS.findIndex(([min]) => score >= min);
+  if (band === -1) return score - REROLL_MISS;
+  const floor = FIT_BANDS[band][0];
+  const below = FIT_BANDS[band + 1]?.[0] ?? -Infinity;
+  return Math.max(below, Math.min(score - REROLL_MISS, floor - 1e-6));
+}
 /** Credit for a board unit that is not in the comp but shares a trait with its end board. */
 const TRAIT_MATCH = 0.5;
 
@@ -135,7 +150,9 @@ export class TftEngine {
     const penalty = scoutPenalty(comp, state.scout);
     const { fit: boardFit, matches } = this.boardFit(comp, state.board);
     const boardBonus = boardWeight(state.level) * boardFit;
-    const score = coverage * TIER_WEIGHT[comp.tier] + bonus + held.bonus + boardBonus - penalty;
+    const base = coverage * TIER_WEIGHT[comp.tier] + bonus + held.bonus + boardBonus - penalty;
+    const score = this.missesRerollCarries(comp, state.board) ? demoteOneFit(base) : base;
+    const rerollPenalty = base - score;
     return {
       comp,
       tier: comp.tier,
@@ -150,8 +167,17 @@ export class TftEngine {
       scoutPenalty: penalty,
       boardMatches: matches,
       boardBonus,
+      rerollPenalty,
       tags: [],
     };
+  }
+
+  /**
+   * A reroll comp needs its carries early, so items alone should not sell it
+   * to a board that has none of them. An empty board says nothing yet.
+   */
+  private missesRerollCarries(comp: Comp, board: string[]): boolean {
+    return comp.reroll && board.length > 0 && !comp.carries.some((c) => board.includes(c));
   }
 
   /** Average credit per board unit: 1 if it is in the comp's opener or end board, 0.5 if it shares a trait. */

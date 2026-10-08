@@ -7,6 +7,7 @@
       "slug": "ashe-juggernauts",
       "name": "Ashe Juggernauts",
       "tier": "A",
+      "reroll": false,
       "summary": "A 4-Cost Fast 8 comp carried by Ashe and Sivir, with Amumu tanking.",
       "playWhen": [
         "You can reach level 8 on time with enough gold to roll for Ashe",
@@ -143,6 +144,7 @@
       "slug": "6-juggernaut-flex",
       "name": "6 Juggernaut Flex",
       "tier": "A",
+      "reroll": false,
       "summary": "A 4-Cost Fast 8 comp carried by Amumu, Sivir and Zyra.",
       "playWhen": [
         "You can reach level 8 on time with enough gold to roll for Amumu",
@@ -281,6 +283,7 @@
       "slug": "aphelios-nidalee",
       "name": "Aphelios Nidalee",
       "tier": "A",
+      "reroll": false,
       "summary": "A 4-Cost Fast 8 comp carried by Aphelios and Nidalee, with Sentinel tanking.",
       "playWhen": [
         "You can reach level 8 on time with enough gold to roll for Aphelios",
@@ -431,6 +434,7 @@
       "slug": "dragon-9",
       "name": "Dragon 9",
       "tier": "B",
+      "reroll": false,
       "summary": "A Fast 9 comp carried by Elder Dragon and Ivern, with Morgana tanking.",
       "playWhen": [
         "You have the economy to reach level 9 and find Elder Dragon",
@@ -588,6 +592,7 @@
       "slug": "moo-nara",
       "name": "Moo-nara",
       "tier": "B",
+      "reroll": true,
       "summary": "A 2-Cost Reroll comp carried by Yunara and Warwick, with Alistar tanking.",
       "playWhen": [
         "You find early copies of Yunara and can slow roll at level 6",
@@ -723,6 +728,7 @@
       "slug": "woodblossom",
       "name": "Woodblossom",
       "tier": "B",
+      "reroll": false,
       "summary": "A 4-Cost Fast 8 comp carried by Ezreal and Ahri, with Sett tanking.",
       "playWhen": [
         "You can reach level 8 on time with enough gold to roll for Ezreal",
@@ -853,6 +859,7 @@
       "slug": "yi-rengar",
       "name": "Yi Rengar",
       "tier": "B",
+      "reroll": true,
       "summary": "A 3-Cost Reroll comp carried by Master Yi, Rengar and Nidalee, with Vi tanking.",
       "playWhen": [
         "You find early copies of Master Yi and can slow roll at level 7",
@@ -1024,6 +1031,7 @@
       "slug": "warwick-reroll",
       "name": "Warwick Reroll",
       "tier": "C",
+      "reroll": true,
       "summary": "A 2-Cost Reroll comp carried by Warwick, with Malphite tanking.",
       "playWhen": [
         "You find early copies of Warwick and can slow roll at level 6",
@@ -1144,6 +1152,7 @@
       "slug": "solar-melee",
       "name": "Solar Melee",
       "tier": "C",
+      "reroll": true,
       "summary": "A 1-Cost Reroll comp carried by Akali, Camille and Varus, with Ornn tanking.",
       "playWhen": [
         "You find early copies of Akali and can slow roll at level 5 or 6",
@@ -1303,6 +1312,7 @@
       "slug": "rengar-reroll",
       "name": "Rengar Reroll",
       "tier": "C",
+      "reroll": true,
       "summary": "A 3-Cost Reroll comp carried by Rengar and Mama Beak, with Hecarim tanking.",
       "playWhen": [
         "You find early copies of Rengar and can slow roll at level 7",
@@ -1464,6 +1474,7 @@
       "slug": "invoker-nidalee",
       "name": "Invoker Nidalee",
       "tier": "C",
+      "reroll": false,
       "summary": "A 4-Cost Fast 8 comp carried by Nidalee, with Morgana tanking.",
       "playWhen": [
         "You can reach level 8 on time with enough gold to roll for Nidalee",
@@ -1607,6 +1618,7 @@
       "slug": "teemowood",
       "name": "Teemowood",
       "tier": "C",
+      "reroll": true,
       "summary": "A 2-Cost Reroll comp carried by Teemo and LeBlanc, with Alistar tanking.",
       "playWhen": [
         "You find early copies of Teemo and can slow roll at level 6",
@@ -1728,6 +1740,7 @@
       "slug": "solar-kayle",
       "name": "Solar Kayle",
       "tier": "C",
+      "reroll": true,
       "summary": "A 2-Cost Reroll comp carried by Kayle and Xayah, with Ornn tanking.",
       "playWhen": [
         "You find early copies of Kayle and can slow roll at level 6",
@@ -1880,6 +1893,7 @@
       "slug": "trait-ladder",
       "name": "Trait Ladder",
       "tier": "C",
+      "reroll": false,
       "summary": "A Fast 9 comp carried by Fiddlesticks and Aphelios.",
       "playWhen": [
         "You have the economy to reach level 9 and find Fiddlesticks",
@@ -2016,6 +2030,7 @@
       "slug": "inferno-fast-9",
       "name": "Inferno Fast 9",
       "tier": "C",
+      "reroll": false,
       "summary": "A 4-Cost Fast 8 comp carried by Lux and Ashe, with Amumu tanking.",
       "playWhen": [
         "You can reach level 8 on time with enough gold to roll for Lux",
@@ -2180,6 +2195,7 @@
       "slug": "veigar-consuming-flora",
       "name": "Veigar Consuming Flora",
       "tier": "C",
+      "reroll": true,
       "summary": "A 1-Cost Reroll comp carried by Veigar, with Rek'Sai tanking.",
       "playWhen": [
         "You find early copies of Veigar and can slow roll at level 5 or 6",
@@ -2291,6 +2307,7 @@
       "slug": "emblem-rengar",
       "name": "Emblem Rengar",
       "tier": "C",
+      "reroll": true,
       "summary": "A 3-Cost Reroll comp carried by Rengar and Tristana, with Rammus tanking.",
       "playWhen": [
         "You find early copies of Rengar and can slow roll at level 7",
@@ -2432,6 +2449,7 @@
       "slug": "ravager-elise",
       "name": "Ravager Elise",
       "tier": "C",
+      "reroll": true,
       "summary": "A 2-Cost Reroll comp carried by Elise, with Diana tanking.",
       "playWhen": [
         "You find early copies of Elise and can slow roll at level 6",
@@ -2591,6 +2609,7 @@
       "slug": "fae-tristana",
       "name": "Fae Tristana",
       "tier": "C",
+      "reroll": true,
       "summary": "A 3-Cost Reroll comp carried by Tristana and Sivir, with Rammus tanking.",
       "playWhen": [
         "You find early copies of Tristana and can slow roll at level 7",
@@ -2728,6 +2747,7 @@
       "slug": "unrivaled-reroll",
       "name": "Unrivaled Reroll",
       "tier": "C",
+      "reroll": true,
       "summary": "A 3-Cost Reroll comp carried by Kha'Zix and Rengar, with Hecarim tanking.",
       "playWhen": [
         "You find early copies of Kha'Zix and can slow roll at level 7",

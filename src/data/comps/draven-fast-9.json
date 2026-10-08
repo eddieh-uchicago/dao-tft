@@ -2,6 +2,7 @@
   "slug": "draven-fast-9",
   "name": "Draven Fast 9",
   "tier": "A",
+  "reroll": false,
   "summary": "Econ into level 9 with Draven as the 5-cost carry and Maokai or Taric up front.",
   "playWhen": [
     "You can reach level 9 by 5-2",

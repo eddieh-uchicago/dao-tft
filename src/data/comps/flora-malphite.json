@@ -2,6 +2,7 @@
   "slug": "flora-malphite",
   "name": "Flora Malphite",
   "tier": "A",
+  "reroll": false,
   "summary": "AP line where Malphite holds the board together while Soraka and Zyra carry.",
   "playWhen": [
     "You have lots of AP items",

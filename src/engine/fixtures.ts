@@ -34,6 +34,7 @@ export function makeComp(
     slug,
     name: slug,
     tier,
+    reroll: false,
     summary: "test comp",
     playWhen: ["always"],
     carries: [carry],

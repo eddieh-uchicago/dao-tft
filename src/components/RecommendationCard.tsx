@@ -131,6 +131,7 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits }: Prop
       {(rec.itemNotes.length > 0 ||
         rec.augmentNotes.length > 0 ||
         rec.scoutPenalty > 0 ||
+        rec.rerollPenalty > 0 ||
         rec.boardMatches.length > 0) && (
         <ul className="mt-3 space-y-1 border-t border-line pt-3 text-sm">
           {rec.itemNotes.map((n) => (
@@ -148,6 +149,12 @@ export function RecommendationCard({ rec, rank, ranking, contested, hits }: Prop
               + {n}
             </li>
           ))}
+          {rec.rerollPenalty > 0 && (
+            <li className="text-bad">
+              − Your board has no {comp.carries.map((u) => catalog.unit(u).name).join(" or ")}. Reroll comps need
+              their carries early, so it is ranked one fit grade lower.
+            </li>
+          )}
           {rec.scoutPenalty > 0 && (
             <li className="text-bad">− Opponents are playing this comp&apos;s units, so it is ranked lower.</li>
           )}
