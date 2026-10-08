@@ -6,6 +6,14 @@ export type Tier = z.infer<typeof TierSchema>;
 
 const Id = z.string().min(1);
 
+/** Most augments one comp may list (PRD open question 2 started at 5; one shared file makes 10 maintainable). */
+export const MAX_COMP_AUGMENTS = 10;
+
+/** How much an augment lifts a comp's score, by how much the comp wants it. */
+export const AUGMENT_STRENGTH_BONUS = { core: 0.3, strong: 0.2, good: 0.1, avoid: -0.1 } as const;
+export type AugmentStrength = keyof typeof AUGMENT_STRENGTH_BONUS;
+const STRENGTHS = Object.keys(AUGMENT_STRENGTH_BONUS) as [AugmentStrength, ...AugmentStrength[]];
+
 /** One completed item the comp wants, and the unit that should hold it. */
 export const TargetItemSchema = z.object({
   item: Id,
@@ -29,10 +37,11 @@ export const CompSchema = z.object({
   opener: z.object({ units: z.array(Id).min(1), note: z.string() }),
   slams: z.array(z.object({ item: Id, unit: Id, note: z.string() })),
   stages: z.array(z.object({ stage: z.string().min(1), tip: z.string().min(1) })).min(1),
-  /** Capped at 5 per comp (PRD open question 2). */
+  /** Filled from src/data/comp-augments.json when the data loads; comp files leave it out. */
   augmentModifiers: z
     .array(z.object({ augment: Id, bonus: z.number().min(-0.4).max(0.4), note: z.string() }))
-    .max(5),
+    .max(MAX_COMP_AUGMENTS)
+    .default([]),
   frontlineAlternatives: z.array(Id),
   /** Artifacts and emblems the comp is built around; holding one pushes the player toward it. */
   keyItems: z.array(z.object({ item: Id, unit: Id })).default([]),
@@ -53,6 +62,21 @@ export const StageAugmentsSchema = z.object({
   augments: z.array(z.object({ id: Id, tier: z.enum(AUGMENT_TIERS) })).min(1),
 });
 export type StageAugments = z.infer<typeof StageAugmentsSchema>;
+
+/** Hand-edited augments each comp wants (see src/data/comp-augments.json). */
+export const CompAugmentsSchema = z.object({
+  patch: z.string().min(1),
+  checkedAt: z.string(),
+  sources: z.array(z.string().url()).min(1),
+  note: z.string(),
+  comps: z.record(
+    z.string(),
+    z
+      .array(z.object({ augment: Id, strength: z.enum(STRENGTHS), note: z.string().min(1).optional() }))
+      .max(MAX_COMP_AUGMENTS),
+  ),
+});
+export type CompAugments = z.infer<typeof CompAugmentsSchema>;
 
 /** Item stats from tactics.tools (see scripts/fetch-tactics-items.ts). */
 export const ItemStatsSchema = z.object({

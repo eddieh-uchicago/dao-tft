@@ -72,13 +72,6 @@
       "tip": "Hold streak and interest until you can reach level 9. Add the carry and tanks as they appear in your shop, then roll for the carry once you are level 9."
     }
   ],
-  "augmentModifiers": [
-    {
-      "augment": "DA_18_BlossomTraitAugment",
-      "bonus": 0.15,
-      "note": "Blossom's Call strengthens the Blossom opener and Ahri."
-    }
-  ],
   "frontlineAlternatives": [
     "DA_Sentinel18",
     "DA_18_Lillia",

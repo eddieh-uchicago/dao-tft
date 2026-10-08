@@ -1,0 +1,320 @@
+{
+  "patch": "18.4b",
+  "checkedAt": "2026-10-08",
+  "sources": [
+    "https://tftacademy.com/tierlist/comps",
+    "https://seemeta.com/en/tft/set-18/augments"
+  ],
+  "note": "Hand-edited; npm run fetch-comps never writes this file, it only lists TFT Academy picks missing from it. strength: core +0.3 (the comp is built around it), strong +0.2 (a trait or carry augment the comp runs), good +0.1 (a solid pick), avoid -0.1. note is optional and shown on the card when the augment is taken.",
+  "comps": {
+    "aphelios-flex": [
+      {"augment": "DA_18_LunarTraitAugmentPlus", "strength": "core", "note": "Sun and Moon+ powers up Lunar Aphelios."},
+      {"augment": "DA_18_LunarTraitAugment", "strength": "strong", "note": "Sun and Moon powers up Lunar Aphelios."}
+    ],
+    "ashe-fast-9": [
+      {"augment": "DA_18_BlossomTraitAugment", "strength": "strong", "note": "Blossom's Call strengthens the Blossom opener and Ahri."}
+    ],
+    "azir-rammus-reroll": [
+      {"augment": "DA_18_SprykinAugment", "strength": "good", "note": "Small Furry Friend supports Sprykin Rammus."},
+      {"augment": "DA_WandOverflow", "strength": "good"},
+      {"augment": "DA_DeadlierCaps", "strength": "good"},
+      {"augment": "DA_LegionOfThrees", "strength": "good"},
+      {"augment": "DA_PrismaticTicket", "strength": "good"},
+      {"augment": "DA_BlackthornTraitAugment", "strength": "good"},
+      {"augment": "DA_PandorasItemsIII", "strength": "good"},
+      {"augment": "DA_SoloPlate", "strength": "good"},
+      {"augment": "DA_CyberneticUplink_Gold", "strength": "good"}
+    ],
+    "caitlyn-reroll": [
+      {"augment": "DA_18_CovenTraitAugment", "strength": "strong", "note": "Coven Acolyte supports Coven Caitlyn."},
+      {"augment": "DA_Expedition", "strength": "good"},
+      {"augment": "DA_BackupBows", "strength": "good"},
+      {"augment": "DA_PrismaticTicket", "strength": "good"},
+      {"augment": "DA_ShimmerscaleEssence", "strength": "good"},
+      {"augment": "DA_TradeSector", "strength": "good"},
+      {"augment": "DA_HeroicGrabBag", "strength": "good"},
+      {"augment": "DA_RadiantRelic", "strength": "good"},
+      {"augment": "DA_GoldenGamblePlusPlus", "strength": "good"}
+    ],
+    "defender-cassiopeia": [
+      {"augment": "DA_18_CovenTraitAugment", "strength": "strong", "note": "Coven Acolyte supports Coven Cassiopeia."},
+      {"augment": "DA_Ascension", "strength": "good"},
+      {"augment": "DA_18_FloraFatalisAugment", "strength": "good"},
+      {"augment": "DA_SpiritOfRedemption", "strength": "good"},
+      {"augment": "DA_ItsMeBaby", "strength": "good"},
+      {"augment": "DA_WovenMagic", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlusPlus", "strength": "good"},
+      {"augment": "DA_FlowingTears", "strength": "good"},
+      {"augment": "DA_CookingPot", "strength": "good"}
+    ],
+    "draven-fast-9": [
+      {"augment": "DA_LevelUp", "strength": "good"},
+      {"augment": "DA_LateGameSpecialist", "strength": "good"},
+      {"augment": "DA_InvestedPlusPlus", "strength": "good"},
+      {"augment": "DA_LuxurySubscription", "strength": "good"},
+      {"augment": "DA_18_DuoQueue", "strength": "good"},
+      {"augment": "DA_LateGameScaling", "strength": "good"},
+      {"augment": "DA_ExplosiveGrowthPlus", "strength": "good"},
+      {"augment": "DA_BirthdayPresent", "strength": "good"}
+    ],
+    "flora-malphite": [
+      {"augment": "DA_18_FloraFatalisAugment", "strength": "core", "note": "Consuming Flora is the core augment for Flora Fatalis."},
+      {"augment": "DA_BlackthornTraitAugment", "strength": "good"},
+      {"augment": "DA_FlowingTears", "strength": "good"},
+      {"augment": "DA_SoloPlate", "strength": "good"},
+      {"augment": "DA_SmallGrabBag", "strength": "good"},
+      {"augment": "DA_18_BigGrabBag", "strength": "good"},
+      {"augment": "DA_CyberneticUplink_Gold", "strength": "good"},
+      {"augment": "DA_BuriedTreasuresIII", "strength": "good"},
+      {"augment": "DA_CommerceCore", "strength": "good"}
+    ],
+    "invoker-morgana-ahri": [
+      {"augment": "DA_18_BlossomTraitAugment", "strength": "good", "note": "Blossom's Call supports Ahri."},
+      {"augment": "DA_JeweledLotus_I", "strength": "good"},
+      {"augment": "DA_JeweledLotus_II", "strength": "good"},
+      {"augment": "DA_GlassCannon_Silver", "strength": "good"},
+      {"augment": "DA_GlassCannon_Gold", "strength": "good"},
+      {"augment": "DA_18_FOURcing", "strength": "good"},
+      {"augment": "DA_Staffsmith", "strength": "good"},
+      {"augment": "DA_CyberneticUplink_Gold", "strength": "good"},
+      {"augment": "DA_WandOverflow", "strength": "good"}
+    ],
+    "khazix-reroll": [
+      {"augment": "DA_18_RivalsAugment", "strength": "core", "note": "Unrivaled powers up the Rival trait that Kha'Zix runs."},
+      {"augment": "DA_ChampDelivery", "strength": "good"},
+      {"augment": "DA_PandorasBench", "strength": "good"},
+      {"augment": "DA_FlowingTears", "strength": "good"},
+      {"augment": "DA_AdvancedLoanPlus", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlusPlus", "strength": "good"},
+      {"augment": "DA_LegionOfThrees", "strength": "good"},
+      {"augment": "DA_LuckyGlovesPlus", "strength": "good"},
+      {"augment": "DA_PrismaticTicket", "strength": "good"}
+    ],
+    "primal-malphite": [
+      {"augment": "DA_18_PrimalAugmentPlus_Nidalee", "strength": "core", "note": "Beast Within+ boosts Primal Nidalee."},
+      {"augment": "DA_18_PrimalAugment_Nidalee", "strength": "core", "note": "Beast Within boosts Primal Nidalee."},
+      {"augment": "DA_18_PrimalAugmentPlus_Sivir", "strength": "strong", "note": "Beast Within+ boosts Primal Sivir."},
+      {"augment": "DA_18_PrimalAugment_Sivir", "strength": "strong", "note": "Beast Within boosts Primal Sivir."},
+      {"augment": "DA_18_BigGrabBag", "strength": "good"},
+      {"augment": "DA_CaretakersFavor", "strength": "good"},
+      {"augment": "DA_Swordsmith", "strength": "good"},
+      {"augment": "DA_CarveAPath", "strength": "good"},
+      {"augment": "DA_18_FOURcing", "strength": "good"},
+      {"augment": "DA_DeadlierBlades", "strength": "good"}
+    ],
+    "riftbeast-reroll": [
+      {"augment": "DA_18_RiftbeastTraitAugment", "strength": "core", "note": "Omega Riftbeast gives a second Alpha Riftbeast."},
+      {"augment": "DA_JeweledLotus_I", "strength": "good"},
+      {"augment": "DA_GlassCannon_Silver", "strength": "good"},
+      {"augment": "DA_WorththeWaitII", "strength": "good"},
+      {"augment": "DA_18_CaretakersAlly", "strength": "good"},
+      {"augment": "DA_LuckyGlovesPlus", "strength": "good"}
+    ],
+    "veigar-reroll": [
+      {"augment": "DA_18_FloraFatalisAugment", "strength": "strong", "note": "Consuming Flora feeds Veigar's Blackthorn scaling."},
+      {"augment": "DA_18_SprykinAugment", "strength": "good", "note": "Small Furry Friend supports Sprykin Veigar."},
+      {"augment": "DA_LivingForge", "strength": "good"},
+      {"augment": "DA_ForgedInStrength", "strength": "good"},
+      {"augment": "DA_PortableForge", "strength": "good"},
+      {"augment": "DA_LatentForge", "strength": "good"},
+      {"augment": "DA_MissedConnections", "strength": "good"},
+      {"augment": "DA_PandorasBench", "strength": "good"},
+      {"augment": "DA_DeadlierCaps", "strength": "good"}
+    ],
+    "ashe-juggernauts": [
+      {"augment": "DA_BlackthornTraitAugment", "strength": "good"},
+      {"augment": "DA_18_BigGrabBag", "strength": "good"},
+      {"augment": "DA_CyberneticUplink_Gold", "strength": "good"},
+      {"augment": "DA_CommerceCore", "strength": "good"},
+      {"augment": "DA_SpreadingRoots", "strength": "good"},
+      {"augment": "DA_TheTraitTree", "strength": "good"},
+      {"augment": "DA_CarveAPath", "strength": "good"},
+      {"augment": "DA_BoxingLessons", "strength": "good"}
+    ],
+    "6-juggernaut-flex": [
+      {"augment": "DA_BlackthornTraitAugment", "strength": "good"},
+      {"augment": "DA_18_BigGrabBag", "strength": "good"},
+      {"augment": "DA_CyberneticUplink_Gold", "strength": "good"},
+      {"augment": "DA_CommerceCore", "strength": "good"},
+      {"augment": "DA_SeraphimsStaff", "strength": "good"},
+      {"augment": "DA_SpreadingRoots", "strength": "good"},
+      {"augment": "DA_TheTraitTree", "strength": "good"},
+      {"augment": "DA_BoxingLessons", "strength": "good"}
+    ],
+    "aphelios-nidalee": [
+      {"augment": "DA_Swordsmith", "strength": "good"},
+      {"augment": "DA_CarveAPath", "strength": "good"},
+      {"augment": "DA_SwordOverflow", "strength": "good"},
+      {"augment": "DA_BlackthornTraitAugment", "strength": "good"},
+      {"augment": "DA_BuriedTreasuresIII", "strength": "good"},
+      {"augment": "DA_18_FOURcing", "strength": "good"},
+      {"augment": "DA_OneBuffTwoBuff", "strength": "good"},
+      {"augment": "DA_EpicRolldown", "strength": "good"}
+    ],
+    "dragon-9": [
+      {"augment": "DA_BirthdayReunion", "strength": "good"},
+      {"augment": "DA_BirthdayPresent", "strength": "good"},
+      {"augment": "DA_LevelUp", "strength": "good"},
+      {"augment": "DA_LuxurySubscription", "strength": "good"},
+      {"augment": "DA_18_DuoQueue", "strength": "good"},
+      {"augment": "DA_LateGameSpecialist", "strength": "good"},
+      {"augment": "DA_LateGameScaling", "strength": "good"},
+      {"augment": "DA_Swordsmith", "strength": "good"}
+    ],
+    "moo-nara": [
+      {"augment": "DA_WorththeWaitII", "strength": "good"},
+      {"augment": "DA_Swordsmith", "strength": "good"},
+      {"augment": "DA_GlassCannon_Silver", "strength": "good"},
+      {"augment": "DA_SwordOverflow", "strength": "good"},
+      {"augment": "DA_SoloPlate", "strength": "good"},
+      {"augment": "DA_URF", "strength": "good"},
+      {"augment": "DA_UrfsGrabBag", "strength": "good"},
+      {"augment": "DA_SpreadingRoots", "strength": "good"}
+    ],
+    "woodblossom": [
+      {"augment": "DA_18_ElderwoodTraitAugment", "strength": "strong", "note": "Nature's Shelter powers up the Elderwood board."},
+      {"augment": "DA_BodyguardTraining", "strength": "good"},
+      {"augment": "DA_18_LuxAugmentII", "strength": "good"},
+      {"augment": "DA_SwordOverflow", "strength": "good"},
+      {"augment": "DA_Swordsmith", "strength": "good"}
+    ],
+    "yi-rengar": [
+      {"augment": "DA_LatentForge", "strength": "good"},
+      {"augment": "DA_PortableForge", "strength": "good"},
+      {"augment": "DA_ForgedInStrength", "strength": "good"},
+      {"augment": "DA_LivingForge", "strength": "good"},
+      {"augment": "DA_NestingAnvils", "strength": "good"},
+      {"augment": "DA_HeroicGrabBag", "strength": "good"},
+      {"augment": "DA_LegionOfThrees", "strength": "good"},
+      {"augment": "DA_18_BigGrabBag", "strength": "good"}
+    ],
+    "warwick-reroll": [
+      {"augment": "DA_18_CaretakersAlly", "strength": "good"},
+      {"augment": "DA_WorththeWaitII", "strength": "good"},
+      {"augment": "DA_PortableForge", "strength": "good"},
+      {"augment": "DA_LivingForge", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlus", "strength": "good"},
+      {"augment": "DA_NestingAnvils", "strength": "good"},
+      {"augment": "DA_URF", "strength": "good"},
+      {"augment": "DA_UrfsGrabBag", "strength": "good"}
+    ],
+    "solar-melee": [
+      {"augment": "DA_PandorasBench", "strength": "good"},
+      {"augment": "DA_PrismaticTicket", "strength": "good"},
+      {"augment": "DA_NoScoutNoPivot", "strength": "good"},
+      {"augment": "DA_EarlyLearnings", "strength": "good"},
+      {"augment": "DA_WorththeWait", "strength": "good"},
+      {"augment": "DA_LuckyGlovesPlus", "strength": "good"},
+      {"augment": "DA_SoloPlate", "strength": "good"}
+    ],
+    "rengar-reroll": [
+      {"augment": "DA_ChampDelivery", "strength": "good"},
+      {"augment": "DA_SpeedyDoubleKill", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlus", "strength": "good"},
+      {"augment": "DA_TradeSector", "strength": "good"},
+      {"augment": "DA_BoosterPack", "strength": "good"},
+      {"augment": "DA_ExclusiveCustomization", "strength": "good"},
+      {"augment": "DA_LatentForge", "strength": "good"},
+      {"augment": "DA_LegionOfThrees", "strength": "good"}
+    ],
+    "invoker-nidalee": [
+      {"augment": "DA_18_PrimalAugmentPlus_Nidalee", "strength": "strong", "note": "Beast Within+ boosts Nidalee, the only carry."},
+      {"augment": "DA_WandOverflow", "strength": "good"},
+      {"augment": "DA_SpeedyDoubleKill", "strength": "good"},
+      {"augment": "DA_Staffsmith", "strength": "good"},
+      {"augment": "DA_18_BigGrabBag", "strength": "good"},
+      {"augment": "DA_CaretakersFavor", "strength": "good"},
+      {"augment": "DA_BuriedTreasuresIII", "strength": "good"},
+      {"augment": "DA_TimeSkip", "strength": "good"}
+    ],
+    "teemowood": [
+      {"augment": "DA_18_SprykinAugment", "strength": "strong", "note": "Small Furry Friend supports Sprykin Teemo."},
+      {"augment": "DA_WorththeWaitII", "strength": "good"},
+      {"augment": "DA_18_CaretakersAlly", "strength": "good"},
+      {"augment": "DA_DeadlierCaps", "strength": "good"},
+      {"augment": "DA_SoloPlate", "strength": "good"},
+      {"augment": "DA_TradeSector", "strength": "good"},
+      {"augment": "DA_PandorasBench", "strength": "good"},
+      {"augment": "DA_NoScoutNoPivot", "strength": "good"}
+    ],
+    "solar-kayle": [
+      {"augment": "DA_18_SolarTraitAugment", "strength": "core", "note": "Chosen of the Sun powers up Solar Kayle."},
+      {"augment": "DA_PandorasBench", "strength": "good"},
+      {"augment": "DA_PrismaticTicket", "strength": "good"},
+      {"augment": "DA_NoScoutNoPivot", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlus", "strength": "good"},
+      {"augment": "DA_MissedConnections", "strength": "good"},
+      {"augment": "DA_PortableForge", "strength": "good"},
+      {"augment": "DA_CraftedCrafting", "strength": "good"}
+    ],
+    "trait-ladder": [
+      {"augment": "DA_TraitLadder", "strength": "core", "note": "The comp is built around Trait Ladder."},
+      {"augment": "DA_Coronation", "strength": "strong", "note": "Coronation pays out for the many traits this comp runs."},
+      {"augment": "DA_MagicRoll", "strength": "good"},
+      {"augment": "DA_UrfsGrabBag", "strength": "good"},
+      {"augment": "DA_URF", "strength": "good"},
+      {"augment": "DA_SpreadingRootsPlus", "strength": "good"},
+      {"augment": "DA_18_BranchingOutPlus", "strength": "good"}
+    ],
+    "inferno-fast-9": [
+      {"augment": "DA_18_BigGrabBag", "strength": "good"},
+      {"augment": "DA_CyberneticUplink_Gold", "strength": "good"},
+      {"augment": "DA_CommerceCore", "strength": "good"},
+      {"augment": "DA_SpreadingRoots", "strength": "good"},
+      {"augment": "DA_TheTraitTree", "strength": "good"},
+      {"augment": "DA_BoxingLessons", "strength": "good"},
+      {"augment": "DA_LateGameScaling", "strength": "good"},
+      {"augment": "DA_LateGameSpecialist", "strength": "good"}
+    ],
+    "veigar-consuming-flora": [
+      {"augment": "DA_18_FloraFatalisAugment", "strength": "core", "note": "The comp is built around Consuming Flora."},
+      {"augment": "DA_LivingForge", "strength": "good"},
+      {"augment": "DA_ForgedInStrength", "strength": "good"},
+      {"augment": "DA_PortableForge", "strength": "good"},
+      {"augment": "DA_LatentForge", "strength": "good"},
+      {"augment": "DA_MissedConnections", "strength": "good"},
+      {"augment": "DA_PandorasBench", "strength": "good"},
+      {"augment": "DA_DeadlierCaps", "strength": "good"}
+    ],
+    "emblem-rengar": [
+      {"augment": "DA_18_BranchingOutPlus", "strength": "strong", "note": "Branching Out+ hands out the emblem this comp needs."},
+      {"augment": "DA_18_BranchingOut", "strength": "strong", "note": "Branching Out hands out the emblem this comp needs."},
+      {"augment": "DA_SpreadingRoots", "strength": "good"},
+      {"augment": "DA_SpreadingRootsPlus", "strength": "good"},
+      {"augment": "DA_TheTraitTree", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlusPlus", "strength": "good"},
+      {"augment": "DA_LegionOfThrees", "strength": "good"},
+      {"augment": "DA_18_BigGrabBag", "strength": "good"}
+    ],
+    "ravager-elise": [
+      {"augment": "DA_18_CovenTraitAugment_LootToAP", "strength": "core", "note": "Dark Ritual turns Coven cashouts into AP for Elise."},
+      {"augment": "DA_18_CovenTraitAugment", "strength": "strong", "note": "Coven Acolyte supports Coven Elise."},
+      {"augment": "DA_WorththeWaitII", "strength": "good"},
+      {"augment": "DA_CookingPot", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlus", "strength": "good"},
+      {"augment": "DA_SoloPlate", "strength": "good"},
+      {"augment": "DA_Staffsmith", "strength": "good"},
+      {"augment": "DA_Expedition", "strength": "good"}
+    ],
+    "fae-tristana": [
+      {"augment": "DA_18_BranchingOutPlus", "strength": "strong", "note": "Branching Out+ hands out the Fae emblem this comp needs."},
+      {"augment": "DA_18_BranchingOut", "strength": "strong", "note": "Branching Out hands out the Fae emblem this comp needs."},
+      {"augment": "DA_URF", "strength": "good"},
+      {"augment": "DA_UrfsGrabBag", "strength": "good"},
+      {"augment": "DA_SpreadingRoots", "strength": "good"},
+      {"augment": "DA_SpreadingRootsPlus", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlusPlus", "strength": "good"},
+      {"augment": "DA_Swordsmith", "strength": "good"}
+    ],
+    "unrivaled-reroll": [
+      {"augment": "DA_18_RivalsAugment", "strength": "core", "note": "Unrivaled lets Kha'Zix and Rengar share a board."},
+      {"augment": "DA_HeroicGrabBagPlus", "strength": "good"},
+      {"augment": "DA_HeroicGrabBagPlusPlus", "strength": "good"},
+      {"augment": "DA_Swordsmith", "strength": "good"},
+      {"augment": "DA_18_BigGrabBag", "strength": "good"},
+      {"augment": "DA_GoldenGamblePlus", "strength": "good"},
+      {"augment": "DA_SmallGrabBag", "strength": "good"},
+      {"augment": "DA_SalvageBinPlus", "strength": "good"}
+    ]
+  }
+}

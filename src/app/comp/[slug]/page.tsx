@@ -4,6 +4,14 @@ import { notFound } from "next/navigation";
 import { Icon } from "@/components/Icon";
 import { Panel, TierPill } from "@/components/ui";
 import { catalog, compBySlug, comps } from "@/data";
+import { AUGMENT_STRENGTH_BONUS, type AugmentStrength } from "@/data/schema";
+
+const STRENGTH_GROUPS: { strength: AugmentStrength; label: string; style: string }[] = [
+  { strength: "core", label: "Core", style: "text-gold" },
+  { strength: "strong", label: "Strong", style: "text-good" },
+  { strength: "good", label: "Good", style: "text-muted" },
+  { strength: "avoid", label: "Avoid", style: "text-bad" },
+];
 
 export const dynamicParams = false;
 
@@ -125,18 +133,30 @@ export default async function CompPage({ params }: PageProps<"/comp/[slug]">) {
 
       {comp.augmentModifiers.length > 0 && (
         <Panel title="Augments that change the plan">
-          <ul className="space-y-1 text-sm">
-            {comp.augmentModifiers.map((m) => (
-              <li key={m.augment} className="flex items-start gap-2">
-                <span className={m.bonus >= 0 ? "text-good" : "text-bad"}>{m.bonus >= 0 ? "+" : "−"}</span>
-                <Icon src={catalog.augmentIcon(m.augment)} label={catalog.augmentName(m.augment)} size={20} />
-                <span>
-                  <span className="font-medium">{catalog.augmentName(m.augment)}</span>{" "}
-                  <span className="text-muted">— {m.note}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="space-y-3 text-sm">
+            {STRENGTH_GROUPS.map(({ strength, label, style }) => {
+              const mods = comp.augmentModifiers.filter((m) => m.bonus === AUGMENT_STRENGTH_BONUS[strength]);
+              if (!mods.length) return null;
+              // Core and strong picks carry a reason; the rest are a plain list.
+              const explained = strength !== "good";
+              return (
+                <div key={strength}>
+                  <h3 className={`mb-1 text-xs font-semibold uppercase tracking-wider ${style}`}>{label}</h3>
+                  <ul className={explained ? "space-y-1" : "flex flex-wrap gap-1.5"}>
+                    {mods.map((m) => (
+                      <li key={m.augment} className="flex items-start gap-2">
+                        <Icon src={catalog.augmentIcon(m.augment)} label={catalog.augmentName(m.augment)} size={20} />
+                        <span>
+                          <span className="font-medium">{catalog.augmentName(m.augment)}</span>
+                          {explained && <span className="text-muted"> — {m.note}</span>}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
         </Panel>
       )}
     </main>

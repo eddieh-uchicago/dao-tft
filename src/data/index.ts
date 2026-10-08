@@ -3,9 +3,18 @@ import { TftEngine } from "@/engine/router";
 import augments21Json from "./augments-2-1.json";
 import augments32Json from "./augments-3-2.json";
 import augments42Json from "./augments-4-2.json";
+import { applyCompAugments } from "./compAugments";
+import compAugmentsJson from "./comp-augments.json";
 import compsTftAcademy from "./comps-tftacademy.json";
 import itemStatsJson from "./item-stats.json";
-import { CompSchema, ItemStatsSchema, StageAugmentsSchema, type Comp, type Snapshot } from "./schema";
+import {
+  CompAugmentsSchema,
+  CompSchema,
+  ItemStatsSchema,
+  StageAugmentsSchema,
+  type Comp,
+  type Snapshot,
+} from "./schema";
 import snapshotJson from "./snapshot.json";
 import { validateComps } from "./validate";
 
@@ -43,13 +52,18 @@ const raw: unknown[] = [
 // Converted from TFT Academy's tier list by scripts/fetch-tftacademy.ts.
 raw.push(...compsTftAcademy.comps);
 const curatedKeyItems: Record<string, Comp["keyItems"]> = compsTftAcademy.curatedKeyItems;
-export const comps: Comp[] = raw.map((c) => {
+const parsed: Comp[] = raw.map((c) => {
   const comp = CompSchema.parse(c);
   const extra = curatedKeyItems[comp.slug] ?? [];
   return extra.length ? { ...comp, keyItems: [...comp.keyItems, ...extra] } : comp;
 });
 
-const problems = validateComps(comps, catalog);
+// Augment picks live in one hand-edited file so they are easy to update each patch.
+const ownLists = raw.filter((c) => "augmentModifiers" in (c as object)).map((c) => (c as Comp).slug);
+const withAugments = applyCompAugments(parsed, CompAugmentsSchema.parse(compAugmentsJson), catalog, ownLists);
+export const comps: Comp[] = withAugments.comps;
+
+const problems = [...withAugments.problems, ...validateComps(comps, catalog)];
 if (problems.length) throw new Error(`Invalid comp data:\n${problems.join("\n")}`);
 
 /** The three augment selections, in the order they are offered. */

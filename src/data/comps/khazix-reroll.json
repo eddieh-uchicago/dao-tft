@@ -65,13 +65,6 @@
       "tip": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
     }
   ],
-  "augmentModifiers": [
-    {
-      "augment": "DA_18_RivalsAugment",
-      "bonus": 0.3,
-      "note": "Unrivaled powers up the Rival trait that Kha'Zix runs."
-    }
-  ],
   "frontlineAlternatives": [
     "DA_18_Rammus",
     "DA_Vi18",

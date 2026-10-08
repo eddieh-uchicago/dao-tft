@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Comp, ItemStats } from "@/data/schema";
 import { ITEM, TEST_COMPS, catalog, emptyState, makeComp, testEngine } from "./fixtures";
 import { NO_ITEM_STATS } from "./items";
+import { AUGMENT_CAP } from "./augments";
 import { carrySwaps, openFrontline, scoutFromOpponents, scoutPenalty } from "./scout";
 import { REROLL_MISS, boardWeight, demoteOneFit, fitFor } from "./router";
 import type { Recommendation } from "./types";
@@ -101,6 +102,17 @@ describe("augments", () => {
     expect(tank.tags).toContain("flex-enabler");
   });
 
+  it("does not flag a comp lifted by less than a strong pick", () => {
+    // Just enough to pass ad-bruiser (0.17) into third, but short of a strong pick.
+    const comps = TEST_COMPS.map((c) =>
+      c.slug === "tank-line" ? { ...c, augmentModifiers: [{ augment: "aug-generic", bonus: 0.19, note: "" }] } : c,
+    );
+    const bag = emptyState({ BFSword: 1, SparringGloves: 1, NeedlesslyLargeRod: 1, TearOfTheGoddess: 1 });
+    const ranking = testEngine(comps).rank({ ...bag, augments: ["aug-generic"] });
+    expect(ranking.findIndex((r) => r.comp.slug === "tank-line")).toBeLessThan(3);
+    expect(ranking.every((r) => !r.tags.includes("flex-enabler"))).toBe(true);
+  });
+
   it("flags a clearly leading boosted comp as a lock-in", () => {
     const comps = TEST_COMPS.map((c) =>
       c.slug === "ad-sniper"
@@ -110,6 +122,16 @@ describe("augments", () => {
     const ranking = testEngine(comps).rank({ ...emptyState({ BFSword: 1, SparringGloves: 1 }), augments: ["aug-ad"] });
     expect(ranking[0].comp.slug).toBe("ad-sniper");
     expect(ranking[0].tags).toContain("lock-in");
+  });
+
+  it("adds several picks together, up to a cap", () => {
+    const mods = ["a", "b", "c"].map((augment) => ({ augment, bonus: 0.3, note: augment }));
+    const comps = TEST_COMPS.map((c) => (c.slug === "tank-line" ? { ...c, augmentModifiers: mods } : c));
+    const tank = (augments: string[]) =>
+      testEngine(comps).rank({ ...state, augments }).find((r) => r.comp.slug === "tank-line")!;
+    expect(tank(["a"]).augmentBonus).toBeCloseTo(0.3);
+    expect(tank(["a", "b", "c"]).augmentBonus).toBeCloseTo(AUGMENT_CAP);
+    expect(tank(["a", "b", "c"]).augmentNotes).toEqual(["a", "b", "c"]);
   });
 
   it("tags nothing without augments", () => {

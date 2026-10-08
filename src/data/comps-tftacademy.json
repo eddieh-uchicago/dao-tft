@@ -105,33 +105,6 @@
           "tip": "Level and roll for 6 juggernauts +Sivir. Once stable, go 9 and look for Ashe and transition your board to 5 costs."
         }
       ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_BlackthornTraitAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Item Extraction for this comp."
-        },
-        {
-          "augment": "DA_18_BigGrabBag",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Big Grab Bag for this comp."
-        },
-        {
-          "augment": "DA_CyberneticUplink_Gold",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Cybernetic Uplink for this comp."
-        },
-        {
-          "augment": "DA_CommerceCore",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Commerce Core for this comp."
-        },
-        {
-          "augment": "DA_SpreadingRoots",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Spreading Roots for this comp."
-        }
-      ],
       "frontlineAlternatives": [],
       "keyItems": [
         {
@@ -242,33 +215,6 @@
         {
           "stage": "Stage 4",
           "tip": "Level and roll for 6 juggernauts +Zyra and a duo-carry. You can push 9 when you hit zyra 2. Tank Vi 2 over Amumu 1. End game move items to Maokai."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_BlackthornTraitAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Item Extraction for this comp."
-        },
-        {
-          "augment": "DA_18_BigGrabBag",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Big Grab Bag for this comp."
-        },
-        {
-          "augment": "DA_CyberneticUplink_Gold",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Cybernetic Uplink for this comp."
-        },
-        {
-          "augment": "DA_CommerceCore",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Commerce Core for this comp."
-        },
-        {
-          "augment": "DA_SeraphimsStaff",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Seraphim's Staff for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -393,33 +339,6 @@
         {
           "stage": "Stage 4",
           "tip": "Level to 8 and roll heavily for Aphelios and the 4 costs. Only push for 9 once you have almost all your 4 costs upgraded."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_Swordsmith",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Swordsmith for this comp."
-        },
-        {
-          "augment": "DA_CarveAPath",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Carve a Path for this comp."
-        },
-        {
-          "augment": "DA_SwordOverflow",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Sword Overflow for this comp."
-        },
-        {
-          "augment": "DA_BlackthornTraitAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Item Extraction for this comp."
-        },
-        {
-          "augment": "DA_BuriedTreasuresIII",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Buried Treasures III for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -553,33 +472,6 @@
           "tip": "You can start losing rounds while focusing on econ. Fast 9 by the beginning of Stage 5 and look for your 5 costs. You want around 70g+ minimum for the rolldown."
         }
       ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_BirthdayReunion",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Birthday Reunion for this comp."
-        },
-        {
-          "augment": "DA_BirthdayPresent",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Birthday Present for this comp."
-        },
-        {
-          "augment": "DA_LevelUp",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Level Up! for this comp."
-        },
-        {
-          "augment": "DA_LuxurySubscription",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Luxury Subscription for this comp."
-        },
-        {
-          "augment": "DA_18_DuoQueue",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Duo Queue for this comp."
-        }
-      ],
       "frontlineAlternatives": [],
       "keyItems": [
         {
@@ -683,33 +575,6 @@
         {
           "stage": "Stage 4",
           "tip": "Finish your 3* units then push levels. Look for 3 Executioner for Yunara. Kennen caps your board. Blackthorn Lux is a high roll top end finisher."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_WorththeWaitII",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Worth the Wait II for this comp."
-        },
-        {
-          "augment": "DA_Swordsmith",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Swordsmith for this comp."
-        },
-        {
-          "augment": "DA_GlassCannon_Silver",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Glass Cannon I for this comp."
-        },
-        {
-          "augment": "DA_SwordOverflow",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Sword Overflow for this comp."
-        },
-        {
-          "augment": "DA_SoloPlate",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Solo Plate for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -818,33 +683,6 @@
         {
           "stage": "Stage 4",
           "tip": "Level to 8 and roll heavily for Ezreal and the 4 costs, only go 9 once you have upgraded most things."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_18_ElderwoodTraitAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Nature's Shelter for this comp."
-        },
-        {
-          "augment": "DA_BodyguardTraining",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Bodyguard Training for this comp."
-        },
-        {
-          "augment": "DA_18_LuxAugmentII",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Master of All Origins for this comp."
-        },
-        {
-          "augment": "DA_SwordOverflow",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Sword Overflow for this comp."
-        },
-        {
-          "augment": "DA_Swordsmith",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Swordsmith for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -980,33 +818,6 @@
           "tip": "Level to 7 and roll for Master Yi 2, Rengar 2, and a Juggernaut Tank. Econ up and slow roll for 3*. Add Kog or a flex unit in at 8."
         }
       ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_LatentForge",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Latent Forge for this comp."
-        },
-        {
-          "augment": "DA_PortableForge",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Portable Forge for this comp."
-        },
-        {
-          "augment": "DA_ForgedInStrength",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Forged In Strength for this comp."
-        },
-        {
-          "augment": "DA_LivingForge",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Living Forge for this comp."
-        },
-        {
-          "augment": "DA_NestingAnvils",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Nesting Anvils for this comp."
-        }
-      ],
       "frontlineAlternatives": [],
       "keyItems": [
         {
@@ -1111,33 +922,6 @@
         {
           "stage": "Stage 4",
           "tip": "Finish Warwick 3 and push levels. If you don't have Murkwolf 3, look for Brambleback as your duo carry."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_18_CaretakersAlly",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Caretaker's Ally for this comp."
-        },
-        {
-          "augment": "DA_WorththeWaitII",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Worth the Wait II for this comp."
-        },
-        {
-          "augment": "DA_PortableForge",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Portable Forge for this comp."
-        },
-        {
-          "augment": "DA_LivingForge",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Living Forge for this comp."
-        },
-        {
-          "augment": "DA_HeroicGrabBagPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Heroic Grab Bag+ for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -1259,33 +1043,6 @@
         {
           "stage": "Stage 4",
           "tip": "Make sure you keep your econ high because you need to be level 7 to fit solar on this board. Try to be Level to 7 somewhere on stage 4."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_PandorasBench",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Pandora's Bench for this comp."
-        },
-        {
-          "augment": "DA_PrismaticTicket",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Prismatic Ticket for this comp."
-        },
-        {
-          "augment": "DA_NoScoutNoPivot",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends NO SCOUT NO PIVOT for this comp."
-        },
-        {
-          "augment": "DA_EarlyLearnings",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Early Learnings for this comp."
-        },
-        {
-          "augment": "DA_WorththeWait",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Worth the Wait for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -1413,33 +1170,6 @@
         {
           "stage": "Stage 4",
           "tip": "Slow roll on 7 for 3* upgrades on whatever 3 costs you're chasing. In this example, if you can't hit Mama Beak 3, look for Aphelios duo instead."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_ChampDelivery",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Champ Delivery for this comp."
-        },
-        {
-          "augment": "DA_SpeedyDoubleKill",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Speedy Double Kill for this comp."
-        },
-        {
-          "augment": "DA_HeroicGrabBagPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Heroic Grab Bag+ for this comp."
-        },
-        {
-          "augment": "DA_TradeSector",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Trade Sector for this comp."
-        },
-        {
-          "augment": "DA_BoosterPack",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Booster Pack for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -1571,33 +1301,6 @@
           "tip": "Level to 8 and roll for 4 Invoker. Avoid tunneling only on 4 Vanguard frontline. You can also flex Brawlers or Juggernauts as needed."
         }
       ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_WandOverflow",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Wand Overflow for this comp."
-        },
-        {
-          "augment": "DA_SpeedyDoubleKill",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Speedy Double Kill for this comp."
-        },
-        {
-          "augment": "DA_Staffsmith",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Staffsmith for this comp."
-        },
-        {
-          "augment": "DA_18_BigGrabBag",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Big Grab Bag for this comp."
-        },
-        {
-          "augment": "DA_18_PrimalAugmentPlus_Nidalee",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Beast Within+ for this comp."
-        }
-      ],
       "frontlineAlternatives": [],
       "keyItems": [
         {
@@ -1706,33 +1409,6 @@
           "tip": "Finish Teemo 3* and your tank then push levels for more Invokers. If you get more damage items late game Morgana can hold the utility."
         }
       ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_WorththeWaitII",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Worth the Wait II for this comp."
-        },
-        {
-          "augment": "DA_18_CaretakersAlly",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Caretaker's Ally for this comp."
-        },
-        {
-          "augment": "DA_DeadlierCaps",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Deadlier Caps for this comp."
-        },
-        {
-          "augment": "DA_18_SprykinAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Small Furry Friend for this comp."
-        },
-        {
-          "augment": "DA_SoloPlate",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Solo Plate for this comp."
-        }
-      ],
       "frontlineAlternatives": [],
       "keyItems": []
     },
@@ -1828,33 +1504,6 @@
         {
           "stage": "Stage 4",
           "tip": "Finish your 3* and level for Elderwood. Cap with any 5 costs like Lux, Ivern, Taric, etc."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_18_SolarTraitAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Chosen of the Sun for this comp."
-        },
-        {
-          "augment": "DA_PandorasBench",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Pandora's Bench for this comp."
-        },
-        {
-          "augment": "DA_PrismaticTicket",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Prismatic Ticket for this comp."
-        },
-        {
-          "augment": "DA_NoScoutNoPivot",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends NO SCOUT NO PIVOT for this comp."
-        },
-        {
-          "augment": "DA_HeroicGrabBagPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Heroic Grab Bag+ for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -1989,33 +1638,6 @@
         {
           "stage": "Stage 4",
           "tip": "After you hit 10 traits, add Amumu with the Tactician's Crown you get and then level for Kennen. Then pivot to 5 costs at level 9."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_TraitLadder",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Trait Ladder for this comp."
-        },
-        {
-          "augment": "DA_Coronation",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Coronation for this comp."
-        },
-        {
-          "augment": "DA_MagicRoll",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Magic Roll for this comp."
-        },
-        {
-          "augment": "DA_UrfsGrabBag",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Urf's Grab Bag for this comp."
-        },
-        {
-          "augment": "DA_URF",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends U.R.F for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -2156,33 +1778,6 @@
           "tip": "Roll on 8 for 5 inferno Sivir + Vi + Lillia + Hunter (can play Tristana before Ashe). When you find Ashe make sure to give her inferno emblem + shojin."
         }
       ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_18_BigGrabBag",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Big Grab Bag for this comp."
-        },
-        {
-          "augment": "DA_CyberneticUplink_Gold",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Cybernetic Uplink for this comp."
-        },
-        {
-          "augment": "DA_CommerceCore",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Commerce Core for this comp."
-        },
-        {
-          "augment": "DA_SpreadingRoots",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Spreading Roots for this comp."
-        },
-        {
-          "augment": "DA_TheTraitTree",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends The Trait Tree for this comp."
-        }
-      ],
       "frontlineAlternatives": [],
       "keyItems": [
         {
@@ -2262,33 +1857,6 @@
         {
           "stage": "Stage 4",
           "tip": "Once you finish your 3*, push levels for more Spyrkin, Blackthorn, or Brawlers."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_LivingForge",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Living Forge for this comp."
-        },
-        {
-          "augment": "DA_ForgedInStrength",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Forged In Strength for this comp."
-        },
-        {
-          "augment": "DA_PortableForge",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Portable Forge for this comp."
-        },
-        {
-          "augment": "DA_LatentForge",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Latent Forge for this comp."
-        },
-        {
-          "augment": "DA_18_FloraFatalisAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Consuming Flora for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -2404,33 +1972,6 @@
         {
           "stage": "Stage 4",
           "tip": "Level to 7 and roll above 50g for 3* Rengar and 3* Rammus. Use your 4 Fae cash outs to push levels. Tristana takes leftover items."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_SpreadingRoots",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Spreading Roots for this comp."
-        },
-        {
-          "augment": "DA_SpreadingRootsPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Spreading Roots+ for this comp."
-        },
-        {
-          "augment": "DA_18_BranchingOut",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Branching Out for this comp."
-        },
-        {
-          "augment": "DA_18_BranchingOutPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Branching Out+ for this comp."
-        },
-        {
-          "augment": "DA_TheTraitTree",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends The Trait Tree for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -2570,33 +2111,6 @@
           "tip": "Cash out Coven with at least 2-3 lives (25-30 hp). Finish Elise 3 then level for more Vanguards, Coven, or Lunar / 5 costs."
         }
       ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_18_CovenTraitAugment_LootToAP",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Dark Ritual for this comp."
-        },
-        {
-          "augment": "DA_18_CovenTraitAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Coven Acolyte for this comp."
-        },
-        {
-          "augment": "DA_WorththeWaitII",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Worth the Wait II for this comp."
-        },
-        {
-          "augment": "DA_CookingPot",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Cooking Pot for this comp."
-        },
-        {
-          "augment": "DA_HeroicGrabBagPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Heroic Grab Bag+ for this comp."
-        }
-      ],
       "frontlineAlternatives": [],
       "keyItems": [
         {
@@ -2702,33 +2216,6 @@
         {
           "stage": "Stage 4",
           "tip": "Level to 7 and roll above 50g for 3* Tristana and Rammus. Use your 4 Fae cash outs to push levels. Give Sivir leftover AD items."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_URF",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends U.R.F for this comp."
-        },
-        {
-          "augment": "DA_UrfsGrabBag",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Urf's Grab Bag for this comp."
-        },
-        {
-          "augment": "DA_18_BranchingOut",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Branching Out for this comp."
-        },
-        {
-          "augment": "DA_18_BranchingOutPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Branching Out+ for this comp."
-        },
-        {
-          "augment": "DA_SpreadingRoots",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Spreading Roots for this comp."
         }
       ],
       "frontlineAlternatives": [],
@@ -2849,33 +2336,6 @@
         {
           "stage": "Stage 4",
           "tip": "Level to 7 and roll for the 2* upgrades. Then econ up and slow roll above 50g for 3* units. Once you finish 3* tank + Khazix 3 / Rengar 3, add 5 costs."
-        }
-      ],
-      "augmentModifiers": [
-        {
-          "augment": "DA_18_RivalsAugment",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Unrivaled for this comp."
-        },
-        {
-          "augment": "DA_HeroicGrabBagPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Heroic Grab Bag+ for this comp."
-        },
-        {
-          "augment": "DA_HeroicGrabBagPlusPlus",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Heroic Grab Bag++ for this comp."
-        },
-        {
-          "augment": "DA_Swordsmith",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Swordsmith for this comp."
-        },
-        {
-          "augment": "DA_18_BigGrabBag",
-          "bonus": 0.1,
-          "note": "TFT Academy recommends Big Grab Bag for this comp."
         }
       ],
       "frontlineAlternatives": [],

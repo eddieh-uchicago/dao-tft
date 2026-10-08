@@ -60,18 +60,6 @@
       "tip": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
     }
   ],
-  "augmentModifiers": [
-    {
-      "augment": "DA_18_FloraFatalisAugment",
-      "bonus": 0.2,
-      "note": "Consuming Flora is what the source guide names for Veigar."
-    },
-    {
-      "augment": "DA_18_SprykinAugment",
-      "bonus": 0.1,
-      "note": "Small Furry Friend supports Sprykin Veigar."
-    }
-  ],
   "frontlineAlternatives": [
     "DA_18_Leona",
     "DA_18_Shen",

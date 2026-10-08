@@ -63,28 +63,6 @@
       "tip": "Level for the carry and tanks, and pivot to a connected comp if your items stop fitting."
     }
   ],
-  "augmentModifiers": [
-    {
-      "augment": "DA_18_PrimalAugment_Nidalee",
-      "bonus": 0.25,
-      "note": "Beast Within boosts Primal Nidalee."
-    },
-    {
-      "augment": "DA_18_PrimalAugmentPlus_Nidalee",
-      "bonus": 0.3,
-      "note": "Beast Within+ boosts Primal Nidalee."
-    },
-    {
-      "augment": "DA_18_PrimalAugment_Sivir",
-      "bonus": 0.2,
-      "note": "Beast Within boosts Primal Sivir."
-    },
-    {
-      "augment": "DA_18_PrimalAugmentPlus_Sivir",
-      "bonus": 0.25,
-      "note": "Beast Within+ boosts Primal Sivir."
-    }
-  ],
   "frontlineAlternatives": [
     "DA_Vi18",
     "DA_Amumu18",

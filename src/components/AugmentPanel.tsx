@@ -2,14 +2,17 @@
 
 import { useMemo, useState } from "react";
 import { augmentStages, catalog, comps, engine } from "@/data";
-import type { AugmentTier } from "@/data/schema";
+import { AUGMENT_STRENGTH_BONUS, type AugmentTier } from "@/data/schema";
 import type { Recommendation } from "@/engine/types";
 import { useGame, useScout } from "@/store/useGame";
 import { FlowNode } from "./flow";
 import { Icon } from "./Icon";
 import { CollapsibleGroup, TagPill } from "./ui";
 
-const relevant = new Set(comps.flatMap((c) => c.augmentModifiers.map((m) => m.augment)));
+/** Augments some comp is built around or strongly wants; highlighted and listed first. */
+const relevant = new Set(
+  comps.flatMap((c) => c.augmentModifiers.filter((m) => m.bonus >= AUGMENT_STRENGTH_BONUS.strong).map((m) => m.augment)),
+);
 
 const TIERS: AugmentTier[] = ["silver", "gold", "prismatic"];
 const TIER_DOT: Record<AugmentTier, string> = {

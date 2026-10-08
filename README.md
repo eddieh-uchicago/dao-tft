@@ -56,6 +56,8 @@ score = (value / best possible value for n components) × tier weight
 
 **Reroll comps need their carries.** A reroll comp (flagged `reroll` in its comp file, or set from the guide's style by `npm run fetch-comps`) whose carries are all missing from a non-empty board drops exactly one fit grade, however well the items suit it. An empty board is not penalised, since it says nothing yet.
 
+**Augments steer the ranking.** Each comp lists the augments it wants in [`src/data/comp-augments.json`](src/data/comp-augments.json), each with a strength: `core` +0.3 (the comp is built around it, e.g. Unrivaled for Kha'Zix), `strong` +0.2 (a trait or carry augment the comp runs), `good` +0.1 (a solid pick TFT Academy recommends) or `avoid` −0.1. Every augment the player has taken that a comp lists adds its bonus, up to +0.5 in total. A comp an augment lifts clearly into first is tagged *lock-in*; one a strong pick lifts into the top three is a *flex enabler*.
+
 Normalising by the best possible value for the number of components held means a comp with a long flex list is not punished. The same search drives the other features: *Slam now* is the items it chose to craft, and *Hit next* re-runs it with one extra component and reports the gain.
 
 ## Layout
@@ -82,9 +84,27 @@ GitHub Actions runs lint, typecheck, tests and the production build on every pus
 This is an MVP built in a week, so it is deliberately narrow.
 
 - Comps, item priorities and tiers are hand-curated from community guides (chiefly the BunnyMuffins Patch 18.3b guide). They are editorial judgement, not statistics. Opener, slam and stage notes are short drafts.
-- The rest of the comps are converted from [TFT Academy's tier list](https://tftacademy.com/tierlist/comps) by `npm run fetch-comps`. Boards, items, stage tips and recommended augments come from the guides; summaries and "play when" lines are generated from them, and Situational comps are listed as C tier. Comps the curated set already covers are skipped.
+- The rest of the comps are converted from [TFT Academy's tier list](https://tftacademy.com/tierlist/comps) by `npm run fetch-comps`. Boards, items and stage tips come from the guides; summaries and "play when" lines are generated from them, and Situational comps are listed as C tier. Comps the curated set already covers are skipped.
+- Augment picks are hand-edited in `src/data/comp-augments.json`: TFT Academy's recommended augments for each guide, plus strengths judged from the guides' tips and comp names and from [SeeMeta's augment pages](https://seemeta.com/en/tft/set-18/augments). They are editorial, not measured lifts.
 - Scouting is manual input only.
 - **Not built**: patch history/selector, hex board view, flowchart visualisation, Riot API integration, desktop overlay, automatic PR on patch change.
+
+## Updating augments after a patch
+
+`src/data/comp-augments.json` is the only place augment picks live, and no script overwrites it. Each comp's list is keyed by its slug, one augment per line:
+
+```json
+"khazix-reroll": [
+  {"augment": "DA_18_RivalsAugment", "strength": "core", "note": "Unrivaled powers up the Rival trait that Kha'Zix runs."},
+  {"augment": "DA_ChampDelivery", "strength": "good"}
+]
+```
+
+- `augment` is the Community Dragon id; search `src/data/snapshot.json` for the augment's name to find it.
+- `strength` is `core`, `strong`, `good` or `avoid`. `note` is optional and shown on the recommendation card when the augment is taken; give one for every `core` and `strong` pick (a test checks).
+- A comp lists at most 10 augments. Update `patch` and `checkedAt` when you review the file.
+- `npm run fetch-comps` prints the augments TFT Academy recommends that the file is missing, and comps it does not cover yet, so you know what to add.
+- The build fails on an unknown augment id, an augment listed twice for one comp, or a slug that matches no comp (for example after TFT Academy renames a guide).
 
 ## Disclaimer
 

@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { augmentStages, catalog, comps } from "./index";
-import { CompSchema } from "./schema";
+import compAugmentsJson from "./comp-augments.json";
+import { applyCompAugments } from "./compAugments";
+import { AUGMENT_STRENGTH_BONUS, CompAugmentsSchema, CompSchema, MAX_COMP_AUGMENTS } from "./schema";
 import { validateComps } from "./validate";
 
 describe("curated comps", () => {
@@ -61,13 +63,76 @@ describe("validateComps", () => {
 });
 
 describe("CompSchema", () => {
-  it("rejects more than five augment modifiers", () => {
+  it("rejects more augment modifiers than the cap", () => {
     const mod = { augment: "DA_18_BigGrabBag", bonus: 0.1, note: "x" };
-    expect(CompSchema.safeParse({ ...comps[0], augmentModifiers: Array(6).fill(mod) }).success).toBe(false);
+    const many = Array(MAX_COMP_AUGMENTS + 1).fill(mod);
+    expect(CompSchema.safeParse({ ...comps[0], augmentModifiers: many }).success).toBe(false);
   });
 
   it("rejects an item weight outside 1 to 3", () => {
     const bad = { ...comps[0], targetItems: [{ ...comps[0].targetItems[0], weight: 5 }] };
     expect(CompSchema.safeParse(bad).success).toBe(false);
+  });
+});
+
+describe("comp-augments.json", () => {
+  const file = CompAugmentsSchema.parse(compAugmentsJson);
+
+  it("gives every comp at least one augment", () => {
+    expect(comps.filter((c) => !c.augmentModifiers.length).map((c) => c.slug)).toEqual([]);
+  });
+
+  it("explains every core and strong pick", () => {
+    const unexplained = Object.entries(file.comps).flatMap(([slug, list]) =>
+      list.filter((e) => (e.strength === "core" || e.strength === "strong") && !e.note).map((e) => `${slug} ${e.augment}`),
+    );
+    expect(unexplained).toEqual([]);
+  });
+});
+
+describe("applyCompAugments", () => {
+  const comp = comps[0];
+  const file = (entries: unknown[]) =>
+    CompAugmentsSchema.parse({ ...compAugmentsJson, comps: { [comp.slug]: entries } });
+
+  it("turns strengths into bonuses and fills in a note", () => {
+    const { comps: out, problems } = applyCompAugments(
+      [comp],
+      file([
+        { augment: "DA_18_BigGrabBag", strength: "core", note: "Custom." },
+        { augment: "DA_SmallGrabBag", strength: "avoid" },
+      ]),
+      catalog,
+    );
+    expect(problems).toEqual([]);
+    expect(out[0].augmentModifiers).toEqual([
+      { augment: "DA_18_BigGrabBag", bonus: AUGMENT_STRENGTH_BONUS.core, note: "Custom." },
+      { augment: "DA_SmallGrabBag", bonus: AUGMENT_STRENGTH_BONUS.avoid, note: "Small Grab Bag works against this comp." },
+    ]);
+  });
+
+  it("reports unknown augments, repeats, unknown comps and lists left in comp files", () => {
+    const bad = CompAugmentsSchema.parse({
+      ...compAugmentsJson,
+      comps: {
+        [comp.slug]: [
+          { augment: "DA_Nope", strength: "good" },
+          { augment: "DA_18_BigGrabBag", strength: "good" },
+          { augment: "DA_18_BigGrabBag", strength: "core" },
+        ],
+        "renamed-comp": [],
+      },
+    });
+    const { problems } = applyCompAugments([comp], bad, catalog, [comp.slug]);
+    expect(problems).toEqual([
+      `${comp.slug}: augmentModifiers belong in src/data/comp-augments.json, not the comp file`,
+      'comp-augments.json: no comp has the slug "renamed-comp"',
+      `comp-augments.json ${comp.slug}: unknown augment "DA_Nope"`,
+      `comp-augments.json ${comp.slug}: "DA_18_BigGrabBag" is listed twice`,
+    ]);
+  });
+
+  it("rejects a strength it does not know", () => {
+    expect(() => file([{ augment: "DA_18_BigGrabBag", strength: "great" }])).toThrow();
   });
 });

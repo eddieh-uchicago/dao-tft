@@ -60,13 +60,6 @@
       "tip": "Roll at the level the carry is cheapest to find, aiming for a 3-star carry with its items. If copies are contested, check the Scout panel."
     }
   ],
-  "augmentModifiers": [
-    {
-      "augment": "DA_18_SprykinAugment",
-      "bonus": 0.1,
-      "note": "Small Furry Friend supports Sprykin Rammus."
-    }
-  ],
   "frontlineAlternatives": [
     "DA_18_Hecarim",
     "DA_Fiddlesticks18",
